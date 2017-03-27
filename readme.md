@@ -19,31 +19,32 @@ After applying Runtyper it will notify you about such situation as soon as it oc
   ```
 
 ## Usage
-Just add `babel-plugin-runtyper` to babel config in *development builds*.  
-For example, directly in terminal: 
-```bash
-babel in.js -o out.js --plugins=babel-plugin-runtyper
-```
-or in `package.json` scripts:
-```json
-"scripts": {
-  "babel-dev": "babel in.js -o out.js --plugins=babel-plugin-runtyper"
-}
-``` 
-or with [webpack babel-loader](https://webpack.js.org/loaders/babel-loader/):
-```js
-{
-    test: /\.js$/,
-    exclude: /(node_modules)/,
-    loader: 'babel-loader',
-    query: {
-        plugins: [
-            ['babel-plugin-runtyper', {enabled: !PRODUCTION}]
-        ]
+1. No changes to your existing codebase needed!
+2. Just add `babel-plugin-runtyper` to babel config in *development builds*.  
+    For example, directly in terminal: 
+    ```bash
+    babel in.js -o out.js --plugins=babel-plugin-runtyper
+    ```
+    or in `package.json` scripts:
+    ```json
+    "scripts": {
+      "babel-dev": "babel in.js -o out.js --plugins=babel-plugin-runtyper"
     }
-}
-```
-No changes to your existing codebase needed!
+    ``` 
+    or with [webpack babel-loader](https://webpack.js.org/loaders/babel-loader/):
+    ```js
+    {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
+        query: {
+            plugins: [
+                ['babel-plugin-runtyper', {enabled: process.env.NODE_ENV !== 'production'}]
+            ]
+        }
+    }
+    ```
+    > Please note to run webpack as `NODE_ENV='production' webpack -p` (see [#2537](https://github.com/webpack/webpack/issues/2537))
 
 ## How it works
 Basically it wraps all type-important places into function that additionally performs type checking. 
