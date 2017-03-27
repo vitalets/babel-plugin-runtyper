@@ -17,13 +17,16 @@
   "scripts": {
     "test": "npm run babel && npm run mocha",
     "babel": "mkdir -p test/instrumented && babel test/samples -o test/instrumented/index.js --source-maps --plugins=../../src/index.js",
-    "mocha": "mocha test/specs --require test/setup"
+    "mocha": "mocha test/specs --require test/setup",
+    "precommit": "npm test",
+    "prepush": "npm test"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-preset-env": "^1.2.2",
     "chai": "^3.5.0",
     "flow-bin": "^0.42.0",
+    "husky": "^0.13.3",
     "mocha": "^3.2.0"
   },
   "keywords": [
