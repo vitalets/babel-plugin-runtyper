@@ -63,11 +63,11 @@ Static code analysis is another approach to type checking.
 For example, there are Microsoft's [TypeScript](http://www.typescriptlang.org) and Facebook's [Flow](https://flowtype.org).
 They can be used together with Runtyper to cover most of cases in both pre-runtime and runtime stages.
 
-I'am personally a bit confused by static tools as they require extra efforts for:
-* Writing annotations
-* Integration with third-party libraries as their API should be also annotated)
-* Processing external data from user or server 
-* Involving new members who is not familiar with typed JavaScript
+I'am personally a bit confused with static tools as they require extra efforts for:
+* Writing annotations (annoying)
+* Integration with third-party libraries (as their API should be also annotated)
+* Processing external data from user / server (many different types and formats)
+* Involving new members (who is not familiar with typed JavaScript)
 
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
 ```js
