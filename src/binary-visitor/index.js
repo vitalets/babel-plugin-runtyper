@@ -2,6 +2,7 @@ const t = require('babel-types');
 const assertions = [
   require('./strict-compare'),
   require('./numeric'),
+  require('./plus'),
 ];
 
 module.exports = class BinaryVisitor {

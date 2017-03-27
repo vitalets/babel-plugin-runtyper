@@ -25,23 +25,23 @@ describe('strict compare', function () {
     it('throws for (number, object)', function () {
       assert.throws(() => samples.equalVars(1, {x: 1}), 'Strict compare of different types: 1 (number) === {"x":1} (object)');
     });
+  });
 
-    it('throws for does not throw (number, number)', function () {
-      assert.doesNotThrow(() => samples.notEqualVars(1, 1));
+  describe('functions', function () {
+    it('throws for (number, string)', function () {
+      assert.throws(() => samples.equalFnMethod(() => '1', {method: () => 1}), 'Strict compare of different types: "1" (string) === 1 (number)');
     });
-
-    it('throws for does not throw (string, string)', function () {
-      assert.doesNotThrow(() => samples.notEqualVars('1', '1'));
-    });
-
   });
 
   describe('number', function () {
-
+    it('throws for (string)', function () {
+      assert.throws(() => samples.equalNumber('1'), 'Strict compare of different types: "1" (string) === 1 (number)');
+    });
   });
 
-  it('should keep result', function () {
+  it('should not throw and keep result', function () {
     assert.isTrue(samples.equalVars(1, 1));
+    assert.isTrue(samples.equalFnMethod(() => 1, {method: () => 1}));
     assert.isFalse(samples.notEqualVars(1, 1));
   });
 });

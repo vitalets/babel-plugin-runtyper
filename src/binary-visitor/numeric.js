@@ -2,7 +2,7 @@ const template = require('babel-template');
 const utils = require('../utils');
 const wrapperTpl = require('./wrapper');
 
-const OPERATORS = ['+', '-', '*', '/', '%'];
+const OPERATORS = ['-', '*', '/', '%'];
 
 const tpl = `
   if (typeof a !== 'number' || typeof b !== 'number') {

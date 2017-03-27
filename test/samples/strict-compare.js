@@ -4,7 +4,7 @@ exports.equalVars = function (x, y) {
 };
 
 exports.equalFnMethod = function (x, y) {
-  return x() === y.toString();
+  return x() === y.method();
 };
 
 exports.equalNumber = function (x) {
