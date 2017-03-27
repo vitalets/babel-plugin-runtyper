@@ -1,9 +1,8 @@
-function foo(x) {
-  return x * 10;
+// @flow
+function square(n) {
+  return n * n;
 }
 
-
-
 window.document.getElementById('username').addEventListener('change', function (event) {
-  foo(event.target.value)
+  square(event.target.value);
 });

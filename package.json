@@ -9,23 +9,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "npm run babel && npm run mocha",
-    "babel": "mkdir -p test/instrumented && babel test/samples -o test/instrumented/index.js --source-maps",
+    "babel": "mkdir -p test/instrumented && babel test/samples -o test/instrumented/index.js --source-maps --plugins=../../src/index.js",
     "mocha": "mocha test/specs --require test/setup"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ],
-    "plugins": [
-      "./src/index.js"
-    ]
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
