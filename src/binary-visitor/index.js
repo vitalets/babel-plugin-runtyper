@@ -1,6 +1,6 @@
 const t = require('babel-types');
 const assertions = [
-  require('./strict-compare'),
+  require('./compare'),
   require('./numeric'),
   require('./plus'),
 ];
