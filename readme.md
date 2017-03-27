@@ -12,9 +12,11 @@ After applying Runtyper it will notify you about such situation as soon as it oc
 ![runtyper warning](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
 
 ## Install
-```bash
-npm install --save-dev babel-plugin-runtyper
-```
+1. Ensure you have [babel installed](https://babeljs.io/docs/setup/)
+2. Run in terminal:
+  ```bash
+  npm install --save-dev babel-plugin-runtyper
+  ```
 
 ## Usage
 Just add `babel-plugin-runtyper` to babel config in *development builds*.  
@@ -61,10 +63,10 @@ For example, there are Microsoft's [TypeScript](http://www.typescriptlang.org) a
 They can be used together with Runtyper to cover most of cases in both pre-runtime and runtime stages.
 
 I'am personally a bit confused by static tools as they require extra efforts for:
-* writing annotations
-* integration with third-party libraries as their API should be also annotated)
-* processing external data from user or server 
-* involving new members who is not familiar with typed JavaScript
+* Writing annotations
+* Integration with third-party libraries as their API should be also annotated)
+* Processing external data from user or server 
+* Involving new members who is not familiar with typed JavaScript
 
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
 ```js
@@ -76,7 +78,7 @@ function square(n) {
 square("2", "2");
 ```
 
-but if I have textfield and call `square()` to handle user's input - error will not be found: 
+but if I have textfield and use `square()` to handle user's input - error will not be found: 
 ```js
 // @flow
 function square(n) {
@@ -93,7 +95,7 @@ Runtyper allows to catch such cases:
 
 ![runtyper warning textfield](https://cloud.githubusercontent.com/assets/1473072/24371601/f8d10ab0-1333-11e7-8baf-6b6501accd29.png)
 
-So use both approaches to make your applications more robust and reliable.
+So consider both approaches to make your applications more robust and reliable.
 
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
