@@ -98,5 +98,12 @@ Runtyper allows to catch such cases:
 
 So consider both approaches to make your applications more robust and reliable.
 
+## FAQ
+1. **Why I get error for [template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) like `${name}${index}`?**  
+   Likely you are using [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) that transforms template literals into concatenation via `+`.
+   And you get `(string) + (number)`. To fix it you should add explicit conversion: `${name}${String(index)}`
+   or consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively.
+
+
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
