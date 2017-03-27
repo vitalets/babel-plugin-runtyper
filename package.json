@@ -6,6 +6,13 @@
     "name": "Vitaliy Potapov",
     "email": "noginsk@rambler.ru"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vitalets/babel-plugin-runtyper.git"
+  },
+  "engines": {
+    "node": ">=6"
+  },
   "main": "src/index.js",
   "scripts": {
     "test": "npm run babel && npm run mocha",
@@ -19,5 +26,11 @@
     "flow-bin": "^0.42.0",
     "mocha": "^3.2.0"
   },
+  "keywords": [
+    "type-checking",
+    "runtime",
+    "babel",
+    "babel-plugin"
+  ],
   "license": "MIT"
 }
