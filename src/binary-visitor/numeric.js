@@ -7,7 +7,7 @@ const OPERATORS = ['+', '-', '*', '/', '%'];
 const tpl = `
   if (typeof a !== 'number' || typeof b !== 'number') {
     var f = ${utils.valueInfo};
-    throw new Error('Numeric operation with non-numeric values: ' + f(a) + ' ' + OPERATOR + ' ' + f(b));
+    throw new Error('Numeric operation with non-numeric value: ' + f(a) + ' ' + OPERATOR + ' ' + f(b));
   }
 `;
 

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>test</title>
-    <script>
-        const exports = {};
-    </script>
-    <script type="text/javascript" src="samples.instrumented.js"></script>
-    <script>
-        exports.strictEqual(1, '1');
-    </script>
 </head>
 <body>
-
+  <input type="text" id="username" value="Hello World"/>
+  <script>
+      const exports = {};
+  </script>
+  <script type="text/javascript" src="instrumented/index.js"></script>
+  <script>
+      // exports.equalVars(1, '1');
+  </script>
 </body>
 </html>
