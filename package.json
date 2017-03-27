@@ -1,0 +1,38 @@
+{
+  "name": "babel-plugin-runtyper",
+  "version": "0.1.0",
+  "description": "Runtime type checker for JavaScript",
+  "author": {
+    "name": "Vitaliy Potapov",
+    "email": "noginsk@rambler.ru"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm run babel && npm run mocha",
+    "babel": "mkdir -p test/instrumented && babel test/samples -o test/instrumented/index.js --source-maps",
+    "mocha": "mocha test/specs --require test/setup"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "./src/index.js"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-env": "^1.2.2",
+    "chai": "^3.5.0",
+    "flow-bin": "^0.42.0",
+    "mocha": "^3.2.0"
+  },
+  "license": "MIT"
+}
