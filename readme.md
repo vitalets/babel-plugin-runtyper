@@ -77,14 +77,14 @@ if (strictEqual(x, y)) { ... }
 * `allowStringNumberConcat` - allows concatenating of strings and numbers (default: `false`)
 
 ## Compare to static tools
-Static code analysis is another approach to type checking. 
+Static code analysis is also the way to perform type checking in your application. 
 For example, there are Microsoft's [TypeScript](http://www.typescriptlang.org) and Facebook's [Flow](https://flowtype.org).
 They can be used together with Runtyper to cover most of cases in both pre-runtime and runtime stages.
 
-I'am personally a bit confused with static tools as they require extra efforts for:
+But using static tools requires some extra efforts for:
 * Writing annotations (annoying)
 * Integration with third-party libraries (as their API should be also annotated)
-* Processing external data from user / server (many different types and formats)
+* Processing external events from user / server (many different formats)
 * Involving new members (who is not familiar with typed JavaScript)
 
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
@@ -97,7 +97,7 @@ function square(n) {
 square("2", "2");
 ```
 
-but if I have textfield and use `square()` to handle user's input - error will not be found: 
+But if `square()` is used to handle user's input from textfield - error will not be found: 
 ```js
 // @flow
 function square(n) {
@@ -108,7 +108,6 @@ window.document.getElementById('username').addEventListener('change', function (
   square(event.target.value);
 });
 ```
-You can try it here: https://flowtype.org/try/
 
 Runtyper allows to catch such cases:
 
