@@ -6,8 +6,8 @@
 
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript code without annotations
 
-Use Runtyper in your *development builds* to be notified every time
-when some operation is applied to inconsistent types. No type-annotations needed.
+Runtyper notifies you about all type-mismatch operations in your JavaScript code.
+Include it into your *development builds* and it will throw error every time it detects weirdness. No type-annotations needed.
 
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
