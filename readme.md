@@ -58,6 +58,11 @@ After:
 if (strictEqual(x, y)) { ... }
 ```
 
+## Options
+
+* `enabled` - is plugin enabled (default `true`)
+* `allowStringNumberConcat` - allows concatenating of strings and numbers (default `false`)
+
 ## Compare to static tools
 Static code analysis is another approach to type checking. 
 For example, there are Microsoft's [TypeScript](http://www.typescriptlang.org) and Facebook's [Flow](https://flowtype.org).
@@ -101,8 +106,10 @@ So consider both approaches to make your applications more robust and reliable.
 ## FAQ
 1. **Why I get error for [template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) like `${name}${index}`?**  
    Likely you are using [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) that transforms template literals into concatenation via `+`.
-   And you get `(string) + (number)`. To fix it you should add explicit conversion: `${name}${String(index)}`
-   or consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively.
+   And you get `(string) + (number)`. You can fix it in several ways:
+    * set plugin option `allowStringNumberConcat: true`
+    * add explicit conversion: `${name}${String(index)}`
+    * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
 
 
 ## License
