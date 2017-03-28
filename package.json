@@ -21,6 +21,7 @@
     "test": "npm run babel && npm run mocha",
     "babel": "mkdir -p test/instrumented && babel test/samples -o test/instrumented/index.js --source-maps --plugins=../../src/index.js",
     "mocha": "mocha test/specs --require test/setup",
+    "ci": "npm run code && npm test",
     "release-patch": "npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
     "precommit": "npm run lint-staged",
     "prepush": "npm run code && npm test"
