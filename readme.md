@@ -6,13 +6,13 @@
 
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
 
-Use Runtyper in your *development builds* and it will throw error every time
+Use Runtyper in your *development builds* to be notified every time
 when some operation is applied to inconsistent types. No annotations needed.
 
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
 When executed you will silently get unexpected `false` result due to missing type conversion.  
-After applying Runtyper it will notify you about such situation as soon as it occurs:
+After applying Runtyper it will throw error to console as soon as such situation occur:
 
 ![runtyper warning](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
 
@@ -23,7 +23,7 @@ After applying Runtyper it will notify you about such situation as soon as it oc
   npm install --save-dev babel-plugin-runtyper
   ```
 
-## Usage
+## Usage 
 1. No changes to your existing codebase needed!
 2. Just add `babel-plugin-runtyper` to babel config in *development builds*.  
     For example, directly in terminal: 
@@ -51,6 +51,14 @@ After applying Runtyper it will notify you about such situation as soon as it oc
     ```
     > Please note to run webpack as `NODE_ENV='production' webpack -p` (see [#2537](https://github.com/webpack/webpack/issues/2537))
 
+3. Enable source-maps to see original place of error (if not yet):
+  * In browser enable it in devtools settings
+  * In Node.js you should use [source-map-support](https://github.com/evanw/node-source-map-support) package:
+      ```js
+      require('source-map-support').install();
+      ```
+
+
 ## How it works
 Basically it wraps all type-important places into function that additionally performs type checking. 
 Currently strict comparison `===, !==` and numeric operations `+, -, *, /, %` are wrapped.  
@@ -65,8 +73,8 @@ if (strictEqual(x, y)) { ... }
 
 ## Options
 
-* `enabled` - is plugin enabled (default `true`)
-* `allowStringNumberConcat` - allows concatenating of strings and numbers (default `false`)
+* `enabled` - is plugin enabled (default: `true`)
+* `allowStringNumberConcat` - allows concatenating of strings and numbers (default: `false`)
 
 ## Compare to static tools
 Static code analysis is another approach to type checking. 
