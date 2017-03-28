@@ -4,13 +4,17 @@
   },
 
   "globals": {
-    "samples": true,
-    "assert": true
+    "assert": true,
+    "getThrows": true,
+    "getFn": true,
+    "getMsgFn": true,
+    "doesNotThrow": true
   },
 
   "rules": {
     "max-statements": 0,
     "max-lines": 0,
-    "max-len": 0
+    "max-len": 0,
+    "max-params": 0
   }
 }

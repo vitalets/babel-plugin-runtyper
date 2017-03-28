@@ -1,15 +1,22 @@
+
+const tpl = 'Numeric operation with non-numeric value: {x} * {y}';
+const throws = getThrows(tpl);
+
 describe('numeric', function () {
   describe('vars', function () {
-    it('throws for (number, string)', function () {
-      assert.throws(() => samples.multiplyVars(1, '1'), 'Numeric operation with non-numeric value: 1 (number) * "1" (string)');
-    });
-
-    it('throws for (string, string)', function () {
-      assert.throws(() => samples.multiplyVars('1', '1'), 'Numeric operation with non-numeric value: "1" (string) * "1" (string)');
-    });
+    const f = getFn('x * y');
+    it('throws for (number, string)', throws(f, 1, '1'));
+    it('throws for (number, boolean)', throws(f, 1, true));
+    it('throws for (number, null)', throws(f, 1, null));
+    it('throws for (number, undefined)', throws(f, 1, undefined));
+    it('throws for (number, array)', throws(f, 1, [1]));
+    it('throws for (number, object)', throws(f, 1, {x: 1}));
+    it('throws for (string, string)', throws(f, '1', '1'));
+    it('does not throw for (number, number)', doesNotThrow(f, 1, 1));
   });
 
   it('should keep result', function () {
-    assert.equal(samples.multiplyVars(2, 2), 4);
+    const f = getFn('x * y');
+    assert.equal(f(2, 3), 6);
   });
 });

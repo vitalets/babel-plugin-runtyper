@@ -1,48 +1,59 @@
 
+const tpl = 'Strict compare of different types: {x} === {y}';
+const throws = getThrows(tpl);
+const msg = getMsgFn(tpl);
+
 describe('strict compare', function () {
 
   describe('vars', function () {
-    it('throws for (number, string)', function () {
-      assert.throws(() => samples.equalVars(1, '1'), 'Strict compare of different types: 1 (number) === "1" (string)');
-    });
-
-    it('throws for (number, boolean)', function () {
-      assert.throws(() => samples.equalVars(1, true), 'Strict compare of different types: 1 (number) === true (boolean)');
-    });
-
-    it('throws for (number, null)', function () {
-      assert.throws(() => samples.equalVars(1, null), 'Strict compare of different types: 1 (number) === null');
-    });
-
-    it('throws for (number, undefined)', function () {
-      assert.throws(() => samples.equalVars(1, undefined), 'Strict compare of different types: 1 (number) === undefined');
-    });
-
-    it('throws for (number, array)', function () {
-      assert.throws(() => samples.equalVars(1, [1]), 'Strict compare of different types: 1 (number) === [1] (object)');
-    });
-
-    it('throws for (number, object)', function () {
-      assert.throws(() => samples.equalVars(1, {x: 1}), 'Strict compare of different types: 1 (number) === {"x":1} (object)');
-    });
+    const f = getFn('x === y');
+    it('throws for (number, string)', throws(f, 1, '1'));
+    it('throws for (number, boolean)', throws(f, 1, true));
+    it('throws for (number, null)', throws(f, 1, null));
+    it('throws for (number, undefined)', throws(f, 1, undefined));
+    it('throws for (number, array)', throws(f, 1, [1]));
+    it('throws for (number, object)', throws(f, 1, {x: 1}));
+    it('does not throw for (number, number)', doesNotThrow(f, 1, 1));
   });
 
-  describe('functions', function () {
-    it('throws for (number, string)', function () {
-      assert.throws(() => samples.equalFnMethod(() => '1', {method: () => 1}), 'Strict compare of different types: "1" (string) === 1 (number)');
+  describe.skip('allowStrictCompareNull', function () {
+    const f = getFn('x === y', {allowStrictCompareNull: true});
+    it('does not throw for (*, null)', doesNotThrow(f, 1, null));
+    it('throws for not null', throws(f, 1, undefined));
+  });
+
+  describe.skip('allowStrictCompareUndefined', function () {
+    const f = getFn('x === y', {allowStrictCompareUndefined: true});
+    it('does not throw for (*, undefined)', doesNotThrow(f, 1, undefined));
+    it('throws for not undefined', throws(f, 1, null));
+  });
+
+  describe.skip('allowStrictCompareNull + allowStrictCompareUndefined', function () {
+    const f = getFn('x === y', {
+      allowStrictCompareNull: true,
+      allowStrictCompareUndefined: true
     });
+    it('does not throw for (null, undefined)', doesNotThrow(f, null, undefined));
+    it('does not throw for (*, null)', doesNotThrow(f, 1, null));
+    it('does not throw for (*, undefined)', doesNotThrow(f, 1, undefined));
+    it('throws for not null, undefined', throws(f, 1, '1'));
+  });
+
+  describe('functions / methods', function () {
+    const f = getFn('x() === y.method()');
+    it('throws for (function, method)', throws(f, () => '1', {method: () => 1}, msg('1', 1)));
   });
 
   describe('number', function () {
-    it('throws for (string)', function () {
-      assert.throws(() => samples.equalNumber('1'), 'Strict compare of different types: "1" (string) === 1 (number)');
-    });
+    const f = getFn('x === 1');
+    it('throws for (string)', throws(f, '1', undefined, msg('1', 1)));
+    it('does not throw for (number)', doesNotThrow(f, 1));
   });
 
-  it('should not throw and keep result', function () {
-    assert.isTrue(samples.equalVars(1, 1));
-    assert.isTrue(samples.equalFnMethod(() => 1, {method: () => 1}));
-    assert.isFalse(samples.notEqualVars(1, 1));
+  it('should keep result', function () {
+    const f = getFn('x === y');
+    assert.isTrue(f(1, 1));
+    assert.isFalse(f(1, 2));
   });
 });
 

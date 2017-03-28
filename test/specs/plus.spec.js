@@ -1,24 +1,25 @@
+
+const tplNS = 'Plus operation should be used for numbers or strings: {x} + {y}';
+const tplDT = 'Plus operation with different types: {x} + {y}';
+const throwsNS = getThrows(tplNS);
+const throwsDT = getThrows(tplDT);
+
 describe('plus', function () {
   describe('vars', function () {
-    it('throws for (number, string)', function () {
-      assert.throws(() => samples.addVars(1, '1'), 'Plus operation with different types: 1 (number) + "1" (string)');
-    });
-
-    it('throws for (number, boolean)', function () {
-      assert.throws(() => samples.addVars(1, true), 'Plus operation should be used for numbers or strings: 1 (number) + true (boolean)');
-    });
-
-    it('throws for (number, null)', function () {
-      assert.throws(() => samples.addVars(1, null), 'Plus operation should be used for numbers or strings: 1 (number) + null');
-    });
-
-    it('throws for (number, undefined)', function () {
-      assert.throws(() => samples.addVars(1, undefined), 'Plus operation should be used for numbers or strings: 1 (number) + undefined');
-    });
+    const f = getFn('x + y');
+    it('throws for (number, string)', throwsDT(f, 1, '1'));
+    it('throws for (number, boolean)', throwsNS(f, 1, true));
+    it('throws for (number, null)', throwsNS(f, 1, null));
+    it('throws for (number, undefined)', throwsNS(f, 1, undefined));
+    it('throws for (number, array)', throwsNS(f, 1, [1]));
+    it('throws for (number, object)', throwsNS(f, 1, {x: 1}));
+    it('does not throw for (string, string)', doesNotThrow(f, '1', '1'));
+    it('does not throw for (number, number)', doesNotThrow(f, 1, 1));
   });
 
   it('should keep result', function () {
-    assert.equal(samples.addVars(1, 1), 2);
-    assert.equal(samples.addVars('1', '1'), '11');
+    const f = getFn('x + y');
+    assert.equal(f(1, 1), 2);
+    assert.equal(f('1', '1'), '11');
   });
 });
