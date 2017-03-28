@@ -2,12 +2,12 @@
 [![Build Status](https://travis-ci.org/vitalets/babel-plugin-runtyper.svg?branch=master)](https://travis-ci.org/vitalets/babel-plugin-runtyper)
 [![npm](https://img.shields.io/npm/v/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 [![license](https://img.shields.io/npm/l/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/vitalets/babel-plugin-runtyper.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fvitalets%2Fbabel-plugin-runtyper&text=Runtime%20type%20checker%20for%20JavaScript%20without%20annotations%3A&hashtags=javascript%2C%20type-checking%2C%20babel-plugin)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/vitalets/babel-plugin-runtyper.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fvitalets%2Fbabel-plugin-runtyper&text=Runtime%20type%20checker%20for%20JavaScript%20code%20without%20annotations%3A&hashtags=javascript%2C%20type-checking%2C%20babel-plugin)
 
-> [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
+> [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript code without annotations
 
 Use Runtyper in your *development builds* to be notified every time
-when some operation is applied to inconsistent types. No annotations needed.
+when some operation is applied to inconsistent types. No type-annotations needed.
 
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.

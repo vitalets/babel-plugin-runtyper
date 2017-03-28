@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-runtyper",
   "version": "0.1.2",
-  "description": "Runtime type checker for JavaScript",
+  "description": "Runtime type checker for JavaScript code without annotations",
   "author": {
     "name": "Vitaliy Potapov",
     "email": "noginsk@rambler.ru"
@@ -42,8 +42,9 @@
   },
   "keywords": [
     "type-checking",
-    "runtime",
-    "babel",
+    "type-hints",
+    "type-safety",
+    "runtime-validation",
     "babel-plugin"
   ],
   "license": "MIT"
