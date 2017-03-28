@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/npm/l/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/vitalets/babel-plugin-runtyper.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fvitalets%2Fbabel-plugin-runtyper&text=Runtime%20type%20checker%20for%20JavaScript%20code%20without%20annotations%3A&hashtags=javascript%2C%20type-checking%2C%20babel-plugin)
 
-> [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript code without annotations
+> [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript code
 
 Runtyper notifies you about all type-mismatch operations in your JavaScript code.
 Include it into your *development builds* and it will throw error every time it detects weirdness. No type-annotations needed.
