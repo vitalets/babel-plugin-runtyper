@@ -7,7 +7,7 @@ const defaultOptions = {
   allowStringNumberConcat: false
 };
 
-module.exports = function() {
+module.exports = function () {
   let binaryAssertions = null;
   return {
     visitor: {

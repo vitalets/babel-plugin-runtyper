@@ -13,7 +13,7 @@ module.exports = class BinaryAssertions {
   }
 
   get enabled() {
-    return this._enabled
+    return this._enabled;
   }
 
   tryReplace(path) {

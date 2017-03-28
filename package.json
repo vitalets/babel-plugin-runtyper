@@ -15,19 +15,27 @@
   },
   "main": "src/index.js",
   "scripts": {
+    "code": "npm run lint-all",
+    "lint-all": "eslint src test",
+    "lint-staged": "lint-staged",
     "test": "npm run babel && npm run mocha",
     "babel": "mkdir -p test/instrumented && babel test/samples -o test/instrumented/index.js --source-maps --plugins=../../src/index.js",
     "mocha": "mocha test/specs --require test/setup",
     "release-patch": "npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
-    "precommit": "npm test",
-    "prepush": "npm test"
+    "precommit": "npm run lint-staged",
+    "prepush": "npm run code && npm test"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-preset-env": "^1.2.2",
     "chai": "^3.5.0",
+    "eslint": "^3.18.0",
     "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
     "mocha": "^3.2.0"
+  },
+  "lint-staged": {
+    "*.js": "eslint"
   },
   "keywords": [
     "type-checking",

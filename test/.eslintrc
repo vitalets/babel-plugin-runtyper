@@ -1,0 +1,16 @@
+{
+  "env": {
+    "mocha": true
+  },
+
+  "globals": {
+    "samples": true,
+    "assert": true
+  },
+
+  "rules": {
+    "max-statements": 0,
+    "max-lines": 0,
+    "max-len": 0
+  }
+}
