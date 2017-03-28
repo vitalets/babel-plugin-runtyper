@@ -17,6 +17,12 @@ describe('plus', function () {
     it('does not throw for (number, number)', doesNotThrow(f, 1, 1));
   });
 
+  describe('allowStringNumberConcat', function () {
+    const f = getFn('x + y', {allowStringNumberConcat: true});
+    it('does not throw for (string, number)', doesNotThrow(f, '1', 1));
+    it('throws for not (string, number)', throwsNS(f, '1', undefined));
+  });
+
   it('should keep result', function () {
     const f = getFn('x + y');
     assert.equal(f(1, 1), 2);

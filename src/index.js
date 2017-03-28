@@ -4,7 +4,9 @@ const BinaryAssertions = require('./binary-assertions');
 
 const defaultOptions = {
   enabled: true,
-  allowStringNumberConcat: false
+  allowStringNumberConcat: false,
+  allowStrictCompareNull: false,
+  allowStrictCompareUndefined: false,
 };
 
 module.exports = function () {

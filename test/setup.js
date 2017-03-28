@@ -1,13 +1,16 @@
 
+const path = require('path');
 const babel = require('babel-core');
 const utils = require('../src/utils');
 
 global.assert = require('chai').assert;
 
-global.getFn = function (str, pluginOptions = {}) {
+global.getFn = function (str, pluginOptions) {
+  const relPath = './src/index.js';
   const plugins = [
-    ['./src/index.js', pluginOptions]
+    [relPath, pluginOptions]
   ];
+  delete require.cache[path.resolve(relPath)];
   const fnBody = babel.transform(str, {plugins}).code;
   return new Function('x', 'y', `return ${fnBody}`);
 };
