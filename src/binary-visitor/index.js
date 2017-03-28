@@ -14,15 +14,16 @@ module.exports = class BinaryVisitor {
     for (let assertion of assertions) {
       const tpl = assertion.getTpl(this._path);
       if (tpl) {
-        this._replace(tpl);
+        const functionName = assertion.getFunctionName(this._path);
+        this._replace(tpl, functionName);
         break;
       }
     }
   }
 
-  _replace(tpl) {
+  _replace(tpl, functionName) {
     const replacement = tpl({
-      NAME: t.identifier('abc'),
+      NAME: t.identifier(functionName),
       OPERATOR: t.stringLiteral(this._path.node.operator),
       PARAM1: this._path.node.left,
       PARAM2: this._path.node.right,

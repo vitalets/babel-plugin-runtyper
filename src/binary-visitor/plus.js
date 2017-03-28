@@ -2,6 +2,10 @@ const template = require('babel-template');
 const utils = require('../utils');
 const wrapperTpl = require('./wrapper');
 
+const OPERATORS = {
+  '+': 'add',
+};
+
 const tpl = `
   var f = ${utils.valueInfo};
   if (typeof a !== typeof b) {
@@ -16,7 +20,12 @@ const wrappedTpl = wrapperTpl.replace('ASSERTION', tpl.trim());
 const compiledTpl = template(wrappedTpl);
 
 exports.getTpl = function (path) {
-  if (path.node.operator === '+') {
+  if (OPERATORS.hasOwnProperty(path.node.operator)) {
     return compiledTpl;
   }
 };
+
+exports.getFunctionName = function (path) {
+  return OPERATORS[path.node.operator];
+};
+

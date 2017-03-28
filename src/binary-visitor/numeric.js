@@ -2,7 +2,12 @@ const template = require('babel-template');
 const utils = require('../utils');
 const wrapperTpl = require('./wrapper');
 
-const OPERATORS = ['-', '*', '/', '%'];
+const OPERATORS = {
+  '-': 'minus',
+  '*': 'multiply',
+  '/': 'divide',
+  '%': 'remainder',
+};
 
 const tpl = `
   if (typeof a !== 'number' || typeof b !== 'number') {
@@ -15,11 +20,11 @@ const wrappedTpl = wrapperTpl.replace('ASSERTION', tpl.trim());
 const compiledTpl = template(wrappedTpl);
 
 exports.getTpl = function (path) {
-  if (isNumericOperator(path.node.operator)) {
+  if (OPERATORS.hasOwnProperty(path.node.operator)) {
     return compiledTpl;
   }
 };
 
-function isNumericOperator(operator) {
-  return OPERATORS.indexOf(operator) >= 0;
-}
+exports.getFunctionName = function (path) {
+  return OPERATORS[path.node.operator];
+};

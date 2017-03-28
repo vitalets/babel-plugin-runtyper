@@ -4,7 +4,10 @@ const template = require('babel-template');
 const utils = require('../utils');
 const wrapperTpl = require('./wrapper');
 
-const OPERATORS = ['===', '!=='];
+const OPERATORS = {
+  '===': 'strictEqual',
+  '!==': 'notStrictEqual',
+};
 
 const tpl = `
   if (typeof a !== typeof b) {
@@ -17,7 +20,7 @@ const wrappedTpl = wrapperTpl.replace('ASSERTION', tpl.trim());
 const compiledTpl = template(wrappedTpl);
 
 exports.getTpl = function (path) {
-  if (!isStrictCompare(path.node.operator)) {
+  if (!OPERATORS.hasOwnProperty(path.node.operator)) {
     return;
   }
   if (isNullOrUndefined(path.node.left) || isNullOrUndefined(path.node.right)) {
@@ -26,9 +29,9 @@ exports.getTpl = function (path) {
   return compiledTpl;
 };
 
-function isStrictCompare(operator) {
-  return OPERATORS.indexOf(operator) >= 0;
-}
+exports.getFunctionName = function (path) {
+  return OPERATORS[path.node.operator];
+};
 
 function isNullOrUndefined(node) {
   return t.isNullLiteral(node) || isUndefined(node);
