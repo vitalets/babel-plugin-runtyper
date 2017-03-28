@@ -1,3 +1,4 @@
+'use strict';
 
 exports.valueInfo = function (v) {
   if ([null, undefined].indexOf(v) >= 0) return String(v);

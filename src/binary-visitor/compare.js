@@ -1,3 +1,4 @@
+'use strict';
 
 const t = require('babel-types');
 const template = require('babel-template');

@@ -1,3 +1,5 @@
+'use strict';
+
 const template = require('babel-template');
 const utils = require('../utils');
 const wrapperTpl = require('./wrapper');

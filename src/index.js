@@ -1,3 +1,4 @@
+'use strict';
 
 const BinaryVisitor = require('./binary-visitor');
 
