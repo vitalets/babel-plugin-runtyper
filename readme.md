@@ -5,6 +5,8 @@
 <a target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fvitalets%2Fbabel-plugin-runtyper&text=Runtime%20type%20checker%20for%20JavaScript%20code%20without%20annotations%3A&hashtags=javascript%2C%20type-checking%2C%20babel-plugin">
 <img align="right" title="tweet!" src="https://img.shields.io/twitter/url/https/github.com/vitalets/babel-plugin-runtyper.svg?style=social">
 <a/>
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/vitalets/babel-plugin-runtyper.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fvitalets%2Fbabel-plugin-runtyper&text=Runtime%20type%20checker%20for%20JavaScript%20code%20without%20annotations%3A&hashtags=javascript%2C%20type-checking%2C%20babel-plugin)
+
 
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript code without annotations
 
