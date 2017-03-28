@@ -1,13 +1,24 @@
 'use strict';
 
-const BinaryVisitor = require('./binary-visitor');
+const BinaryAssertions = require('./binary-assertions');
+
+const defaultOptions = {
+  enabled: true,
+  allowStringNumberConcat: false
+};
 
 module.exports = function() {
+  let binaryAssertions = null;
   return {
     visitor: {
       BinaryExpression(path, state) {
-        if (state.opts.enabled || state.opts.enabled === undefined) {
-          new BinaryVisitor(path).run();
+        if (!binaryAssertions) {
+          const options = Object.assign({}, defaultOptions, state.opts);
+          binaryAssertions = new BinaryAssertions(options);
+        }
+
+        if (binaryAssertions.enabled) {
+          binaryAssertions.tryReplace(path);
         }
       }
     }
