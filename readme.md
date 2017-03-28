@@ -1,4 +1,6 @@
 # Runtyper
+[![Build Status](https://travis-ci.org/vitalets/babel-plugin-runtyper.svg?branch=master)](https://travis-ci.org/vitalets/babel-plugin-runtyper)
+
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
 
 Use Runtyper in your *development builds* and it will throw error every time

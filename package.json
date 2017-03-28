@@ -29,6 +29,8 @@
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-preset-env": "^1.2.2",
+    "babel-template": "^6.23.0",
+    "babel-types": "^6.23.0",
     "chai": "^3.5.0",
     "eslint": "^3.18.0",
     "husky": "^0.13.3",
