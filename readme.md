@@ -12,7 +12,7 @@ Include it into your *development builds* and it will throw error every time it 
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
 When executed you will silently get unexpected `false` result due to missing type conversion.  
-After applying Runtyper it will throw error to console as soon as such situation occur:
+After applying Runtyper it will show console warning as soon as such situation occur:
 
 ![runtyper warning](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
 
