@@ -25,15 +25,15 @@ After applying Runtyper it will throw error to console as soon as such situation
 
 ## Usage 
 1. No changes to your existing codebase needed!
-2. Just add `babel-plugin-runtyper` to babel config in *development builds*.  
+2. Add `babel-plugin-runtyper` to babel config in *development builds*.  
     For example, directly in terminal: 
     ```bash
-    babel in.js -o out.js --plugins=babel-plugin-runtyper
+    babel in.js -o out.js --plugins=babel-plugin-runtyper --source-maps
     ```
     or in `package.json` scripts:
     ```json
     "scripts": {
-      "babel-dev": "babel in.js -o out.js --plugins=babel-plugin-runtyper"
+      "babel-dev": "babel in.js -o out.js --plugins=babel-plugin-runtyper --source-maps"
     }
     ``` 
     or with [webpack babel-loader](https://webpack.js.org/loaders/babel-loader/):
@@ -51,12 +51,15 @@ After applying Runtyper it will throw error to console as soon as such situation
     ```
     > Please note to run webpack as `NODE_ENV='production' webpack -p` (see [#2537](https://github.com/webpack/webpack/issues/2537))
 
-3. Enable source-maps to see original place of error (if not yet):
-  * In browser enable it in devtools settings
-  * In Node.js you should use [source-map-support](https://github.com/evanw/node-source-map-support) package:
+3. Enable source-maps to see original place of error:
+  * In Chrome set `Enable JavaScript source maps` in devtools settings
+  * In Firefox please follow [this instruction](https://developer.mozilla.org/en-US/docs/Tools/Web_Console/Console_messages#Source_maps)
+  * In Node.js use [source-map-support](https://github.com/evanw/node-source-map-support) package:
       ```js
       require('source-map-support').install();
       ```
+
+> Tip: checkout [examples](/examples) directory in this repo to see browser and Node.js demos
 
 
 ## How it works
@@ -78,13 +81,13 @@ if (strictEqual(x, y)) { ... }
 
 ## Compare to static tools
 Static code analysis is also the way to perform type checking in your application. 
-For example, there are Microsoft's [TypeScript](http://www.typescriptlang.org) and Facebook's [Flow](https://flowtype.org).
-They can be used together with Runtyper to cover most of cases in both pre-runtime and runtime stages.
+For example, there is Facebook's [Flow](https://flowtype.org) project.
+It can be used together with Runtyper to detect errors on both pre-runtime and runtime stages.
 
-But using static tools requires some extra efforts for:
-* Writing annotations (annoying)
+Yet, static tools require extra efforts for:
+* Writing type-annotations (may be annoying)
 * Integration with third-party libraries (as their API should be also annotated)
-* Processing external events from user / server (many different formats)
+* Processing external events from user / server (different and changing formats)
 * Involving new members (who is not familiar with typed JavaScript)
 
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
@@ -123,6 +126,7 @@ So consider both approaches to make your applications more robust and reliable.
     * add explicit conversion: `${name}${String(index)}`
     * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
 
+> In case of other questions or ideas please feel free to [file new issue](/issues/new).
 
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
