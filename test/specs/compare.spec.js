@@ -16,19 +16,19 @@ describe('strict compare', function () {
     it('does not warn for (number, number)', doesNotWarn(f, 1, 1));
   });
 
-  describe.skip('allowStrictCompareNull', function () {
+  describe('allow strictCompareNull', function () {
     const f = getFn('x === y', {strictCompareNull: 'allow'});
     it('does not warn for (*, null)', doesNotWarn(f, 1, null));
     it('warns for not null', warn(f, 1, undefined));
   });
 
-  describe.skip('allowStrictCompareUndefined', function () {
+  describe('allow strictCompareUndefined', function () {
     const f = getFn('x === y', {strictCompareUndefined: 'allow'});
     it('does not warn for (*, undefined)', doesNotWarn(f, 1, undefined));
     it('warns for not undefined', warn(f, 1, null));
   });
 
-  describe.skip('allowStrictCompareNull + allowStrictCompareUndefined', function () {
+  describe('allow both strictCompareNull and strictCompareUndefined', function () {
     const f = getFn('x === y', {
       strictCompareNull: 'allow',
       strictCompareUndefined: 'allow',

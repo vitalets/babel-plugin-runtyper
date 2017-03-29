@@ -9,22 +9,31 @@ const OPERATORS = {
 };
 
 const ASSERT_EQUAL_TYPES = `
-  if (typeof a !== typeof b) {
+  if (typeof a !== typeof b NOT_NULL NOT_UNDEFINED) {
     NOTIFY(new Error('Strict compare of different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
   }
 `;
 
+const NOT_NULL = `&& a !== null && b !== null`;
+const NOT_UNDEFINED = `&& a !== undefined && b !== undefined`;
+
 module.exports = class CompareAssertion extends Base {
-  constructor() {
-    super(OPERATORS, [
-      {tpl: ASSERT_EQUAL_TYPES}
-    ]);
+  constructor(options) {
+    const notNull = options.strictCompareNull === 'allow' ? NOT_NULL : '';
+    const notUndefined = options.strictCompareUndefined === 'allow' ? NOT_UNDEFINED : '';
+    const tpl = ASSERT_EQUAL_TYPES
+      .replace('NOT_NULL', notNull)
+      .replace('NOT_UNDEFINED', notUndefined);
+    super(OPERATORS, [{tpl}]);
   }
 
   _needReplace() {
     return super._needReplace() && !this._isNullOrUndefinedNodes();
   }
 
+  /**
+   * Comparison with explicit `null` or `undefined` considered intended by developer
+   */
   _isNullOrUndefinedNodes() {
     return isNullOrUndefined(this._left) || isNullOrUndefined(this._right);
   }
