@@ -2,6 +2,10 @@
 
 const BinaryAssertions = require('./binary-assertions');
 
+if (process.env.NODE_ENV === 'production') {
+  console.log('WARNING: you are using Runtyper in production build!');  // eslint-disable-line no-console
+}
+
 const defaultOptions = {
   enabled: true,
   allowStringNumberConcat: false,
