@@ -1,7 +1,7 @@
 'use strict';
 
 const t = require('babel-types');
-const BinaryAssertion = require('./binary-assertion');
+const BaseBinaryAssertion = require('./base');
 
 const OPERATORS = {
   '===': 'strictEqual',
@@ -15,7 +15,7 @@ const TPL = `
   }
 `;
 
-module.exports = class CompareAssertion extends BinaryAssertion {
+module.exports = class CompareAssertion extends BaseBinaryAssertion {
   constructor(options) {
     super(options, OPERATORS, TPL);
   }

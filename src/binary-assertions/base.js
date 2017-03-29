@@ -11,7 +11,7 @@ const WRAPPER_TPL = `
   })(PARAM1, PARAM2)
 `;
 
-module.exports = class BinaryAssertion {
+module.exports = class BaseBinaryAssertion {
   constructor(options, operators, tpl) {
     this._options = options;
     this._operators = operators;

@@ -1,6 +1,6 @@
 'use strict';
 
-const BinaryAssertion = require('./binary-assertion');
+const BaseBinaryAssertion = require('./base');
 
 const OPERATORS = {
   '+': 'add',
@@ -21,7 +21,7 @@ const EQUAL_TYPES_TPL = `
   }
 `;
 
-module.exports = class PlusAssertion extends BinaryAssertion {
+module.exports = class PlusAssertion extends BaseBinaryAssertion {
   constructor(options) {
     const assertEqualTypes = options.allowStringNumberConcat ? '' : EQUAL_TYPES_TPL;
     const tpl = TPL.replace('ASSERT_EQUAL_TYPES', assertEqualTypes.trim());

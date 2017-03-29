@@ -13,7 +13,7 @@ function square(n) {
         return s + ' (' + typeof v + ')';
       };
 
-      throw new Error('Numeric operation with non-numeric value: ' + f(a) + ' ' + '*' + ' ' + f(b));
+      console.warn(new Error('Numeric operation with non-numeric value: ' + f(a) + ' ' + '*' + ' ' + f(b)));
     }
 
     return a * b;
