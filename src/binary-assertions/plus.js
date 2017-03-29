@@ -1,30 +1,29 @@
 'use strict';
 
-const BaseBinaryAssertion = require('./base');
+const Base = require('./base');
 
 const OPERATORS = {
   '+': 'add',
 };
 
-const TPL = `
-  var f = VALUE_INFO;
+const ASSERT_STRING_NUMBER = `
   var types = ['number', 'string'];
   if (types.indexOf(typeof a) === -1 || types.indexOf(typeof b) === -1) {
-    throw new Error('Plus operation should be used for numbers or strings: ' + f(a) + ' ' + OPERATOR + ' ' + f(b));
+    NOTIFY(new Error('Plus operation should be used for numbers or strings: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
   }
-  ASSERT_EQUAL_TYPES
 `;
 
-const EQUAL_TYPES_TPL = `
+const ASSERT_EQUAL_TYPES = `
   if (typeof a !== typeof b) {
-    throw new Error('Plus operation with different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b));
+    NOTIFY(new Error('Plus operation with different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
   }
 `;
 
-module.exports = class PlusAssertion extends BaseBinaryAssertion {
+module.exports = class PlusAssertion extends Base {
   constructor(options) {
-    const assertEqualTypes = options.concatStringNumber === 'allow' ? '' : EQUAL_TYPES_TPL;
-    const tpl = TPL.replace('ASSERT_EQUAL_TYPES', assertEqualTypes.trim());
-    super(options, OPERATORS, tpl);
+    super(OPERATORS, [
+      {tpl: ASSERT_STRING_NUMBER},
+      {tpl: ASSERT_EQUAL_TYPES, level: options.concatStringNumber},
+    ]);
   }
 };

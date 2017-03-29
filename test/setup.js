@@ -19,11 +19,30 @@ global.getMsgFn = tpl => {
   return (x, y) => tpl.replace('{x}', utils.valueInfo(x)).replace('{y}', utils.valueInfo(y));
 };
 
-global.getThrows = tpl => {
+global.getWarnFn = tpl => {
   return (f, x, y, customMsg) => () => {
     const msg = customMsg || getMsgFn(tpl)(x, y);
-    assert.throws(() => f(x, y), msg);
+    const spy = consoleSpy('warn');
+    f(x, y);
+    assert.equal(spy.getMessage(), msg);
   };
 };
 
-global.doesNotThrow = (f, x, y) => () => assert.doesNotThrow(() => f(x, y));
+global.doesNotWarn = (f, x, y) => () => {
+  const spy = consoleSpy('warn');
+  f(x, y);
+  assert.equal(spy.getMessage(), '');
+};
+
+global.consoleSpy = function (method) {
+  const orig = console[method];
+  let message = '';
+  console[method] = e => message = e && e.message;
+  return {
+    getMessage: () => {
+      console[method] = orig;
+      return message;
+    }
+  };
+};
+

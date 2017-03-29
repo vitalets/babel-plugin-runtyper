@@ -5,16 +5,18 @@
 
   "globals": {
     "assert": true,
-    "getThrows": true,
+    "getWarnFn": true,
     "getFn": true,
     "getMsgFn": true,
-    "doesNotThrow": true
+    "doesNotWarn": true,
+    "consoleSpy": true
   },
 
   "rules": {
     "max-statements": 0,
     "max-lines": 0,
     "max-len": 0,
-    "max-params": 0
+    "max-params": 0,
+    "no-console": 0
   }
 }

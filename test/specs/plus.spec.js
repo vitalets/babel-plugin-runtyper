@@ -1,26 +1,23 @@
 
-const tplNS = 'Plus operation should be used for numbers or strings: {x} + {y}';
-const tplDT = 'Plus operation with different types: {x} + {y}';
-const throwsNS = getThrows(tplNS);
-const throwsDT = getThrows(tplDT);
-
 describe('plus', function () {
   describe('vars', function () {
+    const warn = getWarnFn('Plus operation with different types: {x} + {y}');
     const f = getFn('x + y');
-    it('throws for (number, string)', throwsDT(f, 1, '1'));
-    it('throws for (number, boolean)', throwsNS(f, 1, true));
-    it('throws for (number, null)', throwsNS(f, 1, null));
-    it('throws for (number, undefined)', throwsNS(f, 1, undefined));
-    it('throws for (number, array)', throwsNS(f, 1, [1]));
-    it('throws for (number, object)', throwsNS(f, 1, {x: 1}));
-    it('does not throw for (string, string)', doesNotThrow(f, '1', '1'));
-    it('does not throw for (number, number)', doesNotThrow(f, 1, 1));
+    it('warns for (number, string)', warn(f, 1, '1'));
+    it('warns for (number, boolean)', warn(f, 1, true));
+    it('warns for (number, null)', warn(f, 1, null));
+    it('warns for (number, undefined)', warn(f, 1, undefined));
+    it('warns for (number, array)', warn(f, 1, [1]));
+    it('warns for (number, object)', warn(f, 1, {x: 1}));
+    it('does not warn for (string, string)', doesNotWarn(f, '1', '1'));
+    it('does not warn for (number, number)', doesNotWarn(f, 1, 1));
   });
 
   describe('allowStringNumberConcat', function () {
+    const warn = getWarnFn('Plus operation should be used for numbers or strings: {x} + {y}');
     const f = getFn('x + y', {concatStringNumber: 'allow'});
-    it('does not throw for (string, number)', doesNotThrow(f, '1', 1));
-    it('throws for not (string, number)', throwsNS(f, '1', undefined));
+    it('does not warn for (string, number)', doesNotWarn(f, '1', 1));
+    it('warns for not (string, number)', warn(f, '1', undefined));
   });
 
   it('should keep result', function () {

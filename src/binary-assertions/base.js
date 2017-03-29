@@ -2,20 +2,28 @@
 
 const t = require('babel-types');
 const template = require('babel-template');
+const options = require('../options');
 const utils = require('../utils');
 
 const WRAPPER_TPL = `
   (function NAME(a, b) {
-    ASSERTION
+    var f = ${utils.valueInfo.toString()};
+    ASSERTIONS
     return RESULT;
   })(PARAM1, PARAM2)
 `;
 
+const LEVEL_NOTIFY = {
+  'allow': '',
+  'warn': 'console.warn',
+  'error': 'console.error',
+  'break': 'throw',
+};
+
 module.exports = class BaseBinaryAssertion {
-  constructor(options, operators, tpl) {
-    this._options = options;
+  constructor(operators, tpls) {
     this._operators = operators;
-    this._tpl = this._compileTpl(tpl);
+    this._buildTpl(tpls);
   }
 
   tryReplace(path) {
@@ -24,6 +32,16 @@ module.exports = class BaseBinaryAssertion {
       this._replace();
       return true;
     }
+  }
+
+  _buildTpl(tpls) {
+    const tpl = tpls.map(item => {
+      const level = item.level || options.getDefaultLevel();
+      const command = LEVEL_NOTIFY[level];
+      return command ? item.tpl.trim().replace('NOTIFY', command) : '';
+    }).filter(Boolean).join('\n');
+    const wrappedTpl = WRAPPER_TPL.trim().replace('ASSERTIONS', tpl);
+    this._tpl = template(wrappedTpl);
   }
 
   _setPath(path) {
@@ -51,11 +69,5 @@ module.exports = class BaseBinaryAssertion {
 
   _getFunctionName() {
     return this._operators[this._operator];
-  }
-
-  _compileTpl(tpl) {
-    tpl = tpl.trim().replace('VALUE_INFO', utils.valueInfo.toString());
-    const wrappedTpl = WRAPPER_TPL.trim().replace('ASSERTION', tpl);
-    return template(wrappedTpl);
   }
 };

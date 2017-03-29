@@ -1,23 +1,24 @@
 'use strict';
 
 const t = require('babel-types');
-const BaseBinaryAssertion = require('./base');
+const Base = require('./base');
 
 const OPERATORS = {
   '===': 'strictEqual',
   '!==': 'notStrictEqual',
 };
 
-const TPL = `
+const ASSERT_EQUAL_TYPES = `
   if (typeof a !== typeof b) {
-    var f = VALUE_INFO;
-    throw new Error('Strict compare of different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b));
+    NOTIFY(new Error('Strict compare of different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
   }
 `;
 
-module.exports = class CompareAssertion extends BaseBinaryAssertion {
-  constructor(options) {
-    super(options, OPERATORS, TPL);
+module.exports = class CompareAssertion extends Base {
+  constructor() {
+    super(OPERATORS, [
+      {tpl: ASSERT_EQUAL_TYPES}
+    ]);
   }
 
   _needReplace() {
