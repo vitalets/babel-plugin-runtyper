@@ -14,7 +14,12 @@ Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y
 When executed you will silently get unexpected `false` result due to missing type conversion.  
 After applying Runtyper it will show console warning as soon as such situation occur:
 
-![runtyper warning](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
+![Strict compare warning example](https://cloud.githubusercontent.com/assets/1473072/24467786/8b531758-14be-11e7-80da-32de20e04d38.png)
+
+or you can configure it to throw errors:
+
+![Strict compare error example](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
+
 
 ## Install
 1. Ensure you have [babel installed](https://babeljs.io/docs/setup/)
@@ -134,7 +139,7 @@ window.document.getElementById('username').addEventListener('change', function (
 
 Runtyper allows to catch such cases:
 
-![runtyper warning textfield](https://cloud.githubusercontent.com/assets/1473072/24371601/f8d10ab0-1333-11e7-8baf-6b6501accd29.png)
+![Textfield error](https://cloud.githubusercontent.com/assets/1473072/24371601/f8d10ab0-1333-11e7-8baf-6b6501accd29.png)
 
 So consider both approaches to make your applications more robust and reliable.
 
