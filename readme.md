@@ -59,7 +59,7 @@ After applying Runtyper it will throw error to console as soon as such situation
       require('source-map-support').install();
       ```
 
-> Tip: checkout [examples](/examples) directory in this repo to see browser and Node.js demos
+> Tip: checkout [examples](examples) directory in this repo to see browser and Node.js demos
 
 
 ## How it works
@@ -126,7 +126,7 @@ So consider both approaches to make your applications more robust and reliable.
     * add explicit conversion: `${name}${String(index)}`
     * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
 
-> In case of other questions or ideas please feel free to [file new issue](/issues/new).
+> In case of other questions or ideas please feel free to [file new issue](issues/new).
 
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
