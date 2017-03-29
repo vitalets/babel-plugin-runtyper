@@ -94,7 +94,7 @@ function square(n) {
   return n * n; // Error!
 }
 
-square("2", "2");
+square("2");
 ```
 
 But if `square()` is used to handle user's input from textfield - error will not be found: 

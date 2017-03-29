@@ -1,1 +1,1 @@
-test/instrumented
+examples/**/*.instrumented.js
