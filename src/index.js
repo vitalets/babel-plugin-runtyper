@@ -1,17 +1,11 @@
 'use strict';
 
+const options = require('./options');
 const BinaryAssertions = require('./binary-assertions');
 
 if (process.env.NODE_ENV === 'production') {
   console.log('WARNING: you are using Runtyper in production build!');  // eslint-disable-line no-console
 }
-
-const defaultOptions = {
-  enabled: true,
-  allowStringNumberConcat: false,
-  allowStrictCompareNull: false,
-  allowStrictCompareUndefined: false,
-};
 
 module.exports = function () {
   let binaryAssertions = null;
@@ -19,11 +13,11 @@ module.exports = function () {
     visitor: {
       BinaryExpression(path, state) {
         if (!binaryAssertions) {
-          const options = Object.assign({}, defaultOptions, state.opts);
-          binaryAssertions = new BinaryAssertions(options);
+          const opts = options.create(state.opts);
+          binaryAssertions = new BinaryAssertions(opts);
         }
 
-        if (binaryAssertions.enabled) {
+        if (options.isEnabled()) {
           binaryAssertions.tryReplace(path);
         }
       }

@@ -23,7 +23,7 @@ const EQUAL_TYPES_TPL = `
 
 module.exports = class PlusAssertion extends BaseBinaryAssertion {
   constructor(options) {
-    const assertEqualTypes = options.allowStringNumberConcat ? '' : EQUAL_TYPES_TPL;
+    const assertEqualTypes = options.concatStringNumber === 'allow' ? '' : EQUAL_TYPES_TPL;
     const tpl = TPL.replace('ASSERT_EQUAL_TYPES', assertEqualTypes.trim());
     super(options, OPERATORS, tpl);
   }

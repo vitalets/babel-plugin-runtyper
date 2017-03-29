@@ -18,7 +18,7 @@ describe('plus', function () {
   });
 
   describe('allowStringNumberConcat', function () {
-    const f = getFn('x + y', {allowStringNumberConcat: true});
+    const f = getFn('x + y', {concatStringNumber: 'allow'});
     it('does not throw for (string, number)', doesNotThrow(f, '1', 1));
     it('throws for not (string, number)', throwsNS(f, '1', undefined));
   });

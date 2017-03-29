@@ -17,21 +17,21 @@ describe('strict compare', function () {
   });
 
   describe.skip('allowStrictCompareNull', function () {
-    const f = getFn('x === y', {allowStrictCompareNull: true});
+    const f = getFn('x === y', {strictCompareNull: 'allow'});
     it('does not throw for (*, null)', doesNotThrow(f, 1, null));
     it('throws for not null', throws(f, 1, undefined));
   });
 
   describe.skip('allowStrictCompareUndefined', function () {
-    const f = getFn('x === y', {allowStrictCompareUndefined: true});
+    const f = getFn('x === y', {strictCompareUndefined: 'allow'});
     it('does not throw for (*, undefined)', doesNotThrow(f, 1, undefined));
     it('throws for not undefined', throws(f, 1, null));
   });
 
   describe.skip('allowStrictCompareNull + allowStrictCompareUndefined', function () {
     const f = getFn('x === y', {
-      allowStrictCompareNull: true,
-      allowStrictCompareUndefined: true
+      strictCompareNull: 'allow',
+      strictCompareUndefined: 'allow',
     });
     it('does not throw for (null, undefined)', doesNotThrow(f, null, undefined));
     it('does not throw for (*, null)', doesNotThrow(f, 1, null));
