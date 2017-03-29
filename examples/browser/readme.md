@@ -4,4 +4,4 @@ Open `index.html` in browser, change data in textfield and look into console.
 
 Result:
 
-![runtyper-browser-example](https://cloud.githubusercontent.com/assets/1473072/24444473/2c65951c-146f-11e7-9653-92db96d138e6.png)
+![runtyper-browser-example](https://cloud.githubusercontent.com/assets/1473072/24467820/a0b1ba1e-14be-11e7-859f-d7fd3b0bb359.png)
