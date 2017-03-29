@@ -74,10 +74,30 @@ After:
 if (strictEqual(x, y)) { ... }
 ```
 
-## Options
+## Configuration
+To configure plugin pass it to babel as array:
+```js
+  plugins: [
+      ['babel-plugin-runtyper', options]
+  ]
+```
+**Options**
 
-* `enabled` - is plugin enabled (default: `true`)
-* `allowStringNumberConcat` - allows concatenating of strings and numbers (default: `false`)
+| Name                     | Values                                    | Default          | Description  |
+| ------------------------ | ----------------------------------------- |------------------| ------------ |
+| `enabled`                | `true`, `false`                           | `true`           | Is plugin enabled            |
+| `defaultLevel`           | `"allow"`, `"warn"`, `"error"`, `"break"` | `"warn"`         | Default notification level for all rules             |
+| `concatStringNumber`     | `"allow"`, `"warn"`, `"error"`, `"break"` | `<defaultLevel>` | Rule for `(string) + (number)`             |
+| `strictCompareNull`      | `"allow"`, `"warn"`, `"error"`, `"break"` | `<defaultLevel>` | Rule for `(any type) === null`             |
+| `strictCompareUndefined` | `"allow"`, `"warn"`, `"error"`, `"break"` | `<defaultLevel>` | Rule for `(any type) === undefined`             |
+
+
+**Level description**
+ 
+ * `allow` - no notifications
+ * `warn` - type-mismatch will be notified via `console.warn`
+ * `error` - type-mismatch will be notified via `console.error`
+ * `break` - type-mismatch will throw error and break execution 
 
 ## Compare to static tools
 Static code analysis is also the way to perform type checking in your application. 
@@ -122,7 +142,7 @@ So consider both approaches to make your applications more robust and reliable.
 1. **Why I get error for [template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) like `${name}${index}`?**  
    Likely you are using [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) that transforms template literals into concatenation via `+`.
    And you get `(string) + (number)`. You can fix it in several ways:
-    * set plugin option `allowStringNumberConcat: true`
+    * set plugin option `concatStringNumber: "allow"`
     * add explicit conversion: `${name}${String(index)}`
     * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
 
