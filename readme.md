@@ -104,6 +104,30 @@ To configure plugin pass it to babel as array:
  * `error` - type-mismatch will be notified via `console.error`
  * `break` - type-mismatch will throw error and break execution 
 
+## Real world example
+
+After applying Runtyper with the softest config to one real world application I've got surprising results.
+
+Config:
+```js
+{
+  concatStringNumber: 'allow',
+  strictCompareNull: 'allow',
+  strictCompareUndefined: 'allow'
+}
+```
+
+Results:
+```
+Error: Strict compare of different types: -1 (number) === "" (string)
+Error: Strict compare of different types: 2 (number) === "" (string)
+Error: Strict compare of different types: 56.9364 (number) === "" (string)
+Error: Strict compare of different types: -0.0869 (number) === "" (string)
+Error: Numeric operation with non-numeric value: null / 60 (number)
+Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)
+Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)
+```
+
 ## Compare to static tools
 Static code analysis is also the way to perform type checking in your application. 
 For example, there is Facebook's [Flow](https://flowtype.org) project.
