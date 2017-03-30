@@ -6,8 +6,8 @@
 
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript code
 
-Runtyper notifies you about all type-mismatch operations in your JavaScript code.
-Include it into your *development builds* and it will throw error every time it detects weirdness. No type-annotations needed.
+Runtyper warns you about silent type-mismatch operations in your JavaScript code.
+Include it into your *development builds* and it will notify your in runtime when it detects weirdness. No type-annotations needed.
 
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
@@ -161,7 +161,7 @@ window.document.getElementById('username').addEventListener('change', function (
 });
 ```
 
-Runtyper allows to catch such cases:
+Runtyper allows to catch such cases in runtime:
 
 ![Textfield error](https://cloud.githubusercontent.com/assets/1473072/24371601/f8d10ab0-1333-11e7-8baf-6b6501accd29.png)
 
