@@ -175,6 +175,9 @@ So consider both approaches to make your applications more robust and reliable.
     * add explicit conversion: `${name}${String(index)}`
     * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
 
+2. **Why explicit compare like `x === null` and `x === undefined` is not warned?**  
+  Because when you explicitly write `(variable) === null` you assume that variable *can be* `null`. Another thing is comparing two   variables `x === y`. Here it depends on your app desing: if `x` and `y` are *not nullable*, you can keep get warnings, otherwise you can set plugin options `strictCompareNull` and `strictCompareUndefined` to `"allow"`.
+
 > In case of other questions or ideas please feel free to [file new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).
 
 ## License
