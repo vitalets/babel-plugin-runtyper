@@ -12,7 +12,7 @@ Include it into your *development builds* and it will notify your in runtime whe
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
 When executed you will silently get unexpected `false` result due to missing type conversion.  
-After applying Runtyper it will show console warning as soon as such situation occur:
+After applying Runtyper it will show warning in console as soon as such situation occur:
 
 ![Strict compare warning example](https://cloud.githubusercontent.com/assets/1473072/24467786/8b531758-14be-11e7-80da-32de20e04d38.png)
 
