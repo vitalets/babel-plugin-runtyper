@@ -1,15 +1,18 @@
 # Runtyper in Node.js
 
-Run in terminal:
+Build:
+```bash
+babel ./app.js -o ./app.instrumented.js --plugins=babel-plugin-runtyper --source-maps
+```
+
+Run:
 ```bash
 node ./index.js
 ```
 
 Result:
 ```
-  return n * n;
-  ^
 Error: Numeric operation with non-numeric value: "Hello World!" (string) * "Hello World!" (string)
-    at multiply (app.js:2:3)
-    at Object.exports.square (app.js:2:3)
+    at multiply (app.js:4:3)
+    at Object.exports.square (app.js:4:3)
 ```

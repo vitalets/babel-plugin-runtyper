@@ -1,3 +1,5 @@
+'use strict';
+
 exports.square = function (n) {
   return function multiply(a, b) {
     var f = function (v) {
@@ -13,7 +15,7 @@ exports.square = function (n) {
     };
 
     if (typeof a !== 'number' || typeof b !== 'number') {
-      console.warn(new Error('Numeric operation with non-numeric value: ' + f(a) + ' ' + "*" + ' ' + f(b)));
+      console.warn(new Error('Numeric operation with non-numeric value: ' + f(a) + ' ' + '*' + ' ' + f(b)));
     }
 
     return a * b;
