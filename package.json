@@ -21,8 +21,8 @@
     "test": "mocha test/specs --require test/setup",
     "ci": "npm run code && npm test",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
-    "example-browser": "babel examples/browser/app.js -o examples/browser/bundle.js --plugins=../../src/index.js --source-maps",
-    "example-node": "babel examples/node/app.js -o examples/node/app.instrumented.js --plugins=../../src/index.js --source-maps",
+    "example-browser": "cd examples/browser && ../../node_modules/.bin/webpack",
+    "example-node": "cd examples/node && ../../node_modules/.bin/babel ./app.js -o ./app.instrumented.js --plugins=babel-plugin-runtyper --source-maps",
     "examples": "npm run example-browser && npm run example-node",
     "precommit": "npm run lint-staged",
     "prepush": "npm run code && npm test"
@@ -30,6 +30,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.2.2",
     "babel-template": "^6.23.0",
     "babel-types": "^6.23.0",
@@ -38,7 +39,8 @@
     "husky": "^0.13.3",
     "lint-staged": "^3.4.0",
     "mocha": "^3.2.0",
-    "source-map-support": "^0.4.14"
+    "source-map-support": "^0.4.14",
+    "webpack": "^2.3.2"
   },
   "lint-staged": {
     "*.js": "eslint"
