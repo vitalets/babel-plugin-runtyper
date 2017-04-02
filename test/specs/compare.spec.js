@@ -15,7 +15,12 @@ describe('compare', function () {
     it('warns for (number, undefined)', () =>  warn(f, 1, undefined));
     it('warns for (number, array)', () => warn(f, 1, [1]));
     it('warns for (number, object)', () => warn(f, 1, {x: 1}));
+    it('warns for (object, array)', () => warn(f, {x: 1}, [1]));
+    it('warns for (object, date)', () => warn(f, {x: 1}, new Date()));
+    it('warns for (object, regexp)', () => warn(f, {x: 1}, /1/));
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
+    it('does not warn for (object, object)', () => doesNotWarn(f, {x: 1}, {x: 2}));
+    it('does not warn for (array, array)', () => doesNotWarn(f, [1], [1]));
   });
 
   describe('implicitCompareNull: allow', function () {
