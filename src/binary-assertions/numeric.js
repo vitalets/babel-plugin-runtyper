@@ -17,7 +17,8 @@ const ASSERT_NOT_NUMBERS = `
 
 module.exports = class NumericAssertion extends Base {
   constructor(options) {
-    super(options, OPERATORS, [
+    super(options, OPERATORS);
+    this._buildTpl([
       {tpl: ASSERT_NOT_NUMBERS}
     ]);
   }

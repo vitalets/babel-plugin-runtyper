@@ -19,12 +19,17 @@ const NOT_UNDEFINED = `&& a !== undefined && b !== undefined`;
 
 module.exports = class CompareAssertion extends Base {
   constructor(options) {
-    const notNull = options.strictCompareNull === 'allow' ? NOT_NULL : '';
-    const notUndefined = options.strictCompareUndefined === 'allow' ? NOT_UNDEFINED : '';
+    super(options, OPERATORS);
+    this._buildTpl();
+  }
+
+  _buildTpl() {
+    const notNull = this._options.implicitCompareNull === 'allow' ? NOT_NULL : '';
+    const notUndefined = this._options.implicitCompareUndefined === 'allow' ? NOT_UNDEFINED : '';
     const tpl = ASSERT_EQUAL_TYPES
       .replace('NOT_NULL', notNull)
       .replace('NOT_UNDEFINED', notUndefined);
-    super(options, OPERATORS, [{tpl}]);
+    super._buildTpl([{tpl}]);
   }
 
   _needReplace() {

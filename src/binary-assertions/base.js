@@ -20,10 +20,10 @@ const LEVEL_NOTIFY = {
 };
 
 module.exports = class BaseBinaryAssertion {
-  constructor(options, operators, tpls) {
+  constructor(options, OPERATORS) {
     this._options = options;
-    this._operators = operators;
-    this._buildTpl(tpls);
+    this._operators = OPERATORS;
+    this._tpl = null;
   }
 
   tryReplace(path) {
