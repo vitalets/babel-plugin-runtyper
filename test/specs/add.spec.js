@@ -13,6 +13,7 @@ describe('add', function () {
     it('warns for (number, undefined)', () => warnStringNumber(f, 1, undefined));
     it('warns for (number, array)', () => warnStringNumber(f, 1, [1]));
     it('warns for (number, object)', () => warnStringNumber(f, 1, {x: 1}));
+    it('warns for (number, NaN)', () => warnStringNumber(f, 1, NaN));
     it('does not warn for (string, string)', () => doesNotWarn(f, '1', '1'));
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
     it('does not warn for (new String, string)', () => doesNotWarn(f, new String('1'), '1'));

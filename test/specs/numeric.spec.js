@@ -12,6 +12,7 @@ describe('numeric', function () {
     it('warns for (number, undefined)', () => warn(f, 1, undefined));
     it('warns for (number, array)', () => warn(f, 1, [1]));
     it('warns for (number, object)', () => warn(f, 1, {x: 1}));
+    it('warns for (number, NaN)', () => warn(f, 1, NaN));
     it('warns for (string, string)', () => warn(f, '1', '1'));
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
   });
