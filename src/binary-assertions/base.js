@@ -52,15 +52,15 @@ module.exports = class BaseBinaryAssertion {
   }
 
   _needReplace() {
-    return this._operators.hasOwnProperty(this._operator);
+    return this._isSuitableOperator() && this._hasImplicitOperands();
   }
 
   _replace() {
     const replacement = this._tpl({
       NAME: t.identifier(this._getFunctionName()),
       OPERATOR: t.stringLiteral(this._operator),
-      PARAM1: this._path.node.left,
-      PARAM2: this._path.node.right,
+      PARAM1: this._left,
+      PARAM2: this._right,
       RESULT: t.binaryExpression(this._operator, t.identifier('a'), t.identifier('b'))
     });
     this._path.replaceWith(replacement);
@@ -70,4 +70,16 @@ module.exports = class BaseBinaryAssertion {
   _getFunctionName() {
     return this._operators[this._operator];
   }
+
+  _isSuitableOperator() {
+    return this._operators.hasOwnProperty(this._operator);
+  }
+
+  _hasImplicitOperands() {
+    return isImplicitValue(this._left) || isImplicitValue(this._right);
+  }
 };
+
+function isImplicitValue(node) {
+  return !t.isLiteral(node);
+}

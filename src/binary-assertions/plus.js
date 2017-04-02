@@ -1,5 +1,6 @@
 'use strict';
 
+const t = require('babel-types');
 const Base = require('./base');
 
 const OPERATORS = {
@@ -26,4 +27,17 @@ module.exports = class PlusAssertion extends Base {
       {tpl: ASSERT_EQUAL_TYPES, level: options.concatStringNumber},
     ]);
   }
+
+  _needReplace() {
+    // todo: under option
+    return super._needReplace() && !this._hasExplicitEmptyString();
+  }
+
+  _hasExplicitEmptyString() {
+    return isEmptyString(this._left) || isEmptyString(this._right);
+  }
 };
+
+function isEmptyString(node) {
+  return t.isStringLiteral(node) && node.value === '';
+}

@@ -21,7 +21,7 @@ global.getMsgFn = tpl => {
 };
 
 global.getWarnFn = tpl => {
-  return (f, x, y, customMsg) => () => {
+  return (f, x, y, customMsg) => {
     const msg = customMsg || getMsgFn(tpl)(x, y);
     const spy = consoleSpy('warn');
     f(x, y);
@@ -29,7 +29,7 @@ global.getWarnFn = tpl => {
   };
 };
 
-global.doesNotWarn = (f, x, y) => () => {
+global.doesNotWarn = (f, x, y) => {
   const spy = consoleSpy('warn');
   f(x, y);
   assert.equal(spy.getMessage(), '');

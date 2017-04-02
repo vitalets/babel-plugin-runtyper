@@ -28,21 +28,34 @@ module.exports = class CompareAssertion extends Base {
   }
 
   _needReplace() {
-    return super._needReplace() && !this._isNullOrUndefinedNodes();
+    return super._needReplace() && !this._hasExplicitAllowedValue();
   }
 
   /**
    * Comparison with explicit `null` or `undefined` considered intended by developer
    */
-  _isNullOrUndefinedNodes() {
-    return isNullOrUndefined(this._left) || isNullOrUndefined(this._right);
+  _hasExplicitAllowedValue() {
+    return this._isExplicitAllowedValue(this._left) || this._isExplicitAllowedValue(this._right);
+  }
+
+  _isExplicitAllowedValue(node) {
+    const isNullOrUndefined = t.isNullLiteral(node) || isUndefined(node);
+    if (isNullOrUndefined) {
+      return true;
+    } else {
+      return isTrue(node) || isFalse(node);
+    }
   }
 };
 
-function isNullOrUndefined(node) {
-  return t.isNullLiteral(node) || isUndefined(node);
-}
-
 function isUndefined(node) {
   return t.isIdentifier(node) && node.name === 'undefined';
+}
+
+function isTrue(node) {
+  return t.isBooleanLiteral(node) && node.value === true;
+}
+
+function isFalse(node) {
+  return t.isBooleanLiteral(node) && node.value === false;
 }

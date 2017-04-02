@@ -11,14 +11,16 @@ module.exports = function () {
   let binaryAssertions = null;
   return {
     visitor: {
-      BinaryExpression(path, state) {
-        if (!binaryAssertions) {
-          const opts = options.create(state.opts);
-          binaryAssertions = new BinaryAssertions(opts);
-        }
+      BinaryExpression: {
+        exit: function (path, state) {
+          if (!binaryAssertions) {
+            const opts = options.create(state.opts);
+            binaryAssertions = new BinaryAssertions(opts);
+          }
 
-        if (options.isEnabled()) {
-          binaryAssertions.tryReplace(path);
+          if (options.isEnabled()) {
+            binaryAssertions.tryReplace(path);
+          }
         }
       }
     }
