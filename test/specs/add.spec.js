@@ -1,10 +1,10 @@
 
 let f, warn;
 
-describe('plus', function () {
+describe('add', function () {
   describe('vars', function () {
     before(() => {
-      warn = getWarnFn('Plus operation with different types: {x} + {y}');
+      warn = getWarnFn('Add operation with different types: {x} + {y}');
       f = getFn('x + y');
     });
     it('warns for (number, string)', () => warn(f, 1, '1'));
@@ -19,7 +19,7 @@ describe('plus', function () {
 
   describe('concatStringNumber: allow', function () {
     before(() => {
-      warn = getWarnFn('Plus operation should be used for numbers or strings: {x} + {y}');
+      warn = getWarnFn('Add operation should be used for numbers or strings: {x} + {y}');
       f = getFn('x + y', {implicitAddStringNumber: 'allow'});
     });
     it('does not warn for (string, number)', () => doesNotWarn(f, '1', 1));

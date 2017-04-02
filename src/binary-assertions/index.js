@@ -3,7 +3,7 @@
 const assertions = [
   require('./compare'),
   require('./numeric'),
-  require('./plus'),
+  require('./add'),
 ];
 
 module.exports = class BinaryAssertions {

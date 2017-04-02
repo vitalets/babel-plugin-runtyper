@@ -1,5 +1,5 @@
 
-const msg = 'Plus operation with different types: "1" (string) + 1 (number)';
+const msg = 'Add operation with different types: "1" (string) + 1 (number)';
 
 describe('levels', function () {
   describe('default level', function () {

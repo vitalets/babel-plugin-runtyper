@@ -10,17 +10,17 @@ const OPERATORS = {
 const ASSERT_STRING_NUMBER = `
   var types = ['number', 'string'];
   if (types.indexOf(typeof a) === -1 || types.indexOf(typeof b) === -1) {
-    NOTIFY(new Error('Plus operation should be used for numbers or strings: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
+    NOTIFY(new Error('Add operation should be used for numbers or strings: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
   }
 `;
 
 const ASSERT_EQUAL_TYPES = `
   if (typeof a !== typeof b) {
-    NOTIFY(new Error('Plus operation with different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
+    NOTIFY(new Error('Add operation with different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
   }
 `;
 
-module.exports = class PlusAssertion extends Base {
+module.exports = class AddAssertion extends Base {
   constructor(options) {
     super(options, OPERATORS);
     this._buildTpl();
