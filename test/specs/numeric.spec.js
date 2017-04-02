@@ -16,6 +16,13 @@ describe('numeric', function () {
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
   });
 
+  describe('should not transform explicit values', function () {
+    it('number * number', function () {
+      f = getFn(`1 * 2`);
+      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn 1 * 2;\n}');
+    });
+  });
+
   it('should keep result', function () {
     const f = getFn('x * y');
     assert.equal(f(2, 3), 6);
