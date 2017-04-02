@@ -44,14 +44,25 @@ module.exports = class CompareAssertion extends Base {
   }
 
   _isExplicitAllowedValue(node) {
-    const isNullOrUndefined = t.isNullLiteral(node) || isUndefined(node);
-    if (isNullOrUndefined) {
-      return true;
-    } else {
-      return isTrue(node) || isFalse(node);
-    }
+    return isNullOrUndefined(node) || this._isExplicitAllowedBoolean(node);
+  }
+
+  _isExplicitAllowedBoolean(node) {
+    return this._isExplicitAllowedTrue(node) || this._isExplicitAllowedFalse(node);
+  }
+
+  _isExplicitAllowedTrue(node) {
+    return this._options.explicitCompareTrue === 'allow' && isTrue(node);
+  }
+
+  _isExplicitAllowedFalse(node) {
+    return this._options.explicitCompareFalse === 'allow' && isFalse(node);
   }
 };
+
+function isNullOrUndefined(node) {
+  return t.isNullLiteral(node) || isUndefined(node);
+}
 
 function isUndefined(node) {
   return t.isIdentifier(node) && node.name === 'undefined';

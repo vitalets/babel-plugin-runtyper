@@ -18,7 +18,7 @@ describe('strict compare', function () {
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
   });
 
-  describe('allow strictCompareNull', function () {
+  describe('implicitCompareNull: allow', function () {
     before(() => f = getFn('x === y',  {
       implicitCompareNull: 'allow'
     }));
@@ -26,7 +26,7 @@ describe('strict compare', function () {
     it('warns for not null', () => warn(f, 1, undefined));
   });
 
-  describe('allow strictCompareUndefined', function () {
+  describe('implicitCompareUndefined: allow', function () {
     before(() => f = getFn('x === y', {
       implicitCompareUndefined: 'allow'
     }));
@@ -34,7 +34,7 @@ describe('strict compare', function () {
     it('warns for not undefined', () => warn(f, 1, null));
   });
 
-  describe('allow both strictCompareNull and strictCompareUndefined', function () {
+  describe('implicitCompareNull: allow, implicitCompareUndefined: allow', function () {
     before(() => f = getFn('x === y', {
       implicitCompareNull: 'allow',
       implicitCompareUndefined: 'allow',
@@ -43,6 +43,24 @@ describe('strict compare', function () {
     it('does not warn for (*, null)', () => doesNotWarn(f, 1, null));
     it('does not warn for (*, undefined)', () => doesNotWarn(f, 1, undefined));
     it('warns for not null, undefined', () => warn(f, 1, '1'));
+  });
+
+  describe('explicitCompareTrue: allow', function () {
+    it('does not warn for *', () => {
+      f = getFn('x === true', {
+        explicitCompareTrue: 'allow'
+      });
+      doesNotWarn(f, 1);
+    });
+  });
+
+  describe('explicitCompareFalse: allow', function () {
+    it('does not warn for *', () => {
+      f = getFn('x === false', {
+        explicitCompareFalse: 'allow'
+      });
+      doesNotWarn(f, 1);
+    });
   });
 
   describe('expressions', function () {
