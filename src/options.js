@@ -7,8 +7,8 @@ const levels = ['allow', 'warn', 'error', 'break'];
 const defaults = {
   enabled: true,
   defaultLevel: 'warn',
-  concatStringNumber: '',
-  concatEmptyString: '',
+  implicitAddStringNumber: '',
+  explicitAddEmptyString: '',
   implicitCompareNull: '',
   implicitCompareUndefined: '',
   explicitCompareTrue: '',
@@ -44,5 +44,9 @@ function assertRenamedOptions(key) {
 
   if (key === 'strictCompareUndefined') {
     throw new Error('"strictCompareUndefined" was renamed to "implicitCompareUndefined"');
+  }
+
+  if (key === 'concatStringNumber') {
+    throw new Error('"concatStringNumber" was renamed to "implicitAddStringNumber"');
   }
 }

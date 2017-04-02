@@ -22,7 +22,7 @@ describe('options', function () {
     f = () => getFn('x === 1', {
       enabled: true,
       defaultLevel: 'error',
-      concatStringNumber: 'allow',
+      implicitAddStringNumber: 'allow',
       implicitCompareNull: 'break',
     });
     assert.doesNotThrow(f);

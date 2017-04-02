@@ -17,13 +17,22 @@ describe('plus', function () {
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
   });
 
-  describe('allowStringNumberConcat', function () {
+  describe('concatStringNumber: allow', function () {
     before(() => {
       warn = getWarnFn('Plus operation should be used for numbers or strings: {x} + {y}');
-      f = getFn('x + y', {concatStringNumber: 'allow'});
+      f = getFn('x + y', {implicitAddStringNumber: 'allow'});
     });
     it('does not warn for (string, number)', () => doesNotWarn(f, '1', 1));
     it('warns for not (string, number)', () => warn(f, '1', undefined));
+  });
+
+  describe.skip('concatEmptyString: allow', function () {
+    it('does not warn for *', () => {
+      f = getFn('x + ""', {
+        concatEmptyString: 'allow'
+      });
+      doesNotWarn(f, 1);
+    });
   });
 
   it('should keep result', function () {

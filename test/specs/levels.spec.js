@@ -34,26 +34,26 @@ describe('levels', function () {
 
   describe('custom option level', function () {
     it('warn', function () {
-      const f = getFn('x + 1', {concatStringNumber: 'warn'});
+      const f = getFn('x + 1', {implicitAddStringNumber: 'warn'});
       const spy = consoleSpy('warn');
       f('1');
       assert.equal(spy.getMessage(), msg);
     });
 
     it('error', function () {
-      const f = getFn('x + 1', {concatStringNumber: 'error'});
+      const f = getFn('x + 1', {implicitAddStringNumber: 'error'});
       const spy = consoleSpy('error');
       f('1');
       assert.equal(spy.getMessage(), msg);
     });
 
     it('break', function () {
-      const f = getFn('x + 1', {concatStringNumber: 'break'});
+      const f = getFn('x + 1', {implicitAddStringNumber: 'break'});
       assert.throws(() => f('1'), msg);
     });
 
     it('allow', function () {
-      const f = getFn('x + 1', {concatStringNumber: 'allow'});
+      const f = getFn('x + 1', {implicitAddStringNumber: 'allow'});
       const spyWarn = consoleSpy('warn');
       const spyError = consoleSpy('error');
       f('1');

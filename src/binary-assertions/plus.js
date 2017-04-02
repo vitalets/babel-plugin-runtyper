@@ -29,7 +29,7 @@ module.exports = class PlusAssertion extends Base {
   _buildTpl() {
     super._buildTpl([
       {tpl: ASSERT_STRING_NUMBER},
-      {tpl: ASSERT_EQUAL_TYPES, level: this._options.concatStringNumber},
+      {tpl: ASSERT_EQUAL_TYPES, level: this._options.implicitAddStringNumber},
     ]);
   }
 
