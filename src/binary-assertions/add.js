@@ -34,12 +34,13 @@ module.exports = class AddAssertion extends Base {
   }
 
   _needReplace() {
-    // todo: under option
-    return super._needReplace() && !this._hasExplicitEmptyString();
+    return super._needReplace() && !this._hasExplicitAllowedEmptyString();
   }
 
-  _hasExplicitEmptyString() {
-    return isEmptyString(this._left) || isEmptyString(this._right);
+  _hasExplicitAllowedEmptyString() {
+    return this._options.explicitAddEmptyString === 'allow'
+      ? isEmptyString(this._left) || isEmptyString(this._right)
+      : false;
   }
 };
 
