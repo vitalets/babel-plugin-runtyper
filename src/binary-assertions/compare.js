@@ -24,7 +24,7 @@ module.exports = class CompareAssertion extends Base {
     const tpl = ASSERT_EQUAL_TYPES
       .replace('NOT_NULL', notNull)
       .replace('NOT_UNDEFINED', notUndefined);
-    super(OPERATORS, [{tpl}]);
+    super(options, OPERATORS, [{tpl}]);
   }
 
   _needReplace() {

@@ -2,7 +2,6 @@
 
 const t = require('babel-types');
 const template = require('babel-template');
-const options = require('../options');
 const utils = require('../utils');
 
 const WRAPPER_TPL = `
@@ -21,7 +20,8 @@ const LEVEL_NOTIFY = {
 };
 
 module.exports = class BaseBinaryAssertion {
-  constructor(operators, tpls) {
+  constructor(options, operators, tpls) {
+    this._options = options;
     this._operators = operators;
     this._buildTpl(tpls);
   }
@@ -36,7 +36,7 @@ module.exports = class BaseBinaryAssertion {
 
   _buildTpl(tpls) {
     const tpl = tpls.map(item => {
-      const level = item.level || options.getDefaultLevel();
+      const level = item.level || this._options.defaultLevel;
       const command = LEVEL_NOTIFY[level];
       return command ? item.tpl.trim().replace('NOTIFY', command) : '';
     }).filter(Boolean).join('\n');

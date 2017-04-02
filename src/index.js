@@ -8,18 +8,17 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = function () {
-  let binaryAssertions = null;
   return {
     visitor: {
       BinaryExpression: {
         exit: function (path, state) {
-          if (!binaryAssertions) {
-            const opts = options.create(state.opts);
-            binaryAssertions = new BinaryAssertions(opts);
+          if (!this.binaryAssertions) {
+            this.options = options.create(state.opts);
+            this.binaryAssertions = new BinaryAssertions(this.options);
           }
 
-          if (options.isEnabled()) {
-            binaryAssertions.tryReplace(path);
+          if (this.options.enabled) {
+            this.binaryAssertions.tryReplace(path);
           }
         }
       }

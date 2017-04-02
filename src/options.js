@@ -12,10 +12,8 @@ const defaults = {
   strictCompareUndefined: '',
 };
 
-let opts = {};
-
 exports.create = function (passedOpts) {
-  opts = Object.assign({}, defaults);
+  const options = Object.assign({}, defaults);
   Object.keys(passedOpts).forEach(key => {
     const value = passedOpts[key];
     assert.ok(defaults.hasOwnProperty(key), `Unknown Runtyper option name: ${key}`);
@@ -25,16 +23,8 @@ exports.create = function (passedOpts) {
     const isIncorrectLevel = typeof value === 'string' && levels.indexOf(value) === -1;
     assert(!isIncorrectLevel, `Incorrect Runtyper level value: ${key} = ${value}`);
     if (value !== undefined) {
-      opts[key] = value;
+      options[key] = value;
     }
   });
-  return opts;
-};
-
-exports.isEnabled = function () {
-  return opts.enabled;
-};
-
-exports.getDefaultLevel = function () {
-  return opts.defaultLevel;
+  return options;
 };

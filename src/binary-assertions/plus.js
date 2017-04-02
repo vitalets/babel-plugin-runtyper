@@ -22,7 +22,7 @@ const ASSERT_EQUAL_TYPES = `
 
 module.exports = class PlusAssertion extends Base {
   constructor(options) {
-    super(OPERATORS, [
+    super(options, OPERATORS, [
       {tpl: ASSERT_STRING_NUMBER},
       {tpl: ASSERT_EQUAL_TYPES, level: options.concatStringNumber},
     ]);
