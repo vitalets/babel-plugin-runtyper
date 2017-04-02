@@ -74,9 +74,16 @@ Before:
 ```js
 if (x === y) { ... }
 ```
-After:
+After (simplified):
 ```js
 if (strictEqual(x, y)) { ... }
+
+function strictEqual(a, b) {
+  if (typeof a !== typeof b) {
+    console.warn('Strict compare of different types: ' + (typeof a) + ' === ' + (typeof b));
+  }
+  return a === b;
+}
 ```
 
 ## Configuration
@@ -88,21 +95,23 @@ To configure plugin pass it to babel as array:
 ```
 **Options**
 
-| Name                     | Values                                    | Default          | Description  |
-| ------------------------ | ----------------------------------------- |------------------| ------------ |
-| `enabled`                | `true`, `false`                           | `true`           | Is plugin enabled            |
-| `defaultLevel`           | `"allow"`, `"warn"`, `"error"`, `"break"` | `"warn"`         | Default notification level for all rules             |
-| `concatStringNumber`     | `"allow"`, `"warn"`, `"error"`, `"break"` | `<defaultLevel>` | Rule for `(string) + (number)`             |
-| `strictCompareNull`      | `"allow"`, `"warn"`, `"error"`, `"break"` | `<defaultLevel>` | Rule for `(any type) === null`             |
-| `strictCompareUndefined` | `"allow"`, `"warn"`, `"error"`, `"break"` | `<defaultLevel>` | Rule for `(any type) === undefined`             |
+| Name                       | Default  | Values                                   | Description                                        |
+|----------------------------|----------|------------------------------------------|----------------------------------------------------|
+| `enabled`                  | `true`   | `true`, `false`                          | Is plugin enabled                                  |
+| `warnLevel`                | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How warnings are displayed                         |
+| `implicitAddStringNumber`  | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + y` where `x, y` are `(string, number)` |
+| `implicitCompareNull`      | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === y` where `x` or `y` is `null`        |
+| `implicitCompareUndefined` | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === y` where `x` or `y` is `undefined`   |
+| `explicitAddEmptyString`   | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + ""` where `x` is not `string`          |
+| `explicitCompareTrue`      | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === true` where `x` is not `boolean`     |
+| `explicitCompareFalse`     | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === false` where `x` is not `boolean`    |
 
-
-**Level description**
+**Warning levels description**
  
- * `allow` - no notifications
- * `warn` - type-mismatch will be notified via `console.warn`
- * `error` - type-mismatch will be notified via `console.error`
- * `break` - type-mismatch will throw error and break execution 
+ * `info` - notification via `console.info` without stacktrace
+ * `warn` - notification via `console.warn` with stacktrace
+ * `error` - notification via `console.error` with stacktrace
+ * `break` - notification via throwing error and breaking execution
 
 ## Real world example
 
@@ -111,9 +120,9 @@ After applying Runtyper with the softest config to one real world application I'
 Config:
 ```js
 {
-  concatStringNumber: 'allow',
-  strictCompareNull: 'allow',
-  strictCompareUndefined: 'allow'
+  implicitAddStringNumber: 'allow',
+  implicitCompareNull: 'allow',
+  implicitCompareUndefined: 'allow'
 }
 ```
 
@@ -126,6 +135,7 @@ Error: Strict compare of different types: -0.0869 (number) === "" (string)
 Error: Numeric operation with non-numeric value: null / 60 (number)
 Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)
 Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)
+...
 ```
 
 ## Compare to static tools
@@ -171,12 +181,14 @@ So consider both approaches to make your applications more robust and reliable.
 1. **Why I get error for [template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) like `${name}${index}`?**  
    Likely you are using [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) that transforms template literals into concatenation via `+`.
    And you get `(string) + (number)`. You can fix it in several ways:
-    * set plugin option `concatStringNumber: "allow"`
+    * set plugin option `implicitAddStringNumber: "allow"`
     * add explicit conversion: `${name}${String(index)}`
     * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
 
-2. **Why explicit compares like `x === null` or `x === undefined` are not warned?**  
-  Because when you explicitly write `(variable) === null` you assume that variable *can be* `null`. Another thing is comparing two   variables `x === y`. Here it depends on your app desing: if `x` and `y` are *not nullable*, you will get warnings, otherwise you can set plugin options `strictCompareNull` and `strictCompareUndefined` to `"allow"`.
+2. **Why explicit comparings like `x === null` or `x === undefined` are not warned?**  
+  Because when you explicitly write `(variable) === null` you assume that variable *can be* `null`. 
+  Another thing is comparing two variables `x === y`. Here it depends on your app desing: if `x` and `y` are *not nullable*,
+  you may want to get warnings, otherwise you can set plugin options `implicitCompareNull` and `implicitCompareUndefined` to `"allow"`.
 
 > In case of other questions or ideas please feel free to [file new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).
 
