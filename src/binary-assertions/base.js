@@ -14,6 +14,7 @@ const WRAPPER_TPL = `
 
 const LEVEL_NOTIFY = {
   'allow': '',
+  'info': 'console.info',
   'warn': 'console.warn',
   'error': 'console.error',
   'break': 'throw',

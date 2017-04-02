@@ -3,6 +3,14 @@ const msg = 'Add operation with different types: "1" (string) + 1 (number)';
 
 describe('levels', function () {
   describe('default level', function () {
+
+    it('info', function () {
+      const f = getFn('x + 1', {defaultLevel: 'info'});
+      const spy = consoleSpy('info');
+      f('1');
+      assert.equal(spy.getMessage(), msg);
+    });
+
     it('warn', function () {
       const f = getFn('x + 1', {defaultLevel: 'warn'});
       const spy = consoleSpy('warn');

@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 
-const levels = ['allow', 'warn', 'error', 'break'];
+const levels = ['allow', 'info', 'warn', 'error', 'break'];
 
 const defaults = {
   enabled: true,
