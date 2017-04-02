@@ -9,14 +9,14 @@ const OPERATORS = {
 
 const ASSERT_STRING_NUMBER = `
   var types = ['number', 'string'];
-  if (types.indexOf(typeof a) === -1 || types.indexOf(typeof b) === -1) {
-    NOTIFY(new Error('Add operation should be used for numbers or strings: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
+  if (types.indexOf(ta) === -1 || types.indexOf(tb) === -1) {
+    msg = 'Add operation should be used for numbers or strings';
   }
 `;
 
 const ASSERT_EQUAL_TYPES = `
-  if (typeof a !== typeof b) {
-    NOTIFY(new Error('Add operation with different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
+  if (!msg && ta !== tb) {
+    msg = 'Add operation with different types';
   }
 `;
 
@@ -27,10 +27,11 @@ module.exports = class AddAssertion extends Base {
   }
 
   _buildTpl() {
-    super._buildTpl([
-      {tpl: ASSERT_STRING_NUMBER},
-      {tpl: ASSERT_EQUAL_TYPES, level: this._options.implicitAddStringNumber},
-    ]);
+    let tpl = ASSERT_STRING_NUMBER.trim();
+    if (this._options.implicitAddStringNumber !== 'allow') {
+      tpl += '\n' + ASSERT_EQUAL_TYPES.trim();
+    }
+    super._buildTpl(tpl);
   }
 
   _needReplace() {

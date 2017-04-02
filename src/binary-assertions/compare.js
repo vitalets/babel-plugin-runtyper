@@ -9,8 +9,8 @@ const OPERATORS = {
 };
 
 const ASSERT_EQUAL_TYPES = `
-  if (typeof a !== typeof b NOT_NULL NOT_UNDEFINED) {
-    NOTIFY(new Error('Strict compare of different types: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
+  if (ta !== tb NOT_NULL NOT_UNDEFINED) {
+    msg = 'Strict compare of different types';
   }
 `;
 
@@ -29,7 +29,7 @@ module.exports = class CompareAssertion extends Base {
     const tpl = ASSERT_EQUAL_TYPES
       .replace('NOT_NULL', notNull)
       .replace('NOT_UNDEFINED', notUndefined);
-    super._buildTpl([{tpl}]);
+    super._buildTpl(tpl);
   }
 
   _needReplace() {

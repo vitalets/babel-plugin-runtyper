@@ -10,16 +10,14 @@ const OPERATORS = {
 };
 
 const ASSERT_NOT_NUMBERS = `
-  if (typeof a !== 'number' || typeof b !== 'number') {
-    NOTIFY(new Error('Numeric operation with non-numeric value: ' + f(a) + ' ' + OPERATOR + ' ' + f(b)));
+  if (ta !== 'number' || tb !== 'number') {
+    msg = 'Numeric operation with non-numeric value';
   }
 `;
 
 module.exports = class NumericAssertion extends Base {
   constructor(options) {
     super(options, OPERATORS);
-    this._buildTpl([
-      {tpl: ASSERT_NOT_NUMBERS}
-    ]);
+    this._buildTpl(ASSERT_NOT_NUMBERS);
   }
 };

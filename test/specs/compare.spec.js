@@ -5,7 +5,7 @@ const msg = getMsgFn(tpl);
 
 let f;
 
-describe('strict compare', function () {
+describe('compare', function () {
 
   describe('vars', function () {
     before(() => f = getFn('x === y'));

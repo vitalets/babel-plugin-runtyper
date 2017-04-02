@@ -17,7 +17,11 @@ global.getFn = function (str, pluginOptions) {
 };
 
 global.getMsgFn = tpl => {
-  return (x, y) => tpl.replace('{x}', utils.valueInfo(x)).replace('{y}', utils.valueInfo(y));
+  return (x, y) => {
+    return tpl
+      .replace('{x}', utils.valueInfo(x, utils.typeInfo(x)))
+      .replace('{y}', utils.valueInfo(y, utils.typeInfo(y)));
+  };
 };
 
 global.getWarnFn = tpl => {
@@ -38,7 +42,7 @@ global.doesNotWarn = (f, x, y) => {
 global.consoleSpy = function (method) {
   const orig = console[method];
   let message = '';
-  console[method] = e => message = e && e.message;
+  console[method] = e => message = typeof e === 'string' ? e : e.message;
   return {
     getMessage: () => {
       console[method] = orig;

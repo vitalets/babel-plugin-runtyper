@@ -15,7 +15,7 @@
   },
 
   "rules": {
-    "complexity": ["error", {"max" : 4}],
+    "complexity": ["error", {"max" : 5}],
     "max-depth": ["error", {"max" : 2}],
     "max-params": ["error", {"max" : 3}],
     "max-statements": ["error", {"max" : 8}, {"ignoreTopLevelFunctions": false}],

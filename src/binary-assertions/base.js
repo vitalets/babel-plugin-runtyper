@@ -6,18 +6,25 @@ const utils = require('../utils');
 
 const WRAPPER_TPL = `
   (function NAME(a, b) {
-    var f = ${utils.valueInfo.toString()};
+    var t = ${utils.typeInfo.toString()};
+    var s = ${utils.valueInfo.toString()};
+    var ta = t(a);
+    var tb = t(b);
+    var msg = '';
     ASSERTIONS
+    if (msg) {
+      msg += ': ' + s(a, ta) + ' ' + OPERATOR + ' ' + s(b, tb);
+      NOTIFY;
+    }
     return RESULT;
   })(PARAM1, PARAM2)
 `;
 
 const LEVEL_NOTIFY = {
-  'allow': '',
-  'info': 'console.info',
-  'warn': 'console.warn',
-  'error': 'console.error',
-  'break': 'throw',
+  'info': 'console.info(msg)',
+  'warn': 'console.warn(new Error(msg))',
+  'error': 'console.error(new Error(msg))',
+  'break': 'throw new Error(msg)',
 };
 
 module.exports = class BaseBinaryAssertion {
@@ -35,13 +42,10 @@ module.exports = class BaseBinaryAssertion {
     }
   }
 
-  _buildTpl(tpls) {
-    const tpl = tpls.map(item => {
-      const level = item.level || this._options.defaultLevel;
-      const command = LEVEL_NOTIFY[level];
-      return command ? item.tpl.trim().replace('NOTIFY', command) : '';
-    }).filter(Boolean).join('\n');
-    const wrappedTpl = WRAPPER_TPL.trim().replace('ASSERTIONS', tpl);
+  _buildTpl(assertionsTpl) {
+    const wrappedTpl = WRAPPER_TPL.trim()
+      .replace('ASSERTIONS', assertionsTpl.trim())
+      .replace('NOTIFY', LEVEL_NOTIFY[this._options.warnLevel]);
     this._tpl = template(wrappedTpl);
   }
 
