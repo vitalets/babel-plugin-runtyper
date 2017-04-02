@@ -15,6 +15,8 @@ describe('add', function () {
     it('warns for (number, object)', () => warnStringNumber(f, 1, {x: 1}));
     it('does not warn for (string, string)', () => doesNotWarn(f, '1', '1'));
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
+    it('does not warn for (new String, string)', () => doesNotWarn(f, new String('1'), '1'));
+    it('does not warn for (new Number, number)', () => doesNotWarn(f, new Number(1), 1));
   });
 
   describe('implicitAddStringNumber = allow', function () {
