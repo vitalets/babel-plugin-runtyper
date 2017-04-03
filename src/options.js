@@ -13,6 +13,7 @@ const defaults = {
   explicitAddEmptyString: 'deny',
   implicitCompareNull: 'deny',
   implicitCompareUndefined: 'deny',
+  implicitCompareCustomTypes: 'deny',
   explicitCompareTrue: 'deny',
   explicitCompareFalse: 'deny',
 };

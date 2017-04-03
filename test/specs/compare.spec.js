@@ -20,6 +20,15 @@ describe('compare', function () {
     it('warns for (object, regexp)', () => warn(f, {x: 1}, /1/));
     it('warns for (number, NaN)', () => warn(f, 1, NaN));
     it('warns for (number, function)', () => warn(f, 1, () => {}));
+    it('warns for (instance A, object)', () => {
+      function A() {}
+      warn(f, new A(), {}, 'Strict compare of different types: {} (a) === {} (object)');
+    });
+    it('warns for (instance A, instance B)', () => {
+      function A() {}
+      function B() {}
+      warn(f, new A(), new B(), 'Strict compare of different types: {} (a) === {} (b)');
+    });
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
     it('does not warn for (object, object)', () => doesNotWarn(f, {x: 1}, {x: 2}));
     it('does not warn for (array, array)', () => doesNotWarn(f, [1], [1]));
@@ -57,6 +66,21 @@ describe('compare', function () {
     it('does not warn for (*, null)', () => doesNotWarn(f, 1, null));
     it('does not warn for (*, undefined)', () => doesNotWarn(f, 1, undefined));
     it('warns for not null, undefined', () => warn(f, 1, '1'));
+  });
+
+  describe('implicitCompareCustomTypes: allow', function () {
+    before(() => f = getFn('x === y',  {
+      implicitCompareCustomTypes: 'allow'
+    }));
+    it('does not warn for (instance A, object)', () => {
+      function A() {}
+      doesNotWarn(f, new A(), {});
+    });
+    it('does not warn for (instance A, instance B)', () => {
+      function A() {}
+      function B() {}
+      doesNotWarn(f, new A(), new B());
+    });
   });
 
   describe('explicitCompareTrue: allow', function () {

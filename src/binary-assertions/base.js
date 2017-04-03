@@ -8,8 +8,8 @@ const WRAPPER_TPL = `
   (function NAME(a, b) {
     var t = ${utils.typeInfo.toString()};
     var s = ${utils.valueInfo.toString()};
-    var ta = t(a);
-    var tb = t(b);
+    var ta = t(a, CUSTOM_TYPES);
+    var tb = t(b, CUSTOM_TYPES);
     var msg = '';
     ASSERTIONS
     if (msg) {
@@ -45,7 +45,8 @@ module.exports = class BaseBinaryAssertion {
   _buildTpl(assertionsTpl) {
     const wrappedTpl = WRAPPER_TPL.trim()
       .replace('ASSERTIONS', assertionsTpl.trim())
-      .replace('NOTIFY', LEVEL_NOTIFY[this._options.warnLevel]);
+      .replace('NOTIFY', LEVEL_NOTIFY[this._options.warnLevel])
+      .replace(/CUSTOM_TYPES/g, this._options.implicitCompareCustomTypes === 'allow' ? '0' : '1');
     this._tpl = template(wrappedTpl);
   }
 

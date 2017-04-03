@@ -95,16 +95,17 @@ To configure plugin pass it to babel as array:
 ```
 **Options**
 
-| Name                       | Default  | Values                                   | Description                                        |
-|----------------------------|----------|------------------------------------------|----------------------------------------------------|
-| `enabled`                  | `true`   | `true`, `false`                          | Is plugin enabled                                  |
-| `warnLevel`                | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How warnings are displayed                         |
-| `implicitAddStringNumber`  | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + y` where `x, y` are `(string, number)` |
-| `implicitCompareNull`      | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === y` where `x` or `y` is `null`        |
-| `implicitCompareUndefined` | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === y` where `x` or `y` is `undefined`   |
-| `explicitAddEmptyString`   | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + ""` where `x` is not `string`          |
-| `explicitCompareTrue`      | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === true` where `x` is not `boolean`     |
-| `explicitCompareFalse`     | `"deny"` | `"allow"`, `"deny"`                      | Allows `x === false` where `x` is not `boolean`    |
+| Name                         | Default  | Values                                   | Description                                        |
+|------------------------------|----------|------------------------------------------|----------------------------------------------------|
+| `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
+| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How warnings are displayed                         |
+| `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x + y` where `x, y` are `(string, number)` |
+| `implicitCompareNull`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `null`        |
+| `implicitCompareUndefined`   | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `undefined`   |
+| `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x + ""` where `x` is not `string`          |
+| `explicitCompareTrue`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === true` where `x` is not `boolean`     |
+| `explicitCompareFalse`       | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === false` where `x` is not `boolean`    |
+| `implicitCompareCustomTypes` | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x instanceof Custom1` and `y instanceof Custom2` |
 
 **Warning levels description**
  

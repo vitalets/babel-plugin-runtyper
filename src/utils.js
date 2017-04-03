@@ -1,6 +1,6 @@
 'use strict';
 
-/* eslint-disable complexity */
+/* eslint-disable complexity, max-statements */
 
 exports.valueInfo = function (v, tv) {
   if (tv === 'null' || tv === 'undefined' || tv === 'NaN') return tv;
@@ -13,9 +13,16 @@ exports.valueInfo = function (v, tv) {
   return s + ' (' + tv + ')';
 };
 
-exports.typeInfo = function (v) {
+exports.typeInfo = function (v, ct) {
   if (v === null || v === undefined) return String(v);
   if (v !== v) return 'NaN';
   var tv = typeof v;
-  return tv === 'object' ? (v.constructor && v.constructor.name || tv).toLowerCase() : tv;
+  if (tv !== 'object') return tv;
+  var c = v.constructor && v.constructor.name;
+  if (!c) return tv;
+  var cv = c.toLowerCase();
+  if (ct) return cv;
+  var g = global || window;
+  var isNative = g && /\{\s*\[native code\]\s*\}/.test(String(g[c]));
+  return isNative ? cv : tv;
 };
