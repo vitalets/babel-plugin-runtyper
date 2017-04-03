@@ -20,6 +20,17 @@ describe('add', function () {
     it('does not warn for (new Number, number)', () => doesNotWarn(f, new Number(1), 1));
   });
 
+  describe('3 operands', function () {
+    it('warns for (number, string)', () => {
+      f = getFn('x + 1 + y');
+      warnTypes(f, 1, '1', 'Add operation with different types: 2 (number) + "1" (string)');
+    });
+    it('does not warn for (string, literal, string)', () => {
+      f = getFn('x + "1" + y');
+      doesNotWarn(f, '1', '1');
+    });
+  });
+
   describe('implicitAddStringNumber = allow', function () {
     before(() => f = getFn('x + y', {implicitAddStringNumber: 'allow'}));
     it('does not warn for (string, number)', () => doesNotWarn(f, '1', 1));
@@ -51,6 +62,21 @@ describe('add', function () {
     it('should not transform (string, string)', function () {
       f = getFn(`"1" + "2"`);
       assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + "2";\n}');
+    });
+
+    it('should not transform (string, string, string)', function () {
+      f = getFn(`"1" + "2" + "3"`);
+      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + "2" + "3";\n}');
+    });
+
+    it('should not transform (string, (string, string))', function () {
+      f = getFn(`"1" + ("2" + "3")`);
+      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + ("2" + "3");\n}');
+    });
+
+    it('should not transform (string + number * number)', function () {
+      f = getFn(`"1" + 2 * 1`);
+      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + 2 * 1;\n}');
     });
 
     it('should not transform (number, number)', function () {

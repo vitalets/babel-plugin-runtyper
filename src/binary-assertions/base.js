@@ -81,10 +81,14 @@ module.exports = class BaseBinaryAssertion {
   }
 
   _hasImplicitOperands() {
-    return isImplicitValue(this._left) || isImplicitValue(this._right);
+    return !isExplicitValue(this._left) || !isExplicitValue(this._right);
   }
 };
 
-function isImplicitValue(node) {
-  return !t.isLiteral(node);
+function isExplicitValue(node) {
+  return t.isLiteral(node) || isExplicitBinaryExpression(node);
+}
+
+function isExplicitBinaryExpression(node) {
+  return t.isBinaryExpression(node) && isExplicitValue(node.left) && isExplicitValue(node.right);
 }

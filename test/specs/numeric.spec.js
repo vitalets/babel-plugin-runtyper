@@ -17,10 +17,24 @@ describe('numeric', function () {
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
   });
 
-  describe('should not transform explicit values', function () {
-    it('number * number', function () {
+  describe('3 operands', function () {
+    before(() => f = getFn('x * 2 - y'));
+    it('warns for (number, string)', () => {
+      warn(f, 1, '1', 'Numeric operation with non-numeric value: 2 (number) - "1" (string)');
+    });
+    it('does not warn for (number, literal, number)', () => {
+      doesNotWarn(f, 1, 1);
+    });
+  });
+
+  describe('explicit values', function () {
+    it('should not transform (number, number)', function () {
       f = getFn(`1 * 2`);
       assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn 1 * 2;\n}');
+    });
+    it('should not transform (number, number, number)', function () {
+      f = getFn(`1 * 2 / 3`);
+      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn 1 * 2 / 3;\n}');
     });
   });
 
