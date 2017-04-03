@@ -45,13 +45,17 @@ function assertType(key, value) {
 
 function assertWarnLevel(key, value) {
   if (key === 'warnLevel') {
-    assert(WARN_LEVELS.indexOf(value) >= 0, `Incorrect Runtyper option value: ${key} = ${value}`);
+    assert(WARN_LEVELS.indexOf(value) >= 0,
+      `Incorrect Runtyper option value: ${key} = ${value}, possible values: ${WARN_LEVELS}`
+    );
   }
 }
 
 function assertRules(key, value) {
   if (RULE_NAME_REG.test(key)) {
-    assert(RULE_VALUES.indexOf(value) >= 0, `Incorrect Runtyper option value: ${key} = ${value}`);
+    assert(RULE_VALUES.indexOf(value) >= 0,
+      `Incorrect Runtyper option value: ${key} = ${value}, possible values: ${RULE_VALUES}`
+    );
   }
 }
 

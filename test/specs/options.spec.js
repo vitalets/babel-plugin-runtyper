@@ -30,7 +30,10 @@ describe('options', function () {
 
     it('should throw on incorrect value', function () {
       f = () => getFn('x === 1', {warnLevel: 'abc'});
-      assert.throws(f, 'AssertionError: unknown: Incorrect Runtyper option value: warnLevel = abc');
+      assert.throws(f,
+        'AssertionError: unknown: Incorrect Runtyper option value: warnLevel = abc, ' +
+        'possible values: info,warn,error,break'
+      );
     });
 
     it('info', function () {
@@ -64,7 +67,10 @@ describe('options', function () {
 
     it('should throw on incorrect value', function () {
       f = () => getFn('x === 1', {implicitAddStringNumber: 'abc'});
-      assert.throws(f, 'AssertionError: unknown: Incorrect Runtyper option value: implicitAddStringNumber = abc');
+      assert.throws(f,
+        'AssertionError: unknown: Incorrect Runtyper option value: ' +
+        'implicitAddStringNumber = abc, possible values: allow,deny'
+      );
     });
 
     it('allow', function () {
