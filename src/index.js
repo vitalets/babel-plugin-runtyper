@@ -1,3 +1,7 @@
+/**
+ * Runtyper entry point
+ */
+
 'use strict';
 
 const options = require('./options');
@@ -18,7 +22,18 @@ module.exports = function () {
           }
 
           if (this.options.enabled) {
-            this.binaryAssertions.tryReplace(path);
+            const replaced = this.binaryAssertions.tryReplace(path);
+            if (replaced) {
+              // todo: better way to avoid recursion traverse (test with react build)
+              path.node.createdByRuntyper = true;
+            }
+          }
+        }
+      },
+      CallExpression: {
+        enter(path) {
+          if (path.node.createdByRuntyper) {
+            path.skip();
           }
         }
       }

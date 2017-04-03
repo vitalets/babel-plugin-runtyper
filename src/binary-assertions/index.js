@@ -14,7 +14,7 @@ module.exports = class BinaryAssertions {
   tryReplace(path) {
     for (let assertion of this._assertions) {
       if (assertion.tryReplace(path)) {
-        break;
+        return true;
       }
     }
   }
