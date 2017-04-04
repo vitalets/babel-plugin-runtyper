@@ -40,8 +40,30 @@ describe('numeric', function () {
     });
   });
 
-  it('should keep result', function () {
-    const f = getFn('x * y');
-    assert.equal(f(2, 3), 6);
+  describe('should keep result', function () {
+    it('minus', function () {
+      const f = getFn('x - y');
+      assert.equal(f(2, 3), -1);
+    });
+
+    it('multiply', function () {
+      const f = getFn('x * y');
+      assert.equal(f(2, 3), 6);
+    });
+
+    it('divide', function () {
+      const f = getFn('x / y');
+      assert.equal(f(6, 3), 2);
+    });
+
+    it('remainder', function () {
+      const f = getFn('x % y');
+      assert.equal(f(3, 2), 1);
+    });
+
+    it('exponent', function () {
+      const f = getFn('x ** y');
+      assert.equal(f(2, 3), 8);
+    });
   });
 });

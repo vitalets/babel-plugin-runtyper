@@ -7,6 +7,7 @@ const OPERATORS = {
   '*': 'multiply',
   '/': 'divide',
   '%': 'remainder',
+  '**': 'exponent',
 };
 
 const ASSERT_NOT_NUMBERS = `
