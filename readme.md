@@ -233,6 +233,34 @@ So consider both approaches to make your applications more robust and reliable.
   Another thing is comparing two variables `x === y`. Here it depends on your app desing: if `x` and `y` are *not nullable*,
   you may want to get warnings, otherwise you can set plugin options `implicitCompareNull` and `implicitCompareUndefined` to `"allow"`.
 
+3. **Are non-strict equal operators `==` and `!=` being checked?**  
+  Nope. Just quote Douglas Crockford from [JavaScript, the Good Parts](http://oreilly.com/catalog/9780596517748/):
+    > JavaScript has two sets of equality operators: `===` and `!==`, and their evil twins `==` and `!=`. 
+      The good ones work the way you would expect. If the two operands are of the same type and have the same value, 
+      then `===` produces `true` and `!==` produces `false`. The evil twins do the right thing when the operands
+      are of the same type, but if they are of different types, they attempt to coerce the values. 
+      The rules by which they do that are *complicated* and *unmemorable*.  
+      These are some of the interesting cases:
+
+      ```js 
+      '' == '0'           // false
+      0 == ''             // true
+      0 == '0'            // true
+
+      false == 'false'    // false
+      false == '0'        // true
+
+      false == undefined  // false
+      false == null       // false
+      null == undefined   // true
+
+      ' \t\r\n ' == 0     // true
+      ```
+
+    >  **The lack of transitivity is alarming. My advice is to never use `==` and `!=`. Instead, always use `===` and `!==`.**
+    
+    You can set ESLint [eqeqeq rule](http://eslint.org/docs/rules/eqeqeq) and forget about `==` once and for all.
+    
 > In case of other questions or ideas please feel free to [file new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).
 
 ## License
