@@ -154,28 +154,30 @@ To configure plugin pass it to babel as array:
  * `error` - notification via `console.error` with stacktrace
  * `break` - notification via throwing error and breaking execution
 
-## Real world example
-
-After applying Runtyper with the softest config to one real world application I've got surprising results.
-
+## Run on existing project
+You can try Runtyper on your existing project with the softest configuration to see how it is going in runtime.  
 Config:
 ```js
 {
-  implicitAddStringNumber: 'allow',
-  implicitEqualNull: 'allow',
-  implicitEqualUndefined: 'allow'
+    enabled: true,
+    implicitAddStringNumber: 'allow',
+    implicitEqualNull: 'allow',
+    implicitEqualUndefined: 'allow',
+    explicitAddEmptyString: 'allow',
+    explicitEqualTrue: 'allow',
+    explicitEqualFalse: 'allow',
+    implicitEqualCustomTypes: 'allow'
 }
 ```
-
-Results:
+Maybe you will not get any warnings, maybe you will get something like this:
 ```
 Error: Strict equal of different types: -1 (number) === "" (string)
 Error: Strict equal of different types: 2 (number) === "" (string)
 Error: Strict equal of different types: 56.9364 (number) === "" (string)
 Error: Strict equal of different types: -0.0869 (number) === "" (string)
 Error: Numeric operation with non-numeric value: null / 60 (number)
-Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)
-Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)
+Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) / 1000 (number)
+Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) / 1000 (number)
 ...
 ```
 
