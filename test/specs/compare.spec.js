@@ -7,7 +7,7 @@ let f;
 
 describe('compare', function () {
 
-  describe('equal vars', function () {
+  describe('2 vars', function () {
     before(() => f = getFn('x === y'));
     it('warns for (number, string)', () => warn(f, 1, '1'));
     it('warns for (number, boolean)', () => warn(f, 1, true));
@@ -123,7 +123,7 @@ describe('compare', function () {
     });
   });
 
-  describe('explicit number', function () {
+  describe('1 var and literal', function () {
     before(() => f = getFn('x === 1'));
     it('warns for (string)', () => warn(f, '1', undefined, msg('1', 1)));
     it('does not warn for (number)', () => doesNotWarn(f, 1));

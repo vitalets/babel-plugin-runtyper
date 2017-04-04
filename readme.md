@@ -68,9 +68,8 @@ or you can configure it to throw errors:
 
 
 ## How it works
-Basically it wraps all type-important places into function that additionally performs type checking. 
-Currently strict comparison `===, !==` and numeric operations `+, -, *, /, %` are wrapped.  
-Before: 
+Basically it wraps all type-important operations into function that additionally performs type checking.   
+For example, before: 
 ```js
 if (x === y) { ... }
 ```
@@ -85,6 +84,47 @@ function strictEqual(a, b) {
   return a === b;
 }
 ```
+
+## Supported operators
+* **Strict equality (`===, !==`)**  
+  Protects you from:
+  ```js
+  1 === '1'        // false
+  1 === [1]        // false
+  1 === new Date() // false
+  ...
+  ```
+
+* **Addition (`+`)**  
+  Protects you from:
+  ```js
+  '1' + null      // '1null'
+  '1' + undefined // '1undefined'
+  '1' + NaN       // '1NaN'
+  1 + NaN         // NaN
+  1 + {}          // '1[object Object]'
+  ...
+  ```
+  
+* **Arithmetic (`-, *, /, %`)**  
+  Protects you from:
+  ```js
+  1 - '1px'     // NaN
+  1 - undefined // NaN
+  1 * null      // 0
+  1 * {}        // NaN
+  ...
+  ```
+    
+* **Relational (`>, >=, <, <=`)**  
+  Protects you from:
+  ```js
+  2 < '11'        // false (but '1' < '11' is true)
+  1 < null        // false
+  [1] < {}        // true
+  2 < [11, null]  // false (but 2 < [11] is true)
+  ...
+  ```
 
 ## Configuration
 To configure plugin pass it to babel as array:
