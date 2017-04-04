@@ -71,7 +71,6 @@ module.exports = class BaseAssertion {
       RESULT: t.binaryExpression(this._operator, t.identifier('a'), t.identifier('b'))
     });
     this._path.replaceWith(replacement);
-    this._path.skip();
   }
 
   _getFunctionName() {

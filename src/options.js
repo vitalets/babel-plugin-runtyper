@@ -61,12 +61,12 @@ function assertRules(key, value) {
 }
 
 function assertRenamedOptions(key) {
-  if (key === 'strictEqualNull') {
-    throw new Error('"strictEqualNull" was renamed to "implicitEqualNull"');
+  if (key === 'strictCompareNull') {
+    throw new Error('"strictCompareNull" was renamed to "implicitEqualNull"');
   }
 
-  if (key === 'strictEqualUndefined') {
-    throw new Error('"strictEqualUndefined" was renamed to "implicitEqualUndefined"');
+  if (key === 'strictCompareUndefined') {
+    throw new Error('"strictCompareUndefined" was renamed to "implicitEqualUndefined"');
   }
 
   if (key === 'concatStringNumber') {
