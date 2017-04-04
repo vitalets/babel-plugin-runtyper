@@ -5,7 +5,7 @@
 'use strict';
 
 const options = require('./options');
-const BinaryAssertions = require('./binary-assertions');
+const BinaryAssertions = require('./binary');
 
 if (process.env.NODE_ENV === 'production') {
   console.log('WARNING: you are using Runtyper in production build!');  // eslint-disable-line no-console

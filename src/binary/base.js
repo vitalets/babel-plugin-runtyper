@@ -27,7 +27,7 @@ const LEVEL_NOTIFY = {
   'break': 'throw new Error(msg)',
 };
 
-module.exports = class BaseBinaryAssertion {
+module.exports = class BaseAssertion {
   constructor(options, OPERATORS) {
     this._options = options;
     this._operators = OPERATORS;
