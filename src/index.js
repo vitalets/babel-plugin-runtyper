@@ -5,6 +5,7 @@
 'use strict';
 
 const options = require('./options');
+const Comments = require('./comments');
 const BinaryAssertions = require('./binary');
 
 if (process.env.NODE_ENV === 'production') {
@@ -19,12 +20,13 @@ module.exports = function () {
           if (!this.binaryAssertions) {
             this.options = options.create(state.opts);
             this.binaryAssertions = new BinaryAssertions(this.options);
+            this.comments = new Comments(state);
           }
 
-          if (this.options.enabled) {
+          if (this.options.enabled && !this.comments.containsDisabledLines(path.node)) {
             const replaced = this.binaryAssertions.tryReplace(path);
             if (replaced) {
-              // todo: better way to avoid recursion traverse (test with react build)
+              // todo: maybe there is better way to avoid recursion traverse (test with react build)
               path.node.createdByRuntyper = true;
             }
           }
