@@ -10,23 +10,23 @@ const OPERATORS = {
 
 const ASSERT_EQUAL_TYPES = `
   if (ta !== tb NOT_NULL NOT_UNDEFINED) {
-    msg = 'Strict compare of different types';
+    msg = 'Strict equal of different types';
   }
 `;
 
 const NOT_NULL = `&& a !== null && b !== null`;
 const NOT_UNDEFINED = `&& a !== undefined && b !== undefined`;
 
-module.exports = class CompareAssertion extends Base {
+module.exports = class EqualAssertion extends Base {
   constructor(options) {
     super(options, OPERATORS);
-    this._customTypes = this._options.implicitCompareCustomTypes === 'allow' ? 0 : 1;
+    this._customTypes = this._options.implicitEqualCustomTypes === 'allow' ? 0 : 1;
     this._buildTpl();
   }
 
   _buildTpl() {
-    const notNull = this._options.implicitCompareNull === 'allow' ? NOT_NULL : '';
-    const notUndefined = this._options.implicitCompareUndefined === 'allow' ? NOT_UNDEFINED : '';
+    const notNull = this._options.implicitEqualNull === 'allow' ? NOT_NULL : '';
+    const notUndefined = this._options.implicitEqualUndefined === 'allow' ? NOT_UNDEFINED : '';
     const tpl = ASSERT_EQUAL_TYPES
       .replace('NOT_NULL', notNull)
       .replace('NOT_UNDEFINED', notUndefined);
@@ -53,11 +53,11 @@ module.exports = class CompareAssertion extends Base {
   }
 
   _isExplicitAllowedTrue(node) {
-    return this._options.explicitCompareTrue === 'allow' && isTrue(node);
+    return this._options.explicitEqualTrue === 'allow' && isTrue(node);
   }
 
   _isExplicitAllowedFalse(node) {
-    return this._options.explicitCompareFalse === 'allow' && isFalse(node);
+    return this._options.explicitEqualFalse === 'allow' && isFalse(node);
   }
 };
 

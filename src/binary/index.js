@@ -1,7 +1,7 @@
 'use strict';
 
 const assertions = [
-  require('./compare'),
+  require('./equal'),
   require('./numeric'),
   require('./add'),
   require('./relational'),

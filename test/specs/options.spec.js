@@ -9,7 +9,7 @@ describe('options', function () {
       enabled: true,
       warnLevel: 'error',
       implicitAddStringNumber: 'allow',
-      implicitCompareNull: 'deny',
+      implicitEqualNull: 'deny',
     });
     assert.doesNotThrow(f);
   });

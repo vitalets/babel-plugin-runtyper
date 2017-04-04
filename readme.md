@@ -140,12 +140,12 @@ To configure plugin pass it to babel as array:
 | `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
 | `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How warnings are displayed                         |
 | `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x + y` where `x, y` are `(string, number)` |
-| `implicitCompareNull`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `null`        |
-| `implicitCompareUndefined`   | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `undefined`   |
+| `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `null`        |
+| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `undefined`   |
 | `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x + ""` where `x` is not `string`          |
-| `explicitCompareTrue`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === true` where `x` is not `boolean`     |
-| `explicitCompareFalse`       | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === false` where `x` is not `boolean`    |
-| `implicitCompareCustomTypes` | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x instanceof Custom1` and `y instanceof Custom2` |
+| `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === true` where `x` is not `boolean`     |
+| `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === false` where `x` is not `boolean`    |
+| `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x instanceof Custom1` and `y instanceof Custom2` |
 
 **Warning levels description**
  
@@ -162,17 +162,17 @@ Config:
 ```js
 {
   implicitAddStringNumber: 'allow',
-  implicitCompareNull: 'allow',
-  implicitCompareUndefined: 'allow'
+  implicitEqualNull: 'allow',
+  implicitEqualUndefined: 'allow'
 }
 ```
 
 Results:
 ```
-Error: Strict compare of different types: -1 (number) === "" (string)
-Error: Strict compare of different types: 2 (number) === "" (string)
-Error: Strict compare of different types: 56.9364 (number) === "" (string)
-Error: Strict compare of different types: -0.0869 (number) === "" (string)
+Error: Strict equal of different types: -1 (number) === "" (string)
+Error: Strict equal of different types: 2 (number) === "" (string)
+Error: Strict equal of different types: 56.9364 (number) === "" (string)
+Error: Strict equal of different types: -0.0869 (number) === "" (string)
 Error: Numeric operation with non-numeric value: null / 60 (number)
 Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)
 Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (object) / 1000 (number)

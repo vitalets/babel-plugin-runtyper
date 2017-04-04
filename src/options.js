@@ -11,11 +11,11 @@ const defaults = {
   warnLevel: 'warn',
   implicitAddStringNumber: 'deny',
   explicitAddEmptyString: 'deny',
-  implicitCompareNull: 'deny',
-  implicitCompareUndefined: 'deny',
-  implicitCompareCustomTypes: 'deny',
-  explicitCompareTrue: 'deny',
-  explicitCompareFalse: 'deny',
+  implicitEqualNull: 'deny',
+  implicitEqualUndefined: 'deny',
+  implicitEqualCustomTypes: 'deny',
+  explicitEqualTrue: 'deny',
+  explicitEqualFalse: 'deny',
 };
 
 exports.create = function (passedOpts) {
@@ -61,12 +61,12 @@ function assertRules(key, value) {
 }
 
 function assertRenamedOptions(key) {
-  if (key === 'strictCompareNull') {
-    throw new Error('"strictCompareNull" was renamed to "implicitCompareNull"');
+  if (key === 'strictEqualNull') {
+    throw new Error('"strictEqualNull" was renamed to "implicitEqualNull"');
   }
 
-  if (key === 'strictCompareUndefined') {
-    throw new Error('"strictCompareUndefined" was renamed to "implicitCompareUndefined"');
+  if (key === 'strictEqualUndefined') {
+    throw new Error('"strictEqualUndefined" was renamed to "implicitEqualUndefined"');
   }
 
   if (key === 'concatStringNumber') {

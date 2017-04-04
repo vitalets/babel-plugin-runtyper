@@ -1,11 +1,11 @@
 
-const tpl = 'Strict compare of different types: {x} === {y}';
+const tpl = 'Strict equal of different types: {x} === {y}';
 const warn = getWarnFn(tpl);
 const msg = getMsgFn(tpl);
 
 let f;
 
-describe('compare', function () {
+describe('equal', function () {
 
   describe('2 vars', function () {
     before(() => f = getFn('x === y'));
@@ -16,12 +16,12 @@ describe('compare', function () {
     it('warns for (number, array)', () => warn(f, 1, [1]));
     it('warns for (number, object)', () => warn(f, 1, {x: 1}));
     it('warns for (number, Object.create(null))', () => {
-      warn(f, 1, Object.create(null), 'Strict compare of different types: 1 (number) === {} (object)');
+      warn(f, 1, Object.create(null), 'Strict equal of different types: 1 (number) === {} (object)');
     });
     it('warns for (number, circullar obj)', () => {
       const y = {};
       y.x = y;
-      warn(f, 1, y, 'Strict compare of different types: 1 (number) === [object Object] (object)');
+      warn(f, 1, y, 'Strict equal of different types: 1 (number) === [object Object] (object)');
     });
     it('warns for (number, Number)', () => warn(f, 1, new Number(1)));
     it('warns for (string, String)', () => warn(f, '1', new Number('1')));
@@ -32,12 +32,12 @@ describe('compare', function () {
     it('warns for (number, function)', () => warn(f, 1, () => {}));
     it('warns for (instance A, object)', () => {
       function A() {}
-      warn(f, new A(), {}, 'Strict compare of different types: {} (A) === {} (object)');
+      warn(f, new A(), {}, 'Strict equal of different types: {} (A) === {} (object)');
     });
     it('warns for (instance A, instance B)', () => {
       function A() {}
       function B() {}
-      warn(f, new A(), new B(), 'Strict compare of different types: {} (A) === {} (B)');
+      warn(f, new A(), new B(), 'Strict equal of different types: {} (A) === {} (B)');
     });
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
     it('does not warn for (object, object)', () => doesNotWarn(f, {x: 1}, {x: 2}));
@@ -52,26 +52,26 @@ describe('compare', function () {
   });
 
 
-  describe('implicitCompareNull: allow', function () {
+  describe('implicitEqualNull: allow', function () {
     before(() => f = getFn('x === y',  {
-      implicitCompareNull: 'allow'
+      implicitEqualNull: 'allow'
     }));
     it('does not warn for (null, *)', () => doesNotWarn(f, null, 1));
     it('warns for not null', () => warn(f, 1, undefined));
   });
 
-  describe('implicitCompareUndefined: allow', function () {
+  describe('implicitEqualUndefined: allow', function () {
     before(() => f = getFn('x === y', {
-      implicitCompareUndefined: 'allow'
+      implicitEqualUndefined: 'allow'
     }));
     it('does not warn for (*, undefined)', () => doesNotWarn(f, 1, undefined));
     it('warns for not undefined', () => warn(f, 1, null));
   });
 
-  describe('implicitCompareNull: allow, implicitCompareUndefined: allow', function () {
+  describe('implicitEqualNull: allow, implicitEqualUndefined: allow', function () {
     before(() => f = getFn('x === y', {
-      implicitCompareNull: 'allow',
-      implicitCompareUndefined: 'allow',
+      implicitEqualNull: 'allow',
+      implicitEqualUndefined: 'allow',
     }));
     it('does not warn for (null, undefined)', () => doesNotWarn(f, null, undefined));
     it('does not warn for (*, null)', () => doesNotWarn(f, 1, null));
@@ -79,9 +79,9 @@ describe('compare', function () {
     it('warns for not null, undefined', () => warn(f, 1, '1'));
   });
 
-  describe('implicitCompareCustomTypes: allow', function () {
+  describe('implicitEqualCustomTypes: allow', function () {
     before(() => f = getFn('x === y',  {
-      implicitCompareCustomTypes: 'allow'
+      implicitEqualCustomTypes: 'allow'
     }));
     it('does not warn for (instance A, object)', () => {
       function A() {}
@@ -94,19 +94,19 @@ describe('compare', function () {
     });
   });
 
-  describe('explicitCompareTrue: allow', function () {
+  describe('explicitEqualTrue: allow', function () {
     it('does not warn for *', () => {
       f = getFn('x === true', {
-        explicitCompareTrue: 'allow'
+        explicitEqualTrue: 'allow'
       });
       doesNotWarn(f, 1);
     });
   });
 
-  describe('explicitCompareFalse: allow', function () {
+  describe('explicitEqualFalse: allow', function () {
     it('does not warn for *', () => {
       f = getFn('x === false', {
-        explicitCompareFalse: 'allow'
+        explicitEqualFalse: 'allow'
       });
       doesNotWarn(f, 1);
     });
