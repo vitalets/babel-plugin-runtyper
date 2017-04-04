@@ -20,6 +20,7 @@ const NOT_UNDEFINED = `&& a !== undefined && b !== undefined`;
 module.exports = class CompareAssertion extends Base {
   constructor(options) {
     super(options, OPERATORS);
+    this._customTypes = this._options.implicitCompareCustomTypes === 'allow' ? 0 : 1;
     this._buildTpl();
   }
 

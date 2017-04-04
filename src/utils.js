@@ -2,17 +2,29 @@
 
 /* eslint-disable complexity, max-statements */
 
+/**
+ * Returns value info in form 'value (type)'
+ *
+ * @param {*} v value
+ * @param {String} tv type of value
+ * @returns {*}
+ */
 exports.valueInfo = function (v, tv) {
   if (tv === 'null' || tv === 'undefined' || tv === 'NaN') return tv;
-  var s = String(v);
-  try {
-    var st = JSON.stringify(v);
-    s = st || s;
-  } catch(e) { } // eslint-disable-line no-empty
+  var s = '';
+  try { s = JSON.stringify(v); } catch(e) { } // eslint-disable-line no-empty
+  try { s = s || String(v); } catch(e) { } // eslint-disable-line no-empty
   s = s.length > 20 ? s.substr(0, 20) + '...' : s;
   return s + ' (' + tv + ')';
 };
 
+/**
+ * Returns type of value
+ *
+ * @param {*} v
+ * @param {Number} ct - customTypes: 1 (allow), 0 (deny)
+ * @returns {String}
+ */
 exports.typeInfo = function (v, ct) {
   if (v === null || v === undefined) return String(v);
   if (v !== v) return 'NaN';
@@ -20,9 +32,9 @@ exports.typeInfo = function (v, ct) {
   if (tv !== 'object') return tv;
   var c = v.constructor && v.constructor.name;
   if (!c) return tv;
-  var cv = c.toLowerCase();
-  if (ct) return cv;
+  if (c === 'Object') c = 'object';
+  if (ct) return c;
   var g = global || window;
   var isNative = g && /\{\s*\[native code\]\s*\}/.test(String(g[c]));
-  return isNative ? cv : tv;
+  return isNative ? c : tv;
 };

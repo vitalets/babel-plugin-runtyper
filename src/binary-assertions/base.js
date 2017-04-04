@@ -31,6 +31,7 @@ module.exports = class BaseBinaryAssertion {
   constructor(options, OPERATORS) {
     this._options = options;
     this._operators = OPERATORS;
+    this._customTypes = 0;
     this._tpl = null;
   }
 
@@ -46,7 +47,7 @@ module.exports = class BaseBinaryAssertion {
     const wrappedTpl = WRAPPER_TPL.trim()
       .replace('ASSERTIONS', assertionsTpl.trim())
       .replace('NOTIFY', LEVEL_NOTIFY[this._options.warnLevel])
-      .replace(/CUSTOM_TYPES/g, this._options.implicitCompareCustomTypes === 'allow' ? '0' : '1');
+      .replace(/CUSTOM_TYPES/g, this._customTypes);
     this._tpl = template(wrappedTpl);
   }
 

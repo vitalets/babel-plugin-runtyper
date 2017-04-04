@@ -15,6 +15,16 @@ describe('compare', function () {
     it('warns for (number, undefined)', () => warn(f, 1, undefined));
     it('warns for (number, array)', () => warn(f, 1, [1]));
     it('warns for (number, object)', () => warn(f, 1, {x: 1}));
+    it('warns for (number, Object.create(null))', () => {
+      warn(f, 1, Object.create(null), 'Strict compare of different types: 1 (number) === {} (object)');
+    });
+    it('warns for (number, circullar obj)', () => {
+      const y = {};
+      y.x = y;
+      warn(f, 1, y, 'Strict compare of different types: 1 (number) === [object Object] (object)');
+    });
+    it('warns for (number, Number)', () => warn(f, 1, new Number(1)));
+    it('warns for (string, String)', () => warn(f, '1', new Number('1')));
     it('warns for (object, array)', () => warn(f, {x: 1}, [1]));
     it('warns for (object, date)', () => warn(f, {x: 1}, new Date()));
     it('warns for (object, regexp)', () => warn(f, {x: 1}, /1/));
@@ -22,15 +32,16 @@ describe('compare', function () {
     it('warns for (number, function)', () => warn(f, 1, () => {}));
     it('warns for (instance A, object)', () => {
       function A() {}
-      warn(f, new A(), {}, 'Strict compare of different types: {} (a) === {} (object)');
+      warn(f, new A(), {}, 'Strict compare of different types: {} (A) === {} (object)');
     });
     it('warns for (instance A, instance B)', () => {
       function A() {}
       function B() {}
-      warn(f, new A(), new B(), 'Strict compare of different types: {} (a) === {} (b)');
+      warn(f, new A(), new B(), 'Strict compare of different types: {} (A) === {} (B)');
     });
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
     it('does not warn for (object, object)', () => doesNotWarn(f, {x: 1}, {x: 2}));
+    it('does not warn for (object, Object.create(null))', () => doesNotWarn(f, {x: 1}, Object.create(null)));
     it('does not warn for (array, array)', () => doesNotWarn(f, [1], [1]));
     it('does not warn for (NaN, NaN)', () => doesNotWarn(f, NaN, NaN));
   });

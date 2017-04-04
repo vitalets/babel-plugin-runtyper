@@ -8,14 +8,16 @@ const OPERATORS = {
 };
 
 const ASSERT_STRING_NUMBER = `
-  var types = ['number', 'string'];
-  if (types.indexOf(ta) === -1 || types.indexOf(tb) === -1) {
+  var lta = ta.toLowerCase();
+  var ltb = tb.toLowerCase();
+  var types = {number: 1, string: 1};
+  if (!types.hasOwnProperty(lta) || !types.hasOwnProperty(ltb)) {
     msg = 'Add operation should be used for numbers or strings';
   }
 `;
 
 const ASSERT_EQUAL_TYPES = `
-  if (!msg && ta !== tb) {
+  if (!msg && lta !== ltb) {
     msg = 'Add operation with different types';
   }
 `;

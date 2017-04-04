@@ -14,7 +14,9 @@ describe('numeric', function () {
     it('warns for (number, object)', () => warn(f, 1, {x: 1}));
     it('warns for (number, NaN)', () => warn(f, 1, NaN));
     it('warns for (string, string)', () => warn(f, '1', '1'));
+    it('warns for (string, String)', () => warn(f, '1', new String('1')));
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
+    it('does not warn for (number, Number)', () => doesNotWarn(f, 1, new Number(1)));
   });
 
   describe('3 operands', function () {
