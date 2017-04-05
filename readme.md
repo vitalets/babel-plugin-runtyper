@@ -259,6 +259,7 @@ So consider both approaches to make your applications more robust and reliable.
 
     >  **The lack of transitivity is alarming. My advice is to never use `==` and `!=`. Instead, always use `===` and `!==`.**
     
+    Explicit is always better when magic, especially for readers of your code. 
     You can set ESLint [eqeqeq rule](http://eslint.org/docs/rules/eqeqeq) and forget about `==` once and for all.
     
 > In case of other questions or ideas please feel free to [file new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).
