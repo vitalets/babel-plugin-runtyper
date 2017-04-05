@@ -63,46 +63,86 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(global) {
 
 function square(n) {
   return function multiply(a, b) {
-    var t = function (v) {
+    var t = function (v, ct) {
       if (v === null || v === undefined) return String(v);
       if (v !== v) return 'NaN';
       var tv = typeof v;
-      return tv === 'object' ? (v.constructor && v.constructor.name || tv).toLowerCase() : tv;
+      if (tv !== 'object') return tv;
+      var c = v.constructor && v.constructor.name;
+      if (!c) return tv;
+      if (c === 'Object') c = 'object';
+      if (ct) return c;
+      var g = global || window;
+      var isNative = g && /\{\s*\[native code\]\s*\}/.test(String(g[c]));
+      return isNative ? c : tv;
     };
 
-    var s = function (v, tv) {
-      if (tv === 'null' || tv === 'undefined' || tv === 'NaN') return tv;
-      var s = String(v);
-
-      try {
-        s = JSON.stringify(v);
-      } catch (e) {}
-
-      s = s.length > 20 ? s.substr(0, 20) + '...' : s;
-      return s + ' (' + tv + ')';
-    };
-
-    var ta = t(a);
-    var tb = t(b);
+    var ta = t(a, 0);
+    var tb = t(b, 0);
     var msg = '';
+    var lta = ta.toLowerCase();
+    var ltb = tb.toLowerCase();
 
-    if (ta !== 'number' || tb !== 'number') {
+    if (lta !== 'number' || ltb !== 'number') {
       msg = 'Numeric operation with non-numeric value';
     }
 
     if (msg) {
+      var s = function (v, tv) {
+        if (tv === 'null' || tv === 'undefined' || tv === 'NaN') return tv;
+        var s = '';
+
+        try {
+          s = JSON.stringify(v);
+        } catch (e) {}
+
+        try {
+          s = s || String(v);
+        } catch (e) {}
+
+        s = s.length > 20 ? s.substr(0, 20) + '...' : s;
+        return s + ' (' + tv + ')';
+      };
+
       msg += ': ' + s(a, ta) + ' ' + '*' + ' ' + s(b, tb);
       console.warn(new Error(msg));
     }
@@ -114,6 +154,7 @@ function square(n) {
 window.document.getElementById('username').addEventListener('change', function (event) {
   square(event.target.value);
 });
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);
