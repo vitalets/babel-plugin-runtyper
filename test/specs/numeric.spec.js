@@ -61,10 +61,5 @@ describe('numeric', function () {
       const f = getFn('x % y');
       assert.equal(f(3, 2), 1);
     });
-
-    it('exponent', function () {
-      const f = getFn('x ** y');
-      assert.equal(f(2, 3), 8);
-    });
   });
 });
