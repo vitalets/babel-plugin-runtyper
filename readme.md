@@ -6,8 +6,9 @@
 
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
 
-Runtyper warns you about silent type-mismatch operations in your JavaScript code.
-Include it into your *development builds* and it will notify your in runtime when it detects weirdness. No type-annotations needed.
+Runtyper protects you from silent type-mismatch operations in your JavaScript code.
+Use it in *development builds* and it will notify your every time it detects weirdness.
+Types are guessed by code itself so no manual type-annotations needed.
 
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
@@ -138,7 +139,7 @@ To configure plugin pass it to babel as array:
 | Name                         | Default  | Values                                   | Description                                        |
 |------------------------------|----------|------------------------------------------|----------------------------------------------------|
 | `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
-| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How warnings are displayed                         |
+| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified                      |
 | `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x + y` where `x, y` are `(string, number)` |
 | `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `null`        |
 | `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `undefined`   |
@@ -262,7 +263,7 @@ So consider both approaches to make your applications more robust and reliable.
     Explicit is always better when magic, especially for readers of your code. 
     You can set ESLint [eqeqeq rule](http://eslint.org/docs/rules/eqeqeq) and forget about `==` once and for all.
     
-> In case of other questions or ideas please feel free to [file new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).
+*In case of other questions or ideas feel free to [file new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).*
 
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
