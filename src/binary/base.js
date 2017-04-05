@@ -1,3 +1,7 @@
+/**
+ * Base class for all binary assertions
+ */
+
 'use strict';
 
 const t = require('babel-types');
@@ -7,12 +11,12 @@ const utils = require('../utils');
 const WRAPPER_TPL = `
   (function NAME(a, b) {
     var t = ${utils.typeInfo.toString()};
-    var s = ${utils.valueInfo.toString()};
     var ta = t(a, CUSTOM_TYPES);
     var tb = t(b, CUSTOM_TYPES);
     var msg = '';
     ASSERTIONS
     if (msg) {
+      var s = ${utils.valueInfo.toString()};
       msg += ': ' + s(a, ta) + ' ' + OPERATOR + ' ' + s(b, tb);
       NOTIFY;
     }
