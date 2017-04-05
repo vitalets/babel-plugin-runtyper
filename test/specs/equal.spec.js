@@ -1,3 +1,4 @@
+'use strict';
 
 const tpl = 'Strict equal of different types: {x} === {y}';
 const warn = getWarnFn(tpl);

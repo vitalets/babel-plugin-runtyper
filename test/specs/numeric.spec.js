@@ -1,3 +1,4 @@
+'use strict';
 
 const warn = getWarnFn('Numeric operation with non-numeric value: {x} * {y}');
 

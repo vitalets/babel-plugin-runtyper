@@ -1,3 +1,4 @@
+'use strict';
 
 const tpl = 'Relational operator should be used for two numbers or two strings: {x} > {y}';
 const warn = getWarnFn(tpl);

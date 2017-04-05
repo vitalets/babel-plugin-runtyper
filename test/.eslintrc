@@ -17,7 +17,6 @@
     "max-lines": 0,
     "max-len": 0,
     "max-params": 0,
-    "no-console": 0,
-    "strict": 0,
+    "no-console": 0
   }
 }

@@ -1,3 +1,4 @@
+'use strict';
 
 const msg = 'Add operation with different types: "1" (string) + 1 (number)';
 let f, spy;
