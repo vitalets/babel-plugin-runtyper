@@ -130,10 +130,17 @@ describe('equal', function () {
     it('does not warn for (number)', () => doesNotWarn(f, 1));
   });
 
-  it('should keep result', function () {
-    f = getFn('x === y');
-    assert.isTrue(f(1, 1));
-    assert.isFalse(f(1, 2));
+  describe('should keep result', function () {
+    it('equal', function () {
+      f = getFn('x === y');
+      assert.isTrue(f(1, 1));
+      assert.isFalse(f(1, 2));
+    });
+    it('not equal', function () {
+      f = getFn('x !== y');
+      assert.isFalse(f(1, 1));
+      assert.isTrue(f(1, 2));
+    });
   });
 
 });
