@@ -29,7 +29,8 @@ describe('equal', function () {
     it('warns for (object, array)', () => warn(f, {x: 1}, [1]));
     it('warns for (object, date)', () => warn(f, {x: 1}, new Date()));
     it('warns for (object, regexp)', () => warn(f, {x: 1}, /1/));
-    it('warns for (number, NaN)', () => warn(f, 1, NaN));
+    it('warns for (number, NaN)', () => warn(f, 1, NaN, 'Strict equal with NaN: 1 (number) === NaN'));
+    it('warns for (NaN, NaN)', () => warn(f, NaN, NaN, 'Strict equal with NaN: NaN === NaN'));
     it('warns for (number, function)', () => warn(f, 1, () => {}));
     it('warns for (instance A, object)', () => {
       function A() {}
@@ -44,7 +45,10 @@ describe('equal', function () {
     it('does not warn for (object, object)', () => doesNotWarn(f, {x: 1}, {x: 2}));
     it('does not warn for (object, Object.create(null))', () => doesNotWarn(f, {x: 1}, Object.create(null)));
     it('does not warn for (array, array)', () => doesNotWarn(f, [1], [1]));
-    it('does not warn for (NaN, NaN)', () => doesNotWarn(f, NaN, NaN));
+    it('does not warn for (number, +Infinity)', () => doesNotWarn(f, 1, 1/0));
+    it('does not warn for (number, -Infinity)', () => doesNotWarn(f, 1, -1/0));
+    it('does not warn for (+Infinity, +Infinity)', () => doesNotWarn(f, 1/0, 1/0));
+    it('does not warn for (+Infinity, -Infinity)', () => doesNotWarn(f, 1/0, -1/0));
   });
 
   describe('composite expression', function () {

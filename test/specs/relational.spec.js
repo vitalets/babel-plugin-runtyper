@@ -16,6 +16,10 @@ describe('relational', function () {
     it('warns for (number, array)', () => warn(f, 1, [1]));
     it('warns for (number, object)', () => warn(f, 1, {x: 1}));
     it('warns for (number, NaN)', () => warn(f, 1, NaN));
+    it('warns for (number, +Infinity)', () => warn(f, 1, 1/0));
+    it('warns for (number, -Infinity)', () => warn(f, 1, -1/0));
+    it('warns for (+Infinity, +Infinity)', () => warn(f, 1/0, 1/0));
+    it('warns for (+Infinity, -Infinity)', () => warn(f, 1/0, -1/0));
     it('does not warn for (string, string)', () => doesNotWarn(f, '1', '1'));
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));
     it('does not warn for (String, string)', () => doesNotWarn(f, new String('1'), '1'));

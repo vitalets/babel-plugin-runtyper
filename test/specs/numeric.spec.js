@@ -14,6 +14,10 @@ describe('numeric', function () {
     it('warns for (number, array)', () => warn(f, 1, [1]));
     it('warns for (number, object)', () => warn(f, 1, {x: 1}));
     it('warns for (number, NaN)', () => warn(f, 1, NaN));
+    it('warns for (number, +Infinity)', () => warn(f, 1, 1/0));
+    it('warns for (number, -Infinity)', () => warn(f, 1, -1/0));
+    it('warns for (+Infinity, +Infinity)', () => warn(f, 1/0, 1/0));
+    it('warns for (+Infinity, -Infinity)', () => warn(f, 1/0, -1/0));
     it('warns for (string, string)', () => warn(f, '1', '1'));
     it('warns for (string, String)', () => warn(f, '1', new String('1')));
     it('does not warn for (number, number)', () => doesNotWarn(f, 1, 1));

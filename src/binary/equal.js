@@ -8,12 +8,19 @@ const OPERATORS = {
   '!==': 'notStrictEqual',
 };
 
+const ASSERT_NAN = `
+  if (ta === 'NaN' || tb === 'NaN') {
+    msg = 'Strict equal with NaN';
+  }
+`;
+
 const ASSERT_EQUAL_TYPES = `
-  if (ta !== tb NOT_NULL NOT_UNDEFINED) {
+  if (!msg && ta !== tb NOT_INFINITY NOT_NULL NOT_UNDEFINED) {
     msg = 'Strict equal of different types';
   }
 `;
 
+const NOT_INFINITY = `&& ta !== 'Infinity' && tb !== 'Infinity'`;
 const NOT_NULL = `&& a !== null && b !== null`;
 const NOT_UNDEFINED = `&& a !== undefined && b !== undefined`;
 
@@ -27,9 +34,14 @@ module.exports = class EqualAssertion extends Base {
   _buildTpl() {
     const notNull = this._options.implicitEqualNull === 'allow' ? NOT_NULL : '';
     const notUndefined = this._options.implicitEqualUndefined === 'allow' ? NOT_UNDEFINED : '';
-    const tpl = ASSERT_EQUAL_TYPES
+    const assertEqualTypes = ASSERT_EQUAL_TYPES
+      .replace('NOT_INFINITY', NOT_INFINITY)
       .replace('NOT_NULL', notNull)
       .replace('NOT_UNDEFINED', notUndefined);
+    const tpl = [
+      ASSERT_NAN.trim(),
+      assertEqualTypes.trim(),
+    ].join('\n');
     super._buildTpl(tpl);
   }
 
