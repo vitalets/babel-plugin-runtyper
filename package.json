@@ -22,6 +22,7 @@
     "ci": "npm run code && npm test",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
     "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags --no-verify",
+    "symlink": "ln -s $(pwd) ./node_modules/babel-plugin-runtyper",
     "example-browser": "cd examples/browser && ../../node_modules/.bin/webpack",
     "example-node": "cd examples/node && ../../node_modules/.bin/babel ./app.js -o ./app.instrumented.js --plugins=babel-plugin-runtyper --source-maps",
     "examples": "npm run example-browser && npm run example-node",
