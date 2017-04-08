@@ -6,9 +6,9 @@
 
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
 
-Runtyper protects you from silent type-mismatch operations in JavaScript code.
-Use it in *development builds* and it will notify your every time it detects weirdness.
-Types are guessed by code itself so no manual type-annotations needed.
+*Runtyper* protects you from silent type-mismatch operations in JavaScript code.
+Include it to development builds and it will notify your every time it detects weirdness.
+Types are guessed by code itself. No manual annotations needed.
 
 ## Contents
 - [Example](#example)
@@ -43,13 +43,13 @@ or you can configure it to throw errors:
   ```
 
 ## Usage 
-1. No changes to your existing codebase needed
-2. Add `babel-plugin-runtyper` to Babel config in *development builds*.  
+1. No changes to your existing codebase needed.
+2. Add `babel-plugin-runtyper` to Babel config in development builds.  
     For example, directly in terminal: 
     ```bash
     babel in.js -o out.js --plugins=babel-plugin-runtyper --source-maps
     ```
-    or in `package.json` scripts:
+    or in `package.json`:
     ```json
     "scripts": {
       "babel-dev": "babel in.js -o out.js --plugins=babel-plugin-runtyper --source-maps"
@@ -154,15 +154,15 @@ To configure plugin pass it to Babel as array:
 |------------------------------|----------|------------------------------------------|----------------------------------------------------|
 | `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
 | `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified                      |
-| `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x + y` where `x, y` are `(string, number)` |
-| `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `null`        |
-| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x` or `y` is `undefined`   |
-| `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x + ""` where `x` is not `string`          |
-| `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === true` where `x` is not `boolean`     |
-| `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === false` where `x` is not `boolean`    |
-| `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                      | Rule for `x === y` where `x instanceof Custom1` and `y instanceof Custom2` |
+| `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + y` where `x, y` are `(string, number)` |
+| `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `null`        |
+| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `undefined`   |
+| `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + ""` where `x` is not `string`          |
+| `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === true` where `x` is not `boolean`     |
+| `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === false` where `x` is not `boolean`    |
+| `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x instanceof MyClass1` and `y instanceof MyClass2` |
 
-**Warning levels description**
+**Warning level description**
  
  * `info` - notification via `console.info` without stacktrace
  * `warn` - notification via `console.warn` with stacktrace
@@ -205,14 +205,14 @@ Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) 
 ```
 
 ## Usage with static tools
-Static code analysis is also the way to perform type checking in your application. 
+Static code analysis is also the way to perform type checking. 
 For example, there is Facebook's [Flow](https://flowtype.org) project.
 You can use Runtyper together with Flow to detect errors on both pre-runtime and runtime stages.
 
 Yet, static tools need extra efforts for:
 * Writing type-annotations (may be annoying)
 * Integration with third-party libraries (as their API should be also annotated)
-* Processing external events from user / server (different and changing formats)
+* Processing external events from user / server (many different formats)
 * Involving new members (who is not familiar with typed JavaScript)
 
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
@@ -225,7 +225,7 @@ function square(n) {
 square("2");
 ```
 
-But if `square()` is used to handle user's input from textfield - error will not be found: 
+But if `square()` is used to handle user's input from text field - error will not be found: 
 ```js
 // @flow
 function square(n) {
@@ -245,15 +245,17 @@ Consider both approaches to make your applications more robust and reliable.
 
 ## FAQ
 1. **Why I get error for [template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) like `${name}${index}`?**  
-   Likely you are using [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) that transforms template literals into concatenation via `+`.
+   Likely you are using [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) 
+   that transforms template literals into concatenation `+`.
    And you get `(string) + (number)`. You can fix it in several ways:
     * set plugin option `implicitAddStringNumber: "allow"`
     * add explicit conversion: `${name}${String(index)}`
-    * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
+    * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as
+     many browsers already have native support of template literals
 
 2. **Why explicit comparings like `x === null` or `x === undefined` are not warned?**  
   When you explicitly write `(variable) === null` you assume that variable *can be* `null`. 
-  Another thing is comparing two variables `x === y`. Here it depends on your app desing. 
+  Another thing is implicit compare of two variables `x === y`. Here it depends on your app desing. 
   If `x` and `y` are *not nullable*, you may want to get warnings. 
   Otherwise you can set plugin options `implicitCompareNull` and `implicitCompareUndefined` to `"allow"`.
 
