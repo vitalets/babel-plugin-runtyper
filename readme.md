@@ -17,6 +17,7 @@ Types are guessed by code itself so no manual type-annotations needed.
 - [How it works](#how-it-works)
 - [Supported operators](#supported-operators)
 - [Configuration](#configuration)
+- [Ignore line](#ignore-line)
 - [Run on existing project](#run-on-existing-project)
 - [Usage with static tools](#usage-with-static-tools)
 - [FAQ](#faq)
@@ -167,6 +168,14 @@ To configure plugin pass it to babel as array:
  * `warn` - notification via `console.warn` with stacktrace
  * `error` - notification via `console.error` with stacktrace
  * `break` - notification via throwing error and breaking execution
+
+## Ignore line
+You can exclude line from checking by special comment:
+```js
+if (x === y) { // runtyper-disable-line 
+    ...
+}
+```
 
 ## Run on existing project
 You can try Runtyper on existing project because no special annotations needed.
