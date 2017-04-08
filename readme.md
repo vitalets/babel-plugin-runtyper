@@ -10,6 +10,18 @@ Runtyper protects you from silent type-mismatch operations in JavaScript code.
 Use it in *development builds* and it will notify your every time it detects weirdness.
 Types are guessed by code itself so no manual type-annotations needed.
 
+## Contents
+- [Example](#example)
+- [Installation](#installation)
+- [Usage](#usage)
+- [How it works](#how-it-works)
+- [Supported operators](#supported-operators)
+- [Configuration](#configuration)
+- [Run on existing project](#run-on-existing-project)
+- [Usage with static tools](#usage-with-static-tools)
+- [FAQ](#faq)
+- [License](#license)
+
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
 When executed you will get unexpected `false` result due to missing type conversion.  
@@ -22,7 +34,7 @@ or you can configure it to throw errors:
 ![Strict compare error example](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
 
 
-## Install
+## Installation
 1. Ensure you have [babel installed](https://babeljs.io/docs/setup/)
 2. Run in terminal:
   ```bash
@@ -183,10 +195,10 @@ Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) 
 ...
 ```
 
-## Compare to static tools
+## Usage with static tools
 Static code analysis is also the way to perform type checking in your application. 
 For example, there is Facebook's [Flow](https://flowtype.org) project.
-You can use it together with Runtyper. Both tools will detect errors on pre-runtime and runtime stages.
+You can use Runtyper together with Flow to detect errors on both pre-runtime and runtime stages.
 
 Yet, static tools require extra efforts for:
 * Writing type-annotations (may be annoying)
