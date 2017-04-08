@@ -6,14 +6,14 @@
 
 > [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
 
-Runtyper protects you from silent type-mismatch operations in your JavaScript code.
+Runtyper protects you from silent type-mismatch operations in JavaScript code.
 Use it in *development builds* and it will notify your every time it detects weirdness.
 Types are guessed by code itself so no manual type-annotations needed.
 
 ## Example
 Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
-When executed you will silently get unexpected `false` result due to missing type conversion.  
-After applying Runtyper it will show warning in console as soon as such situation occur:
+When executed you will get unexpected `false` result due to missing type conversion.  
+After applying Runtyper it will show warning as soon as such situation happen:
 
 ![Strict compare warning example](https://cloud.githubusercontent.com/assets/1473072/24467786/8b531758-14be-11e7-80da-32de20e04d38.png)
 
@@ -69,7 +69,8 @@ or you can configure it to throw errors:
 
 
 ## How it works
-Basically it wraps all type-important operations into function that additionally performs type checking.   
+Runtyper wraps all type-important operations into function.
+When line executed, function checks argument types and returns original result.  
 For example, before: 
 ```js
 if (x === y) { ... }
@@ -80,7 +81,7 @@ if (strictEqual(x, y)) { ... }
 
 function strictEqual(a, b) {
   if (typeof a !== typeof b) {
-    console.warn('Strict compare of different types: ' + (typeof a) + ' === ' + (typeof b));
+    console.warn('Strict compare of different types: ' + typeof a + ' === ' + typeof b);
   }
   return a === b;
 }
@@ -156,8 +157,8 @@ To configure plugin pass it to babel as array:
  * `break` - notification via throwing error and breaking execution
 
 ## Run on existing project
-You can try Runtyper on your existing project with the softest configuration to see how it is going in runtime.  
-Config:
+You can try Runtyper on existing project because no special annotations needed.
+Default configuration is rather strict. You can start with the softest:
 ```js
 {
     enabled: true,
@@ -170,7 +171,7 @@ Config:
     implicitEqualCustomTypes: 'allow'
 }
 ```
-Maybe you will not get any warnings, maybe you will get something like this:
+I got following results on one long-running project:
 ```
 Error: Strict equal of different types: -1 (number) === "" (string)
 Error: Strict equal of different types: 2 (number) === "" (string)
@@ -185,7 +186,7 @@ Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) 
 ## Compare to static tools
 Static code analysis is also the way to perform type checking in your application. 
 For example, there is Facebook's [Flow](https://flowtype.org) project.
-It can be used together with Runtyper to detect errors on both pre-runtime and runtime stages.
+You can use it together with Runtyper. Both tools will detect errors on pre-runtime and runtime stages.
 
 Yet, static tools require extra efforts for:
 * Writing type-annotations (may be annoying)
@@ -230,11 +231,12 @@ So consider both approaches to make your applications more robust and reliable.
     * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as template literals are widely supported natively
 
 2. **Why explicit comparings like `x === null` or `x === undefined` are not warned?**  
-  Because when you explicitly write `(variable) === null` you assume that variable *can be* `null`. 
-  Another thing is comparing two variables `x === y`. Here it depends on your app desing: if `x` and `y` are *not nullable*,
-  you may want to get warnings, otherwise you can set plugin options `implicitCompareNull` and `implicitCompareUndefined` to `"allow"`.
+  When you explicitly write `(variable) === null` you assume that variable *can be* `null`. 
+  Another thing is comparing two variables `x === y`. Here it depends on your app desing. 
+  If `x` and `y` are *not nullable*, you may want to get warnings. 
+  Otherwise you can set plugin options `implicitCompareNull` and `implicitCompareUndefined` to `"allow"`.
 
-3. **Are non-strict equal operators `==` and `!=` being checked?**  
+3. **Does it check non-strict equal `==` and `!=`?**  
   Nope. Just quote Douglas Crockford from [JavaScript, the Good Parts](http://oreilly.com/catalog/9780596517748/):
     > JavaScript has two sets of equality operators: `===` and `!==`, and their evil twins `==` and `!=`. 
       The good ones work the way you would expect. If the two operands are of the same type and have the same value, 
