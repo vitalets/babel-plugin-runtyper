@@ -24,9 +24,9 @@ Types are guessed by code itself so no manual type-annotations needed.
 - [License](#license)
 
 ## Example
-Imagine you have comparison like `x === y` and in runtime values are `x = 1`, `y = "1"`.
-When executed you will get unexpected `false` result due to missing type conversion.  
-After applying Runtyper it will show warning as soon as such situation happen:
+Imagine you have comparison `x === y` and in runtime values are `x = 1`, `y = "1"`.
+When executed you will get `false`. In many cases this result is unexpected: you just missed type conversion.
+After applying Runtyper it will show warning when such situation happen:
 
 ![Strict compare warning example](https://cloud.githubusercontent.com/assets/1473072/24467786/8b531758-14be-11e7-80da-32de20e04d38.png)
 
@@ -36,15 +36,15 @@ or you can configure it to throw errors:
 
 
 ## Installation
-1. Ensure you have [babel installed](https://babeljs.io/docs/setup/)
+1. Ensure you have [Babel installed](https://babeljs.io/docs/setup/)
 2. Run in terminal:
   ```bash
-  npm install --save-dev babel-plugin-runtyper
+  npm install babel-plugin-runtyper --save-dev
   ```
 
 ## Usage 
-1. No changes to your existing codebase needed!
-2. Add `babel-plugin-runtyper` to babel config in *development builds*.  
+1. No changes to your existing codebase needed
+2. Add `babel-plugin-runtyper` to Babel config in *development builds*.  
     For example, directly in terminal: 
     ```bash
     babel in.js -o out.js --plugins=babel-plugin-runtyper --source-maps
@@ -78,7 +78,7 @@ or you can configure it to throw errors:
       require('source-map-support').install();
       ```
 
-> Tip: checkout [examples](examples) directory in this repo to see browser and Node.js demos
+> Tip: checkout [examples](examples) directory to see browser and Node.js demos
 
 
 ## How it works
@@ -142,7 +142,7 @@ function strictEqual(a, b) {
   ```
 
 ## Configuration
-To configure plugin pass it to babel as array:
+To configure plugin pass it to Babel as array:
 ```js
   plugins: [
       ['babel-plugin-runtyper', options]
@@ -209,7 +209,7 @@ Static code analysis is also the way to perform type checking in your applicatio
 For example, there is Facebook's [Flow](https://flowtype.org) project.
 You can use Runtyper together with Flow to detect errors on both pre-runtime and runtime stages.
 
-Yet, static tools require extra efforts for:
+Yet, static tools need extra efforts for:
 * Writing type-annotations (may be annoying)
 * Integration with third-party libraries (as their API should be also annotated)
 * Processing external events from user / server (different and changing formats)
@@ -241,7 +241,7 @@ Runtyper allows to catch such cases in runtime:
 
 ![Textfield error](https://cloud.githubusercontent.com/assets/1473072/24371601/f8d10ab0-1333-11e7-8baf-6b6501accd29.png)
 
-So consider both approaches to make your applications more robust and reliable.
+Consider both approaches to make your applications more robust and reliable.
 
 ## FAQ
 1. **Why I get error for [template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) like `${name}${index}`?**  
@@ -286,7 +286,7 @@ So consider both approaches to make your applications more robust and reliable.
     Explicit is always better when magic, especially for readers of your code. 
     You can set ESLint [eqeqeq rule](http://eslint.org/docs/rules/eqeqeq) and forget about `==` once and for all.
     
-*In case of other questions or ideas feel free to [file new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).*
+*If you have other questions or ideas feel free to [open new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).*
 
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
