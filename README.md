@@ -21,6 +21,7 @@ Types are guessed by code itself. No manual annotations needed.
 - [Run on existing project](#run-on-existing-project)
 - [Usage with static tools](#usage-with-static-tools)
 - [FAQ](#faq)
+- [Related links](#related-links)
 - [License](#license)
 
 ## Example
@@ -289,6 +290,10 @@ Consider both approaches to make your applications more robust and reliable.
     You can set ESLint [eqeqeq rule](http://eslint.org/docs/rules/eqeqeq) and forget about `==` once and for all.
     
 *If you have other questions or ideas feel free to [open new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).*
+
+## Related links
+* [babel-plugin-jsdoc-to-assert](https://github.com/azu/babel-plugin-jsdoc-to-assert) - plugin for type-checking by JSDoc
+* [awesome-babel](https://github.com/babel/awesome-babel) - list of awesome Babel plugins
 
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
