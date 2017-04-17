@@ -294,6 +294,7 @@ Consider both approaches to make your applications more robust and reliable.
 ## Related links
 * [babel-plugin-jsdoc-to-assert](https://github.com/azu/babel-plugin-jsdoc-to-assert) - plugin for type-checking by JSDoc
 * [awesome-babel](https://github.com/babel/awesome-babel) - list of awesome Babel plugins
+* [flow-runtime](https://codemix.github.io/flow-runtime/) - flow-compatible runtime type system
 
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
