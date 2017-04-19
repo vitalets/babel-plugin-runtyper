@@ -106,6 +106,7 @@ function square(n) {
       if (v === null || v === undefined) return String(v);
       if (v !== v) return 'NaN';
       var tv = typeof v;
+      if (tv === 'number' && !isFinite(v)) return 'Infinity';
       if (tv !== 'object') return tv;
       var c = v.constructor && v.constructor.name;
       if (!c) return tv;
@@ -128,7 +129,7 @@ function square(n) {
 
     if (msg) {
       var s = function (v, tv) {
-        if (tv === 'null' || tv === 'undefined' || tv === 'NaN') return tv;
+        if (tv === 'null' || tv === 'undefined' || tv === 'NaN' || tv === 'Infinity') return tv;
         var s = '';
 
         try {
