@@ -8,10 +8,6 @@ const options = require('./options');
 const Comments = require('./comments');
 const BinaryAssertions = require('./binary');
 
-if (process.env.NODE_ENV === 'production') {
-  console.log('WARNING: you are using Runtyper in production build!');  // eslint-disable-line no-console
-}
-
 module.exports = function () {
   return {
     visitor: {
@@ -32,6 +28,7 @@ module.exports = function () {
           }
         }
       },
+
       CallExpression: {
         enter(path) {
           if (path.node.createdByRuntyper) {

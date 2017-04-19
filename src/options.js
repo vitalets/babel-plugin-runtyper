@@ -31,6 +31,7 @@ exports.create = function (passedOpts) {
       options[key] = value;
     }
   });
+  warnIfProduction(options);
   return options;
 };
 
@@ -75,5 +76,11 @@ function assertRenamedOptions(key) {
 
   if (key === 'defaultLevel') {
     throw new Error('"defaultLevel" was renamed to "warnLevel"');
+  }
+}
+
+function warnIfProduction(options) {
+  if (options.enabled && process.env.NODE_ENV === 'production') {
+    console.log('WARNING: you are using Runtyper in production build!');  // eslint-disable-line no-console
   }
 }
