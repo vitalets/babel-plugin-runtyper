@@ -9,5 +9,5 @@ Open `index.html` in browser, change data in textfield and look into console.
 ## Build
 
 ```bash
-babel ./app.js -o ./bundle.js --plugins=babel-plugin-runtyper --source-maps
+webpack
 ```
