@@ -1,8 +1,17 @@
 language: node_js
 
 node_js:
-  - "4"
-  - "6"
-  - "7"
+  - '4'
+  - '6'
+  - '7'
 
-script: npm run ci
+matrix:
+  include:
+    - node_js: '4'
+      env: SCRIPT=npm run code && npm test
+    - node_js: '6'
+      env: SCRIPT=npm run code && npm test && npm run test-sauce
+    - node_js: '7'
+      env: SCRIPT=npm run code && npm test
+
+script: $SCRIPT
