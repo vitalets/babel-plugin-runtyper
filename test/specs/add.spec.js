@@ -66,32 +66,32 @@ describe('add', function () {
 
     it('should not transform (string, string)', function () {
       f = getFn(`"1" + "2"`);
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + "2";\n}');
+      assert.include(f.toString(), '"1" + "2"');
     });
 
     it('should not transform (string, string, string)', function () {
       f = getFn(`"1" + "2" + "3"`);
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + "2" + "3";\n}');
+      assert.include(f.toString(), '"1" + "2" + "3"');
     });
 
     it('should not transform (string, (string, string))', function () {
       f = getFn(`"1" + ("2" + "3")`);
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + ("2" + "3");\n}');
+      assert.include(f.toString(), '"1" + ("2" + "3"');
     });
 
     it('should not transform (string + number * number)', function () {
       f = getFn(`"1" + 2 * 1`);
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" + 2 * 1;\n}');
+      assert.include(f.toString(), '"1" + 2 * 1');
     });
 
     it('should not transform (number, number)', function () {
       f = getFn(`1 + 2`);
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn 1 + 2;\n}');
+      assert.include(f.toString(), '1 + 2');
     });
 
     it('should not transform (number, string)', function () {
       f = getFn(`1 + "2"`);
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn 1 + "2";\n}');
+      assert.include(f.toString(), '1 + "2"');
     });
 
   });

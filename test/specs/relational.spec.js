@@ -43,12 +43,12 @@ describe('relational', function () {
 
     it('should not transform (number, number)', function () {
       f = getFn('1 > 2');
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn 1 > 2;\n}');
+      assert.include(f.toString(), '1 > 2');
     });
 
     it('should not transform (string, string)', function () {
       f = getFn('"1" < "2"');
-      assert.equal(f.toString(), 'function anonymous(x,y\n/**/) {\nreturn "1" < "2";\n}');
+      assert.include(f.toString(), '"1" < "2"');
     });
 
   });
