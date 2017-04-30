@@ -23,7 +23,7 @@
     "test-browser": "webpack test/setup.js test/setup.bundle.js && ./node_modules/karma/bin/karma start",
     "test-sauce": "npm run test-browser -- karma-sauce.conf.js",
     "test-node-browser": "npm run test-node && npm run test-browser",
-    "ci-node": "npm run code && npm test-node",
+    "ci-node": "npm run code && npm run test-node",
     "ci-node-browser": "npm run ci-node && npm run test-sauce",
     "release-patch": "npm run code && npm run test-node-browser && npm version patch && npm publish && git push --follow-tags --no-verify",
     "release-minor": "npm run code && npm run test-node-browser && npm version minor && npm publish && git push --follow-tags --no-verify",
