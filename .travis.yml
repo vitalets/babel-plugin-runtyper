@@ -5,8 +5,6 @@ node_js:
   - '6'
   - '7'
 
-env:
-
 matrix:
   include:
     - node_js: '4'
@@ -15,5 +13,11 @@ matrix:
       env: SCRIPT=ci-node-sauce
     - node_js: '7'
       env: SCRIPT=ci-node
+  exclude:
+    # Note: Workaround travis-ci/travis-ci#4681
+    # Exclude default job which lacks our included environment variables.
+    - node_js: '4'
+    - node_js: '6'
+    - node_js: '7'
 
 script: npm run $SCRIPT
