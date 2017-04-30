@@ -25,15 +25,16 @@
     "test-sauce": "npm run test-browser -- karma-sauce.conf.js",
     "ci-node": "npm run code && npm run test-node",
     "ci-node-sauce": "npm run ci-node && npm run test-sauce",
-    "release-patch": "npm run code && npm run test-node-browser && npm version patch && npm publish && git push --follow-tags --no-verify",
-    "release-minor": "npm run code && npm run test-node-browser && npm version minor && npm publish && git push --follow-tags --no-verify",
+    "release": "npm run code && npm run test-node-browser && npm version $VER && npm publish && git push --follow-tags --no-verify",
+    "release-patch": "VER=patch npm run release",
+    "release-minor": "VER=minor npm run release",
     "symlink": "ln -s $(pwd) ./node_modules/babel-plugin-runtyper",
     "example-browser": "cd examples/browser && ../../node_modules/.bin/babel ./app.js -o ./bundle.js --plugins=babel-plugin-runtyper --source-maps",
     "example-browser-webpack": "cd examples/browser-webpack && ../../node_modules/.bin/webpack",
     "example-node": "cd examples/node && ../../node_modules/.bin/babel ./app.js -o ./app.instrumented.js --plugins=babel-plugin-runtyper --source-maps",
     "build-examples": "npm run example-browser && npm run example-browser-webpack && npm run example-node",
     "precommit": "npm run lint-staged",
-    "prepush": "npm run code && npm test"
+    "prepush": "npm run code && test-node-browser"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
