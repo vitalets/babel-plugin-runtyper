@@ -35,7 +35,7 @@ exports.typeInfo = function typeInfo(v, ct) {
   if (!c) return tv;
   if (c === 'Object') c = 'object';
   if (ct) return c;
-  var g = global || window;
-  var isNative = g && /\{\s*\[native code\]\s*\}/.test(String(g[c]));
+  var g = typeof global === 'object' ? global : (typeof window === 'object' ? window : null);
+  var isNative = g && g[c] && /\{\s*\[native code\]\s*\}/.test(String(g[c]));
   return isNative ? c : tv;
 };
