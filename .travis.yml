@@ -10,7 +10,7 @@ matrix:
     - node_js: '4'
       env: SCRIPT=ci-node
     - node_js: '6'
-      env: SCRIPT=ci-node-sauce
+      env: SCRIPT=ci-node-browser
     - node_js: '7'
       env: SCRIPT=ci-node
   exclude:
