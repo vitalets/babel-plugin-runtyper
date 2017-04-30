@@ -1,2 +1,3 @@
-examples/**/*.instrumented.js
-examples/**/bundle.js
+*.instrumented.js
+*.bundle.js
+bundle.js
