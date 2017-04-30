@@ -9,7 +9,7 @@
  * @param {String} tv type of value
  * @returns {*}
  */
-exports.valueInfo = function (v, tv) {
+exports.valueInfo = function valueInfo(v, tv) {
   if (tv === 'null' || tv === 'undefined' || tv === 'NaN' || tv === 'Infinity') return tv;
   var s = '';
   try { s = JSON.stringify(v); } catch(e) { } // eslint-disable-line no-empty
@@ -25,7 +25,7 @@ exports.valueInfo = function (v, tv) {
  * @param {Number} ct - customTypes: 1 (allow), 0 (deny)
  * @returns {String}
  */
-exports.typeInfo = function (v, ct) {
+exports.typeInfo = function typeInfo(v, ct) {
   if (v === null || v === undefined) return String(v);
   if (v !== v) return 'NaN';
   var tv = typeof v;

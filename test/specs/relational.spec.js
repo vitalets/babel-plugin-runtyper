@@ -1,11 +1,11 @@
 'use strict';
 
-const tpl = 'Relational operator should be used for two numbers or two strings: {x} > {y}';
-const warn = getWarnFn(tpl);
-const getMsg = getMsgFn(tpl);
-let f;
-
 describe('relational', function () {
+
+  const tpl = 'Relational operator should be used for two numbers or two strings: {x} > {y}';
+  const warn = getWarnFn(tpl);
+  const getMsg = getMsgFn(tpl);
+  let f;
 
   describe('2 vars', function () {
     before(() => f = getFn('x > y'));

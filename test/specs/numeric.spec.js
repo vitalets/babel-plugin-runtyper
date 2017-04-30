@@ -1,10 +1,10 @@
 'use strict';
 
-const warn = getWarnFn('Numeric operation with non-numeric value: {x} * {y}');
-
-let f;
-
 describe('numeric', function () {
+
+  const warn = getWarnFn('Numeric operation with non-numeric value: {x} * {y}');
+  let f;
+
   describe('vars', function () {
     before(() => f = getFn('x * y'));
     it('warns for (number, string)', () => warn(f, 1, '1'));

@@ -1,10 +1,10 @@
 'use strict';
 
-const warnTypes = getWarnFn('Add operation with different types: {x} + {y}');
-const warnStringNumber = getWarnFn('Add operation should be used for numbers or strings: {x} + {y}');
-let f;
-
 describe('add', function () {
+
+  const warnTypes = getWarnFn('Add operation with different types: {x} + {y}');
+  const warnStringNumber = getWarnFn('Add operation should be used for numbers or strings: {x} + {y}');
+  let f;
 
   describe('vars', function () {
     before(() => f = getFn('x + y'));

@@ -1,8 +1,8 @@
 'use strict';
 
-let f;
-
 describe('comment', function () {
+
+  let f;
 
   describe('1 line', function () {
     it('should disable for 2 operands', function () {

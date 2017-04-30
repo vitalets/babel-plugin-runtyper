@@ -1,12 +1,12 @@
 'use strict';
 
-const tpl = 'Strict equal of different types: {x} === {y}';
-const warn = getWarnFn(tpl);
-const msg = getMsgFn(tpl);
-
-let f;
-
 describe('equal', function () {
+
+  const tpl = 'Strict equal of different types: {x} === {y}';
+  const warn = getWarnFn(tpl);
+  const msg = getMsgFn(tpl);
+
+  let f;
 
   describe('2 vars', function () {
     before(() => f = getFn('x === y'));

@@ -1,9 +1,9 @@
 'use strict';
 
-const msg = 'Add operation with different types: "1" (string) + 1 (number)';
-let f, spy;
-
 describe('options', function () {
+
+  const msg = 'Add operation with different types: "1" (string) + 1 (number)';
+  let f, spy;
 
   it('should not throw on correct values', function () {
     f = () => getFn('x === 1', {

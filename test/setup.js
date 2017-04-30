@@ -1,17 +1,17 @@
 'use strict';
 
-const path = require('path');
-const babel = require('babel-core');
+const assert = require('chai').assert;
+const babel = require('babel-standalone');
+const runtyper = require('../src');
 const utils = require('../src/utils');
 
-global.assert = require('chai').assert;
+global.assert = assert;
+babel.registerPlugin('babel-plugin-runtyper', runtyper);
 
 global.getFn = function (str, pluginOptions) {
-  const relPath = './src/index.js';
   const plugins = [
-    [relPath, pluginOptions]
+    ['babel-plugin-runtyper', pluginOptions]
   ];
-  delete require.cache[path.resolve(relPath)];
   const fnBody = babel.transform(str, {plugins}).code;
   return new Function('x', 'y', `return ${fnBody}`);
 };
