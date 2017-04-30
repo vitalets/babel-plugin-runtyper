@@ -1,0 +1,66 @@
+'use strict';
+
+const baseFn = require('./karma.conf');
+
+module.exports = function (config) {
+  if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
+    // eslint-disable-next-line no-console
+    console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');
+    process.exit(1);
+  }
+
+  baseFn(config);
+
+  // Browsers to run on Sauce Labs
+  // Check out https://saucelabs.com/platforms for all browser/OS combos
+  var customLaunchers = {
+    chrome_osx: {
+      base: 'SauceLabs',
+      browserName: 'chrome',
+      platform: 'OS X 10.11',
+      version: 'latest'
+    },
+    chrome_osx_beta: {
+      base: 'SauceLabs',
+      browserName: 'chrome',
+      platform: 'OS X 10.11',
+      version: 'beta'
+    },
+    chrome_win7: {
+      base: 'SauceLabs',
+      browserName: 'chrome',
+      platform: 'Windows 7',
+      version: 'latest'
+    },
+    firefox_osx: {
+      base: 'SauceLabs',
+      browserName: 'firefox',
+      platform: 'OS X 10.11',
+      version: 'latest'
+    },
+    safari_osx: {
+      base: 'SauceLabs',
+      browserName: 'safari',
+      platform: 'OS X 10.11',
+      version: '10.0'
+    },
+  };
+
+  config.set({
+    sauceLabs: {
+      testName: 'runtyper',
+      recordScreenshots: false,
+      connectOptions: {
+        port: 5757,
+        // logfile: 'sauce_connect.log'
+      },
+      public: 'public'
+    },
+    // Increase timeout in case connection in CI is slow
+    captureTimeout: 120000,
+    customLaunchers: customLaunchers,
+    browsers: Object.keys(customLaunchers),
+    reporters: ['dots', 'saucelabs'],
+    singleRun: true
+  });
+};
