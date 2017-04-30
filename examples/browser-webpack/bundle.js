@@ -102,7 +102,7 @@ module.exports = g;
 
 function square(n) {
   return function multiply(a, b) {
-    var t = function (v, ct) {
+    var t = function typeInfo(v, ct) {
       if (v === null || v === undefined) return String(v);
       if (v !== v) return 'NaN';
       var tv = typeof v;
@@ -112,8 +112,8 @@ function square(n) {
       if (!c) return tv;
       if (c === 'Object') c = 'object';
       if (ct) return c;
-      var g = global || window;
-      var isNative = g && /\{\s*\[native code\]\s*\}/.test(String(g[c]));
+      var g = typeof global === 'object' ? global : typeof window === 'object' ? window : null;
+      var isNative = g && g[c] && /\{\s*\[native code\]\s*\}/.test(String(g[c]));
       return isNative ? c : tv;
     };
 
@@ -128,7 +128,7 @@ function square(n) {
     }
 
     if (msg) {
-      var s = function (v, tv) {
+      var s = function valueInfo(v, tv) {
         if (tv === 'null' || tv === 'undefined' || tv === 'NaN' || tv === 'Infinity') return tv;
         var s = '';
 
