@@ -21,6 +21,8 @@
     "test": "mocha test/specs --require test/setup",
     "test-sauce": "npm run karma -- karma-sauce.conf.js",
     "karma": "webpack test/setup.js test/setup.bundle.js && ./node_modules/karma/bin/karma start",
+    "ci-node": "npm run code && npm test",
+    "ci-node-sauce": "npm run ci-node && npm run test-sauce",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
     "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags --no-verify",
     "symlink": "ln -s $(pwd) ./node_modules/babel-plugin-runtyper",

@@ -5,11 +5,15 @@ node_js:
   - '6'
   - '7'
 
+env:
+
 matrix:
   include:
     - node_js: '4'
-      script: npm run code && npm test
+      env: SCRIPT=ci-node
     - node_js: '6'
-      script: npm run code && npm test && npm run test-sauce
+      env: SCRIPT=ci-node-sauce
     - node_js: '7'
-      script: npm run code && npm test
+      env: SCRIPT=ci-node
+
+script: npm run $SCRIPT
