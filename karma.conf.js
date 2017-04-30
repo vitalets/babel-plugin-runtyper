@@ -6,9 +6,6 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: true,
     files: [
-      //'test/specs/comment.spec.js'
-      //'test/specs/options.spec.js'
-      //'test/specs/add.spec.js'
       'test/specs/**/*.js'
     ],
     client: {
