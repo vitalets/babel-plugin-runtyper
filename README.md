@@ -20,6 +20,7 @@ Types are guessed by code itself. No manual annotations needed.
 - [Ignore line](#ignore-line)
 - [Run on existing project](#run-on-existing-project)
 - [Usage with static tools](#usage-with-static-tools)
+- [Articles](#articles)
 - [FAQ](#faq)
 - [Related links](#related-links)
 - [License](#license)
@@ -193,7 +194,7 @@ Default configuration is rather strict. You can start with the softest:
     implicitEqualCustomTypes: 'allow'
 }
 ```
-I got following results on one long-running project:
+The result can be something like this:
 ```
 Error: Strict equal of different types: -1 (number) === "" (string)
 Error: Strict equal of different types: 2 (number) === "" (string)
@@ -243,6 +244,9 @@ Runtyper allows to catch such cases in runtime:
 ![Textfield error](https://cloud.githubusercontent.com/assets/1473072/24371601/f8d10ab0-1333-11e7-8baf-6b6501accd29.png)
 
 Consider both approaches to make your applications more robust and reliable.
+
+## Articles
+* [Analyzing React’s Source Code for Type Mismatch Operations](https://medium.com/dailyjs/analyzing-reacts-source-code-for-type-mismatch-operations-9ca065e5b91) 
 
 ## FAQ
 1. **Why I get error for [template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) like `${name}${index}`?**  
