@@ -4,10 +4,10 @@
 [![license](https://img.shields.io/npm/l/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/vitalets/babel-plugin-runtyper.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fvitalets%2Fbabel-plugin-runtyper&text=Runtime%20type%20checker%20for%20JavaScript%20without%20annotations%3A&hashtags=javascript%2Ctypechecking%2Cbabelplugin)
 
-> [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
+> Runtyper is a [Babel](https://babeljs.io) plugin for runtime type-checking of JavaScript code
 
-*Runtyper* protects you from silent type-mismatch operations in JavaScript code.
-Include it to development builds and it will notify your every time it detects weirdness.
+*Runtyper* protects you from silent type-mismatch operations in JavaScript.
+Include it into development build and it will notify your every time it detects potential type problem.
 Types are guessed by code itself. No manual annotations needed.
 
 ## Contents
@@ -208,14 +208,16 @@ Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) 
 
 ## Usage with static tools
 Static code analysis is also the way to perform type checking. 
-For example, there is Facebook's [Flow](https://flowtype.org) project.
-You can use Runtyper together with Flow to detect errors on both pre-runtime and runtime stages.
+For example, there is [Flow](https://flowtype.org) from Facebook and [TypeScript](https://www.typescriptlang.org) from Microsoft.
+You can use Runtyper together with them to detect errors on both pre-runtime and runtime stages.
 
 Yet, static tools need extra efforts for:
-* Writing type-annotations (may be annoying)
+* Writing type-annotations
 * Integration with third-party libraries (as their API should be also annotated)
 * Processing external events from user / server (many different formats)
-* Involving new members (who is not familiar with typed JavaScript)
+* Training new members who is not familiar with typed JavaScript
+
+> Learn more about pros and cons of static types in great Eric Elliott's article [You Might Not Need TypeScript (or Static Types)](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b).
 
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
 ```js
