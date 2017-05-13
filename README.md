@@ -217,7 +217,7 @@ Yet, static tools need extra efforts for:
 * Processing external events from user / server (many different formats)
 * Training new members who is not familiar with typed JavaScript
 
-> Learn more about pros and cons of static types in great Eric Elliott's article [You Might Not Need TypeScript (or Static Types)](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b).
+> To learn more about pros and cons of static types have a look on Eric Elliott's article [You Might Not Need TypeScript (or Static Types)](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b).
 
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
 ```js
