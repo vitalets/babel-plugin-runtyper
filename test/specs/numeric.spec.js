@@ -65,5 +65,25 @@ describe('numeric', function () {
       const f = getFn('x % y');
       assert.equal(f(3, 2), 1);
     });
+
+    it('minus & multiply', function () {
+      const f = getFn('x - y * 3');
+      assert.equal(f(4, 2), -2);
+    });
+
+    it('minus (with brackets) & multiply', function () {
+      const f = getFn('(x - y) * 3');
+      assert.equal(f(4, 2), 6);
+    });
+
+    it('multiply & minus', function () {
+      const f = getFn('x * 3 - y');
+      assert.equal(f(3, 2), 7);
+    });
+
+    it('multiply & minus (with brackets)', function () {
+      const f = getFn('x * (3 - y)');
+      assert.equal(f(3, 2), 3);
+    });
   });
 });
