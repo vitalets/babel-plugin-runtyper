@@ -47,17 +47,21 @@ or you can configure it to throw errors:
 ## Usage 
 1. No changes to your existing codebase needed.
 2. Add `babel-plugin-runtyper` to Babel config in development builds.  
-    For example, directly in terminal: 
-    ```bash
-    babel in.js -o out.js --plugins=babel-plugin-runtyper --source-maps
+    For example, in `.babelrc`:
+    ```json
+    {
+      "plugins": [
+        ["babel-plugin-runtyper", {"enabled": true}]
+      ]
+    }
     ```
-    or in `package.json`:
+    or in `package.json` script:
     ```json
     "scripts": {
-      "babel-dev": "babel in.js -o out.js --plugins=babel-plugin-runtyper --source-maps"
+      "runtyper": "babel src --out-dir out --plugins=babel-plugin-runtyper --source-maps"
     }
     ``` 
-    or with [webpack babel-loader](https://webpack.js.org/loaders/babel-loader/):
+    or in [webpack babel-loader](https://webpack.js.org/loaders/babel-loader/):
     ```js
     {
         test: /\.js$/,
@@ -185,13 +189,13 @@ Default configuration is rather strict. You can start with the softest:
 ```js
 {
     enabled: true,
-    implicitAddStringNumber: 'allow',
-    implicitEqualNull: 'allow',
-    implicitEqualUndefined: 'allow',
-    explicitAddEmptyString: 'allow',
-    explicitEqualTrue: 'allow',
-    explicitEqualFalse: 'allow',
-    implicitEqualCustomTypes: 'allow'
+    implicitAddStringNumber: "allow",
+    implicitEqualNull: "allow",
+    implicitEqualUndefined: "allow",
+    explicitAddEmptyString: "allow",
+    explicitEqualTrue: "allow",
+    explicitEqualFalse: "allow",
+    implicitEqualCustomTypes: "allow"
 }
 ```
 The result can be something like this:
