@@ -12,11 +12,11 @@ Types are guessed by code itself. No manual annotations needed.
 
 ## Contents
 - [Example](#example)
+- [How it works](#how-it-works)
 - [Installation](#installation)
 - [Usage](#usage)
-- [How it works](#how-it-works)
-- [Supported operators](#supported-operators)
 - [Configuration](#configuration)
+- [Supported operators](#supported-operators)
 - [Ignore line](#ignore-line)
 - [Run on existing project](#run-on-existing-project)
 - [Usage with static tools](#usage-with-static-tools)
@@ -36,10 +36,28 @@ or you can configure it to throw errors:
 
 ![Strict compare error example](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
 
+## How it works
+Runtyper wraps all type-important operations into function.
+When line executed, function checks argument types and returns original result.  
+For example, before: 
+```js
+if (x === y) { ... }
+```
+After (simplified):
+```js
+if (strictEqual(x, y)) { ... }
+
+function strictEqual(a, b) {
+  if (typeof a !== typeof b) {
+    console.warn('Strict compare of different types: ' + typeof a + ' === ' + typeof b);
+  }
+  return a === b;
+}
+```
 
 ## Installation
 1. Ensure you have [Babel installed](https://babeljs.io/docs/setup/)
-2. Run in terminal:
+2. Install Runtyper from npm:
   ```bash
   npm install babel-plugin-runtyper --save-dev
   ```
@@ -96,25 +114,33 @@ or you can configure it to throw errors:
 
 > Tip: checkout [examples](examples) directory to see browser and Node.js demos
 
-
-## How it works
-Runtyper wraps all type-important operations into function.
-When line executed, function checks argument types and returns original result.  
-For example, before: 
+## Configuration
+To configure plugin pass it to Babel as array:
 ```js
-if (x === y) { ... }
+  plugins: [
+      ['babel-plugin-runtyper', options]
+  ]
 ```
-After (simplified):
-```js
-if (strictEqual(x, y)) { ... }
+**Options**
 
-function strictEqual(a, b) {
-  if (typeof a !== typeof b) {
-    console.warn('Strict compare of different types: ' + typeof a + ' === ' + typeof b);
-  }
-  return a === b;
-}
-```
+| Name                         | Default  | Values                                   | Description                                        |
+|------------------------------|----------|------------------------------------------|----------------------------------------------------|
+| `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
+| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified                      |
+| `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + y` where `x, y` are `(string, number)` |
+| `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `null`        |
+| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `undefined`   |
+| `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + ""` where `x` is not `string`          |
+| `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === true` where `x` is not `boolean`     |
+| `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === false` where `x` is not `boolean`    |
+| `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x instanceof MyClass1` and `y instanceof MyClass2` |
+
+**Warning level description**
+ 
+ * `info` - notification via `console.info` without stacktrace
+ * `warn` - notification via `console.warn` with stacktrace
+ * `error` - notification via `console.error` with stacktrace
+ * `break` - notification via throwing error and breaking execution
 
 ## Supported operators
 * **Strict equality (`===, !==`)**  
@@ -156,34 +182,6 @@ function strictEqual(a, b) {
   2 < [11, null]  // false (but 2 < [11] is true)
   ...
   ```
-
-## Configuration
-To configure plugin pass it to Babel as array:
-```js
-  plugins: [
-      ['babel-plugin-runtyper', options]
-  ]
-```
-**Options**
-
-| Name                         | Default  | Values                                   | Description                                        |
-|------------------------------|----------|------------------------------------------|----------------------------------------------------|
-| `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
-| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified                      |
-| `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + y` where `x, y` are `(string, number)` |
-| `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `null`        |
-| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `undefined`   |
-| `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + ""` where `x` is not `string`          |
-| `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === true` where `x` is not `boolean`     |
-| `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === false` where `x` is not `boolean`    |
-| `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x instanceof MyClass1` and `y instanceof MyClass2` |
-
-**Warning level description**
- 
- * `info` - notification via `console.info` without stacktrace
- * `warn` - notification via `console.warn` with stacktrace
- * `error` - notification via `console.error` with stacktrace
- * `break` - notification via throwing error and breaking execution
 
 ## Ignore line
 You can exclude line from checking by special comment:
