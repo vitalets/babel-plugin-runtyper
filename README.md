@@ -46,35 +46,45 @@ or you can configure it to throw errors:
 
 ## Usage 
 1. No changes to your existing codebase needed.
-2. Add `babel-plugin-runtyper` to Babel config in development builds.  
-    For example, in `.babelrc`:
-    ```json
-    {
-      "plugins": [
-        ["babel-plugin-runtyper", {"enabled": true}]
-      ]
-    }
-    ```
-    or in `package.json` script:
-    ```json
-    "scripts": {
-      "runtyper": "babel src --out-dir out --plugins=babel-plugin-runtyper --source-maps"
-    }
-    ``` 
-    or in [webpack babel-loader](https://webpack.js.org/loaders/babel-loader/):
-    ```js
-    {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        loader: 'babel-loader',
-        query: {
-            plugins: [
-                ['babel-plugin-runtyper', {enabled: process.env.NODE_ENV !== 'production'}]
-            ]
+2. Add `babel-plugin-runtyper` to Babel config.  
+    * in `.babelrc`:
+        ```json
+        {
+          "plugins": ["babel-plugin-runtyper"]
         }
-    }
-    ```
-    > Please note to run webpack as `NODE_ENV='production' webpack -p` (see [#2537](https://github.com/webpack/webpack/issues/2537))
+        ```
+        To apply plugin only for *development* builds you may use Babel's [env](https://babeljs.io/docs/usage/babelrc/#env-option) option:
+        ```json
+        {
+          "env": {
+            "development": {
+              "plugins": ["babel-plugin-runtyper"]
+            }
+          }
+        }
+        ```
+        
+    * in [webpack config](https://webpack.js.org/loaders/babel-loader/):
+        ```js
+        {
+            test: /\.js$/,
+            exclude: /(node_modules)/,
+            loader: 'babel-loader',
+            query: {
+                plugins: [
+                    ['babel-plugin-runtyper', {enabled: process.env.NODE_ENV !== 'production'}]
+                ]
+            }
+        }
+        ```
+        > Please note to run webpack as `NODE_ENV='production' webpack -p` (see [#2537](https://github.com/webpack/webpack/issues/2537))
+        
+    * in `package.json` scripts:
+        ```json
+        "scripts": {
+          "runtyper": "babel src --out-dir out --plugins=babel-plugin-runtyper --source-maps"
+        }
+        ```     
 
 3. Enable source-maps to see original place of error:
   * In Chrome set `Enable JavaScript source maps` in devtools settings
