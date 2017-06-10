@@ -32,13 +32,13 @@ After applying Runtyper it will show warning when such situation happen:
 
 ![Strict compare warning example](https://cloud.githubusercontent.com/assets/1473072/24467786/8b531758-14be-11e7-80da-32de20e04d38.png)
 
-or you can configure it to throw errors:
+or you can configure to throw errors:
 
 ![Strict compare error example](https://cloud.githubusercontent.com/assets/1473072/24371480/926108e8-1333-11e7-8e17-0223ed0c21ad.png)
 
 ## How it works
 Runtyper wraps all type-important operations into function.
-When line executed, function checks argument types and returns original result.  
+When line is executed, function checks the argument types first and only then returns the result.  
 For example, before: 
 ```js
 if (x === y) { ... }
@@ -64,14 +64,14 @@ function strictEqual(a, b) {
 
 ## Usage 
 1. No changes to your existing codebase needed.
-2. Add `babel-plugin-runtyper` to Babel config.  
+2. Add `babel-plugin-runtyper` to Babel config:  
     * in `.babelrc`:
         ```json
         {
           "plugins": ["babel-plugin-runtyper"]
         }
         ```
-        To apply plugin only for *development* builds you may use Babel's [env](https://babeljs.io/docs/usage/babelrc/#env-option) option:
+        To apply plugin only for *development* builds consider Babel's [env](https://babeljs.io/docs/usage/babelrc/#env-option) option:
         ```json
         {
           "env": {
