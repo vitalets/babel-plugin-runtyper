@@ -126,7 +126,7 @@ To configure plugin pass it to Babel as array:
 | Name                         | Default  | Values                                   | Description                                        |
 |------------------------------|----------|------------------------------------------|----------------------------------------------------|
 | `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
-| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified                      |
+| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified in console          |
 | `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + y` where `x, y` are `(string, number)` |
 | `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `null`        |
 | `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `undefined`   |
