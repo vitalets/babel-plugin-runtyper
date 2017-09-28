@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/npm/l/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/vitalets/babel-plugin-runtyper.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fvitalets%2Fbabel-plugin-runtyper&text=Runtime%20type%20checker%20for%20JavaScript%20without%20annotations%3A&hashtags=javascript%2Ctypechecking%2Cbabelplugin)
 
-> Runtyper is a [Babel](https://babeljs.io) plugin for runtime type-checking of JavaScript code
+> A [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
 
 *Runtyper* protects you from silent type-mismatch operations in JavaScript.
 Include it into the development build of your app and it will notify you about all type-conversion problems.
