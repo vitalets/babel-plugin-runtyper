@@ -12,7 +12,7 @@
 
 'use strict';
 
-const DISABLE_LINE_REGEX = /^\s*runtyper\-disable\-line/i;
+const DISABLE_LINE_REGEX = /^\s*runtyper-disable-line/i;
 
 module.exports = class Comments {
   constructor(state) {

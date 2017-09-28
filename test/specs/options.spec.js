@@ -18,12 +18,12 @@ describe('options', function () {
   describe('common checks', function () {
     it('should throw on incorrect option name', function () {
       f = () => getFn('x === 1', {abc: 1});
-      assert.throws(f, 'AssertionError: unknown: Unknown Runtyper option name: abc');
+      assert.throws(f, /Unknown Runtyper option name: abc/);
     });
 
     it('should throw on incorrect option type', function () {
       f = () => getFn('x === 1', {enabled: 'true'});
-      assert.throws(f, 'AssertionError: unknown: Incorrect Runtyper option type: enabled true (string)');
+      assert.throws(f, /Incorrect Runtyper option type: enabled true \(string\)/);
     });
   });
 
@@ -31,10 +31,7 @@ describe('options', function () {
 
     it('should throw on incorrect value', function () {
       f = () => getFn('x === 1', {warnLevel: 'abc'});
-      assert.throws(f,
-        'AssertionError: unknown: Incorrect Runtyper option value: warnLevel = abc, ' +
-        'possible values: info,warn,error,break'
-      );
+      assert.throws(f, /Incorrect Runtyper option value: warnLevel = abc, possible values: info,warn,error,break/);
     });
 
     it('info', function () {
@@ -68,10 +65,7 @@ describe('options', function () {
 
     it('should throw on incorrect value', function () {
       f = () => getFn('x === 1', {implicitAddStringNumber: 'abc'});
-      assert.throws(f,
-        'AssertionError: unknown: Incorrect Runtyper option value: ' +
-        'implicitAddStringNumber = abc, possible values: allow,deny'
-      );
+      assert.throws(f, /Incorrect Runtyper option value: implicitAddStringNumber = abc, possible values: allow,deny/);
     });
 
     it('allow', function () {
