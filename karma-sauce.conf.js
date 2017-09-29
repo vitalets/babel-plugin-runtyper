@@ -1,3 +1,9 @@
+/**
+ * Sauce configuration docs:
+ * https://wiki.saucelabs.com/display/DOCS/Platform+Configurator
+ * https://wiki.saucelabs.com/display/DOCS/Desired+Capabilities+Required+for+Selenium+and+Appium+Tests
+ */
+
 'use strict';
 
 const baseFn = require('./karma.conf');
@@ -14,11 +20,11 @@ module.exports = function (config) {
   // Browsers to run on Sauce Labs
   // Check out https://saucelabs.com/platforms for all browser/OS combos
   const customLaunchers = {
-    chrome_osx: {
+    edge_win10: {
       base: 'SauceLabs',
-      browserName: 'chrome',
-      platform: 'OS X 10.11',
-      version: 'latest'
+      browserName: 'MicrosoftEdge',
+      platform: 'Windows 10',
+      version: '15.15063'
     },
     chrome_osx_beta: {
       base: 'SauceLabs',
