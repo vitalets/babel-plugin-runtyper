@@ -13,7 +13,7 @@ module.exports = function (config) {
 
   // Browsers to run on Sauce Labs
   // Check out https://saucelabs.com/platforms for all browser/OS combos
-  var customLaunchers = {
+  const customLaunchers = {
     chrome_osx: {
       base: 'SauceLabs',
       browserName: 'chrome',
@@ -50,14 +50,10 @@ module.exports = function (config) {
     sauceLabs: {
       testName: 'runtyper',
       recordScreenshots: false,
-      connectOptions: {
-        port: 5757,
-        // logfile: 'sauce_connect.log'
-      },
       public: 'public'
     },
     // Increase timeout in case connection in CI is slow
-    captureTimeout: 120000,
+    captureTimeout: 120 * 1000,
     customLaunchers: customLaunchers,
     browsers: Object.keys(customLaunchers),
     reporters: ['dots', 'saucelabs'],
