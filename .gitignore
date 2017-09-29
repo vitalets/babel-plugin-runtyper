@@ -8,3 +8,4 @@ npm-debug.log
 
 /roadmap.txt
 /test/setup.bundle.js
+/.env
