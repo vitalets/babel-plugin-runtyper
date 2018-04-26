@@ -132,7 +132,7 @@ To configure plugin pass it to Babel as array:
 | `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified        |
 | `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Allow/deny `(variable1) + (variable2)` where `(variable1), (variable1)` are `(string, number)` |
 | `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === (variable2)` where `(variable1)` or `(variable2)` is `null`        |
-| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === y` where `(variable1)` or `(variable2)` is `undefined`   |
+| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === (variable2)` where `(variable1)` or `(variable2)` is `undefined`   |
 | `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Allow/deny `(variable) + ""` where `(variable)` is not `string`          |
 | `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === true` where `(variable)` is not `boolean`     |
 | `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === false` where `(variable)` is not `boolean`    |
