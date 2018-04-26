@@ -1,8 +1,12 @@
+/**
+ * Common options checks.
+ * Specific options are checked in corresponding specs.
+ */
+
 'use strict';
 
 describe('options', function () {
 
-  const msg = 'Add operation with different types: "1" (string) + 1 (number)';
   let f, spy;
 
   it('should not throw on correct values', function () {
@@ -28,7 +32,6 @@ describe('options', function () {
   });
 
   describe('warnLevel', function () {
-
     it('should throw on incorrect value', function () {
       f = () => getFn('x === 1', {warnLevel: 'abc'});
       assert.throws(f, /Incorrect Runtyper option value: warnLevel = abc, possible values: info,warn,error,break/);
@@ -38,36 +41,30 @@ describe('options', function () {
       f = getFn('x + 1', {warnLevel: 'info'});
       spy = consoleSpy('info');
       f('1');
-      assert.equal(spy.getMessage(), msg);
+      assert.equal(spy.getMessage(), 'Add operation with different types: "1" (string) + 1 (number)');
     });
 
     it('warn', function () {
       f = getFn('x + 1', {warnLevel: 'warn'});
       spy = consoleSpy('warn');
       f('1');
-      assert.equal(spy.getMessage(), msg);
+      assert.equal(spy.getMessage(), 'Add operation with different types: "1" (string) + 1 (number)');
     });
 
     it('error', function () {
       f = getFn('x + 1', {warnLevel: 'error'});
       spy = consoleSpy('error');
       f('1');
-      assert.equal(spy.getMessage(), msg);
+      assert.equal(spy.getMessage(), 'Add operation with different types: "1" (string) + 1 (number)');
     });
 
     it('break', function () {
       f = getFn('x + 1', {warnLevel: 'break'});
-      assert.throws(() => f('1'), msg);
+      assert.throws(() => f('1'), /Add operation with different types: "1" \(string\) \+ 1 \(number\)/);
     });
   });
 
-  describe('rules', function () {
-
-    it('should throw on incorrect value', function () {
-      f = () => getFn('x === 1', {implicitAddStringNumber: 'abc'});
-      assert.throws(f, /Incorrect Runtyper option value: implicitAddStringNumber = abc, possible values: allow,deny/);
-    });
-
+  describe('allow / deny', function () {
     it('allow', function () {
       f = getFn('x + 1', {implicitAddStringNumber: 'allow'});
       spy = consoleSpy('warn');
@@ -79,9 +76,8 @@ describe('options', function () {
       f = getFn('x + 1', {implicitAddStringNumber: 'deny'});
       spy = consoleSpy('warn');
       f('1');
-      assert.equal(spy.getMessage(), msg);
+      assert.equal(spy.getMessage(), 'Add operation with different types: "1" (string) + 1 (number)');
     });
-
   });
 
 });
