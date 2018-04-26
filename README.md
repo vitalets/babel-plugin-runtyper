@@ -4,11 +4,11 @@
 [![npm](https://img.shields.io/npm/v/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 [![license](https://img.shields.io/npm/l/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 
-> A [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
+> Protect your JavaScript app from silent type-mismatch operations in runtime
 
-*Runtyper* protects you from silent type-mismatch operations in JavaScript.
-Include it into the development build of your app and it will notify you about all type-conversion problems in runtime.
-No manual annotations needed.
+*Runtyper* is a [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript. 
+Enable it in the development build - and it will warn you about existing or potential type-conversion problems.
+As it works in runtime - no manual code-annotations needed.
 
 Tested in:  
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/runtyper.svg)](https://saucelabs.com/u/runtyper)
@@ -124,19 +124,19 @@ To configure plugin pass it to Babel as array:
       ['babel-plugin-runtyper', options]
   ]
 ```
-**Options**
+#### Options
 
 | Name                         | Default  | Values                                   | Description                                        |
 |------------------------------|----------|------------------------------------------|----------------------------------------------------|
 | `enabled`                    | `true`   | `true`, `false`                          | Is plugin enabled                                  |
-| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified in console          |
-| `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + y` where `x, y` are `(string, number)` |
-| `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `null`        |
-| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x` or `y` is `undefined`   |
-| `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Allows `x + ""` where `x` is not `string`          |
-| `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === true` where `x` is not `boolean`     |
-| `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === false` where `x` is not `boolean`    |
-| `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                        | Allows `x === y` where `x instanceof MyClass1` and `y instanceof MyClass2` |
+| `warnLevel`                  | `"warn"` | `"info"`, `"warn"`, `"error"`, `"break"` | How do you want to be notified        |
+| `implicitAddStringNumber`    | `"deny"` | `"allow"`, `"deny"`                      | Allow/deny `(variable1) + (variable2)` where `(variable1), (variable1)` are `(string, number)` |
+| `implicitEqualNull`        | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === (variable2)` where `(variable1)` or `(variable2)` is `null`        |
+| `implicitEqualUndefined`   | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === y` where `(variable1)` or `(variable2)` is `undefined`   |
+| `explicitAddEmptyString`     | `"deny"` | `"allow"`, `"deny"`                      | Allow/deny `(variable) + ""` where `(variable)` is not `string`          |
+| `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === true` where `(variable)` is not `boolean`     |
+| `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === false` where `(variable)` is not `boolean`    |
+| `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === (variable2)` where `(variable1) instanceof MyClass1` and `(variable2) instanceof MyClass2` |
 
 **Warning level description**
  
@@ -144,6 +144,32 @@ To configure plugin pass it to Babel as array:
  * `warn` - notification via `console.warn` with stacktrace
  * `error` - notification via `console.error` with stacktrace
  * `break` - notification via throwing error and breaking execution
+
+#### The softest configuration
+By default configuration is very strict. You can start with the softest one:
+```js
+{
+    enabled: true,
+    implicitAddStringNumber: "allow",
+    implicitEqualNull: "allow",
+    implicitEqualUndefined: "allow",
+    explicitAddEmptyString: "allow",
+    explicitEqualTrue: "allow",
+    explicitEqualFalse: "allow",
+    implicitEqualCustomTypes: "allow"
+}
+```
+The result can be something like this:
+```
+Error: Strict equal of different types: -1 (number) === "" (string)
+Error: Strict equal of different types: 2 (number) === "" (string)
+Error: Strict equal of different types: 56.9364 (number) === "" (string)
+Error: Strict equal of different types: -0.0869 (number) === "" (string)
+Error: Numeric operation with non-numeric value: null / 60 (number)
+Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) / 1000 (number)
+Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) / 1000 (number)
+...
+```
 
 ## Supported operators
 * **Strict equality (`===, !==`)**  
@@ -195,21 +221,9 @@ if (x === y) { // runtyper-disable-line
 ```
 
 ## Run on existing project
-You can try Runtyper on existing project because no special annotations needed.
-Default configuration is rather strict. You can start with the softest:
-```js
-{
-    enabled: true,
-    implicitAddStringNumber: "allow",
-    implicitEqualNull: "allow",
-    implicitEqualUndefined: "allow",
-    explicitAddEmptyString: "allow",
-    explicitEqualTrue: "allow",
-    explicitEqualFalse: "allow",
-    implicitEqualCustomTypes: "allow"
-}
-```
-The result can be something like this:
+You can easily try Runtyper on existing project because no special code-annotations needed. 
+Just build your project with Runtyper enabled and perform some actions in the app. Then inspect the console.
+You may see some warnings about type-mismatch operations:
 ```
 Error: Strict equal of different types: -1 (number) === "" (string)
 Error: Strict equal of different types: 2 (number) === "" (string)
@@ -275,14 +289,11 @@ Consider both approaches to make your applications more robust and reliable.
     * consider using [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) as
      many browsers already have native support of template literals
 
-2. **Why explicit comparings like `x === null` or `x === undefined` are not warned?**  
-  When you explicitly write `(variable) === null` you assume that variable *can be* `null`. 
-  Another thing is implicit compare of two variables `x === y`. Here it depends on your app desing. 
-  If `x` and `y` are *not nullable*, you may want to get warnings. 
-  Otherwise you can set plugin options `implicitCompareNull` and `implicitCompareUndefined` to `"allow"`.
+2. **Why explicit comparing like `x === null` or `x === undefined` are not warned?**  
+  When you explicitly write `(variable) === null` you assume that variable *can be* `null`.   
 
 3. **Does it check non-strict equal `==` and `!=`?**  
-  Nope. Just quote Douglas Crockford from [JavaScript, the Good Parts](http://oreilly.com/catalog/9780596517748/):
+  Nope. Non-strict comparison is a bad thing in most cases. Just quote Douglas Crockford from [JavaScript, the Good Parts](http://oreilly.com/catalog/9780596517748/):
     > JavaScript has two sets of equality operators: `===` and `!==`, and their evil twins `==` and `!=`. 
       The good ones work the way you would expect. If the two operands are of the same type and have the same value, 
       then `===` produces `true` and `!==` produces `false`. The evil twins do the right thing when the operands
@@ -307,7 +318,7 @@ Consider both approaches to make your applications more robust and reliable.
 
     >  **The lack of transitivity is alarming. My advice is to never use `==` and `!=`. Instead, always use `===` and `!==`.**
     
-    Explicit is always better when magic, especially for readers of your code. 
+    Explicit is always better when implicit, especially for readers of your code. 
     You can set ESLint [eqeqeq rule](http://eslint.org/docs/rules/eqeqeq) and forget about `==` once and for all.
     
 *If you have other questions or ideas feel free to [open new issue](https://github.com/vitalets/babel-plugin-runtyper/issues/new).*
