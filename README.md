@@ -7,8 +7,8 @@
 > A [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript
 
 *Runtyper* protects you from silent type-mismatch operations in JavaScript.
-Include it into the development build of your app and it will notify you about all type-conversion problems.
-Types are guessed by code itself. No manual annotations needed.
+Include it into the development build of your app and it will notify you about all type-conversion problems in runtime.
+No manual annotations needed.
 
 Tested in:  
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/runtyper.svg)](https://saucelabs.com/u/runtyper)
