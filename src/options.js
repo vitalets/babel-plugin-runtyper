@@ -4,7 +4,9 @@ const assert = require('assert');
 
 const WARN_LEVELS = ['info', 'warn', 'error', 'break'];
 const RULE_VALUES = ['allow', 'deny'];
+const EXCLUDE_VALUES = ['equal', 'numeric', 'add', 'relational'];
 const RULE_NAME_REG = /^(implicit|explicit)/;
+
 
 const defaults = {
   enabled: true,
@@ -16,17 +18,14 @@ const defaults = {
   implicitEqualCustomTypes: 'deny',
   explicitEqualTrue: 'deny',
   explicitEqualFalse: 'deny',
+  exclude: []
 };
 
 exports.create = function (passedOpts) {
   const options = Object.assign({}, defaults);
   Object.keys(passedOpts).forEach(key => {
     const value = passedOpts[key];
-    assertRenamedOptions(key);
-    assertName(key);
-    assertType(key, value);
-    assertWarnLevel(key, value);
-    assertRules(key, value);
+    runAssertions(key, value);
     if (value !== undefined) {
       options[key] = value;
     }
@@ -34,6 +33,15 @@ exports.create = function (passedOpts) {
   warnIfProduction(options);
   return options;
 };
+
+function runAssertions(key, value) {
+  assertRenamedOptions(key);
+  assertName(key);
+  assertType(key, value);
+  assertWarnLevel(key, value);
+  assertExclude(key, value);
+  assertRules(key, value);
+}
 
 function assertName(key) {
   assert(defaults.hasOwnProperty(key), `Unknown Runtyper option name: ${key}`);
@@ -50,6 +58,16 @@ function assertWarnLevel(key, value) {
     assert(WARN_LEVELS.indexOf(value) >= 0,
       `Incorrect Runtyper option value: ${key} = ${value}, possible values: ${WARN_LEVELS}`
     );
+  }
+}
+
+function assertExclude(key, excludeValues) {
+  if (key === 'exclude') {
+    for(const value of excludeValues) {
+      assert(EXCLUDE_VALUES.indexOf(value) >= 0,
+        `Incorrect Runtyper option value: ${key} = [${excludeValues}], possible values: [${EXCLUDE_VALUES}]`
+      );
+    }
   }
 }
 
