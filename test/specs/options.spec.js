@@ -8,6 +8,8 @@
 describe('options', function () {
 
   let f, spy;
+  const equal_tempale = 'Strict equal of different types: {x} === {y}';
+  const warnEqual = getWarnFn(equal_tempale);
 
   it('should not throw on correct values', function () {
     f = () => getFn('x === 1', {
@@ -80,4 +82,71 @@ describe('options', function () {
     });
   });
 
+  describe('excludeOperators = ["equal"]', function () {
+    before(() => f = getFn('x === y',  {
+      excludeOperators: ['equal']
+    }));
+    it('does not warn for (null, number)', () => doesNotWarn(f, null, 1));
+    it('does not warn for (number, undefined)', () => doesNotWarn(f, 1, undefined));
+    it('does not warn for (string, number)', () => doesNotWarn(f, 'hello', 3));
+    it('does not warn for (undefined, undefined)', () => doesNotWarn(f, undefined, undefined));
+    it('does not warn for (null, null)', () => doesNotWarn(f, null, null));
+
+  });
+
+  describe('excludeOperators = ["numeric"]', function () {
+    before(() => f = getFn('x * y',  {
+      excludeOperators: ['numeric']
+    }));
+    it('does not warn for (null, number)', () => doesNotWarn(f, null, 1));
+    it('does not warn for (number, undefined)', () => doesNotWarn(f, 1, undefined));
+    it('does not warn for (string, number)', () => doesNotWarn(f, 'hello', 3));
+    it('does not warn for (undefined, undefined)', () => doesNotWarn(f, undefined, undefined));
+    it('does not warn for (null, null)', () => doesNotWarn(f, null, null));
+
+  });
+
+  describe('excludeOperators = ["add"]', function () {
+    before(() => f = getFn('x + y',  {
+      excludeOperators: ['add']
+    }));
+    it('does not warn for (null, number)', () => doesNotWarn(f, null, 1));
+    it('does not warn for (number, undefined)', () => doesNotWarn(f, 1, undefined));
+    it('does not warn for (string, number)', () => doesNotWarn(f, 'hello', 3));
+    it('does not warn for (undefined, undefined)', () => doesNotWarn(f, undefined, undefined));
+    it('does not warn for (null, null)', () => doesNotWarn(f, null, null));
+  });
+
+  describe('excludeOperators = ["relational"]', function () {
+    before(() => f = getFn('x >= y',  {
+      excludeOperators: ['relational']
+    }));
+    it('does not warn for (null, number)', () => doesNotWarn(f, null, 1));
+    it('does not warn for (number, undefined)', () => doesNotWarn(f, 1, undefined));
+    it('does not warn for (string, number)', () => doesNotWarn(f, 'hello', 3));
+    it('does not warn for (undefined, undefined)', () => doesNotWarn(f, undefined, undefined));
+    it('does not warn for (null, null)', () => doesNotWarn(f, null, null));
+  });
+
+  describe('mixed excludeOperators', function () {
+    it('does not warn for (null, number)', () => {
+      f = getFn('x >= y',  { excludeOperators: ['add', 'relational'] });
+      return doesNotWarn(f, null, 1);
+    });
+
+    it('does not warn for (null, string)', () => {
+      f = getFn('x === y',  { excludeOperators: ['equal', 'numeric'] });
+      return doesNotWarn(f, null, 'hello');
+    });
+
+    it('does not warn for (undefined, number)', () => {
+      f = getFn('x === y',  { excludeOperators: ['add', 'relational', 'numeric', 'equal'] });
+      return doesNotWarn(f, undefined, 1);
+    });
+
+    it('does warn for (undefined, null)', () => {
+      f = getFn('x === y',  { excludeOperators: [] });
+      return warnEqual(f, undefined, null, 'Strict equal of different types: undefined === null');
+    });
+  });
 });

@@ -137,6 +137,7 @@ To configure plugin pass it to Babel as array:
 | `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === true` where `(variable)` is not `boolean`     |
 | `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === false` where `(variable)` is not `boolean`    |
 | `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === (variable2)` where `(variable1) instanceof MyClass1` and `(variable2) instanceof MyClass2` |
+| `excludeOperators` | `[]` | `["equal", "numeric", "add", "relational"]`                        | Excludes operators checking where `equal` excludes `===`, `numeric` excludes `-, *, /, %`, `add` excludes `+` and `relational` excludes `>, >=, <, <=` |
 
 **Warning level description**
  

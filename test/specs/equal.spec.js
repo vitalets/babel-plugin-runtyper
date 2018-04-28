@@ -146,13 +146,4 @@ describe('equal', function () {
       assert.isTrue(f(1, 2));
     });
   });
-
-  describe('exclude = ["equal"]', function () {
-    before(() => f = getFn('x === y',  {
-      exclude: ['equal']
-    }));
-    it('does not warn for (null, *)', () => doesNotWarn(f, null, 1));
-    it('does not warn for (*, undefined)', () => doesNotWarn(f, 1, undefined));
-    it('does not warn for (string, number)', () => doesNotWarn(f, 'hello', 3));
-  });
 });

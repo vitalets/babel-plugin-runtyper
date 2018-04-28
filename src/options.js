@@ -4,7 +4,7 @@ const assert = require('assert');
 
 const WARN_LEVELS = ['info', 'warn', 'error', 'break'];
 const RULE_VALUES = ['allow', 'deny'];
-const EXCLUDE_VALUES = ['equal', 'numeric', 'add', 'relational'];
+const EXCLUDE_OPERATOR_VALUES = ['equal', 'numeric', 'add', 'relational'];
 const RULE_NAME_REG = /^(implicit|explicit)/;
 
 
@@ -18,7 +18,7 @@ const defaults = {
   implicitEqualCustomTypes: 'deny',
   explicitEqualTrue: 'deny',
   explicitEqualFalse: 'deny',
-  exclude: []
+  excludeOperators: []
 };
 
 exports.create = function (passedOpts) {
@@ -62,10 +62,11 @@ function assertWarnLevel(key, value) {
 }
 
 function assertExclude(key, excludeValues) {
-  if (key === 'exclude') {
+  if (key === 'excludeOperators') {
     for(const value of excludeValues) {
-      assert(EXCLUDE_VALUES.indexOf(value) >= 0,
-        `Incorrect Runtyper option value: ${key} = [${excludeValues}], possible values: [${EXCLUDE_VALUES}]`
+      assert(EXCLUDE_OPERATOR_VALUES.indexOf(value) >= 0,
+        `Incorrect Runtyper option value: ${key} = ${JSON.stringify(excludeValues)}, 
+        possible values: ${JSON.stringify(EXCLUDE_OPERATOR_VALUES)}`
       );
     }
   }
