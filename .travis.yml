@@ -15,8 +15,8 @@ matrix:
     - node_js: '4'
       env: SCRIPT='npm run ci-node'
     - node_js: '6'
-      # In PR-builds env vars are not available for security, so build in Node.js instead of sauce
-      env: SCRIPT='if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run ci-node-sauce; else npm run ci-node; fi'
+      # In PR-builds env vars are not available for security, so test PRs in Node.js instead of Sauce
+      env: SCRIPT=$([[ "$TRAVIS_PULL_REQUEST" = "false" ]] && echo 'npm run ci-node-sauce' || echo 'npm run ci-node')
     - node_js: '7'
       env: SCRIPT='npm run ci-node'
     - node_js: '8'
