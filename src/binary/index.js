@@ -7,20 +7,26 @@ const assertions = {
   relational: require('./relational'),
 };
 
-function isExcluded(options, operator) {
-  return options.excludeOperators.indexOf(operator) >= 0;
-}
-
-
 module.exports = class BinaryAssertions {
   constructor(options) {
     this._assertions = [];
+    this._options = options;
+    if (options.enabled) {
+      this._fillAssertions();
+    }
+  }
+
+  _fillAssertions() {
     for (const operator of Object.keys(assertions)) {
       const Assertion = assertions[operator];
-      if (options.enabled && !isExcluded(options, operator)) {
-        this._assertions.push(new Assertion(options));
+      if (!this._isExcluded(operator)) {
+        this._assertions.push(new Assertion(this._options));
       }
     }
+  }
+
+  _isExcluded(operator) {
+    return this._options.excludeOperators.indexOf(operator) >= 0;
   }
 
   tryReplace(path) {
