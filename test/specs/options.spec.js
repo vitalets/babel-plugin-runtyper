@@ -8,8 +8,8 @@
 describe('options', function () {
 
   let f, spy;
-  const equalTempale = 'Strict equal of different types: {x} === {y}';
-  const warnEqual = getWarnFn(equalTempale);
+  const equalTemplate = 'Strict equal of different types: {x} === {y}';
+  const warnEqual = getWarnFn(equalTemplate);
 
   it('should not throw on correct values', function () {
     f = () => getFn('x === 1', {
