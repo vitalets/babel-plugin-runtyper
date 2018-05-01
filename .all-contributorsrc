@@ -1,0 +1,31 @@
+{
+  "projectName": "babel-plugin-runtyper",
+  "projectOwner": "vitalets",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "vitalets",
+      "name": "Vitaliy Potapov",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1473072?v=4",
+      "profile": "https://facebook.com/vitaliy.potapov.56",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "zilvinasrudzionis",
+      "name": "Revelup Zilvinas Rudzionis",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/37795766?v=4",
+      "profile": "https://github.com/zilvinasrudzionis",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}

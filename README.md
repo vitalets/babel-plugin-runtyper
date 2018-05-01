@@ -329,5 +329,17 @@ Consider both approaches to make your applications more robust and reliable.
 * [awesome-babel](https://github.com/babel/awesome-babel) - list of awesome Babel plugins
 * [flow-runtime](https://codemix.github.io/flow-runtime/) - flow-compatible runtime type system
 
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars3.githubusercontent.com/u/1473072?v=4" width="100px;"/><br /><sub><b>Vitaliy Potapov</b></sub>](https://facebook.com/vitaliy.potapov.56)<br />[💻](https://github.com/vitalets/babel-plugin-runtyper/commits?author=vitalets "Code") | [<img src="https://avatars2.githubusercontent.com/u/37795766?v=4" width="100px;"/><br /><sub><b>Revelup Zilvinas Rudzionis</b></sub>](https://github.com/zilvinasrudzionis)<br />[💻](https://github.com/vitalets/babel-plugin-runtyper/commits?author=zilvinasrudzionis "Code") |
+| :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+
 ## License
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
