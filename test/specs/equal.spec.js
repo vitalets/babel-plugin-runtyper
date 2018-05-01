@@ -146,8 +146,4 @@ describe('equal', function () {
       assert.isTrue(f(1, 2));
     });
   });
-
 });
-
-
-
