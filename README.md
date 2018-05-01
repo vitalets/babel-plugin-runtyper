@@ -26,6 +26,7 @@ Tested in:
 - [Articles](#articles)
 - [FAQ](#faq)
 - [Related links](#related-links)
+- [Contributors](#contributors)
 - [License](#license)
 
 ## Example
