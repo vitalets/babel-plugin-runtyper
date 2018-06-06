@@ -7,7 +7,7 @@
 > Protect your App from type-coercion bugs
 
 *Runtyper* is a [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript. 
-You should enable it for non-production build and check console for type-conversion warnings.
+You should enable it for non-production build and check console for type-coercion warnings.
 As it works in runtime - no manual type-annotations needed in your codebase.
 
 Tested in:  
@@ -22,7 +22,7 @@ Tested in:
 - [Supported operators](#supported-operators)
 - [Ignore line](#ignore-line)
 - [Run on existing project](#run-on-existing-project)
-- [Usage with static tools](#usage-with-static-tools)
+- [Usage with Flow and TypeScript](#usage-with-flow-and-typescript)
 - [Articles](#articles)
 - [FAQ](#faq)
 - [Related links](#related-links)
@@ -244,10 +244,10 @@ Error: Numeric operation with non-numeric value: "2017-03-29T00:00:00... (Date) 
 ...
 ```
 
-## Usage with static tools
-Static code analysis is also the way to perform type checking. 
-For example, there is [Flow](https://flowtype.org) from Facebook and [TypeScript](https://www.typescriptlang.org) from Microsoft.
-You can use Runtyper together with them to detect errors on both pre-runtime and runtime stages.
+## Usage with Flow and TypeScript
+Static code analysis also performs type checking. 
+You can use Runtyper together with [Flow](https://flowtype.org) or [TypeScript](https://www.typescriptlang.org) 
+to detect errors on both build and runtime stages.
 
 Yet, static tools need extra efforts for:
 * Writing type-annotations
@@ -257,6 +257,7 @@ Yet, static tools need extra efforts for:
 
 > To learn more about pros and cons of static types have a look on Eric Elliott's article [You Might Not Need TypeScript (or Static Types)](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b).
 
+##### Runtyper covers more cases due to it's runtime nature
 Let's take an example from [Flow's get started page](https://flowtype.org/en/docs/getting-started/):
 ```js
 // @flow
