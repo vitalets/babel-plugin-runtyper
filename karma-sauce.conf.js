@@ -30,7 +30,7 @@ module.exports = function (config) {
       base: 'SauceLabs',
       browserName: 'chrome',
       platform: 'OS X 10.11',
-      version: 'beta'
+      version: 'latest'
     },
     chrome_win7: {
       base: 'SauceLabs',

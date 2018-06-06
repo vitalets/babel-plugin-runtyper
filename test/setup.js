@@ -51,3 +51,6 @@ global.consoleSpy = function (method) {
   };
 };
 
+// this don't have any reason in Node env, but needed for karma to re-export process into tests scope,
+// especially for testing options.forbiddenNodeEnvs
+global.process = process;

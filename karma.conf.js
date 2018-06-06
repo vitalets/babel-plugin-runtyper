@@ -8,9 +8,10 @@ module.exports = function (config) {
     files: [
       'test/specs/**/*.js'
     ],
+
     client: {
       mocha: {
-        require: [require.resolve('./test/setup.bundle.js')],
+        require: [require.resolve('./.temp/test/setup.bundle.js')],
       }
     }
   });

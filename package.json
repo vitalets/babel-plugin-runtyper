@@ -20,7 +20,7 @@
     "lint-staged": "lint-staged",
     "test": "npm run test-node",
     "test-node": "mocha test/specs --require test/setup",
-    "test-browser": "webpack test/setup.js -o test/setup.bundle.js --mode=development && ./node_modules/karma/bin/karma start",
+    "test-browser": "webpack --config test/webpack.config.js && ./node_modules/karma/bin/karma start",
     "test-node-browser": "npm run test-node && npm run test-browser",
     "test-sauce": "npm run test-browser -- karma-sauce.conf.js",
     "ci-node": "npm run code && npm run test-node",
