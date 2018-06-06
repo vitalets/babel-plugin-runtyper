@@ -88,16 +88,22 @@ function strictEqual(a, b) {
         
     * in [webpack config](https://webpack.js.org/loaders/babel-loader/):
         ```js
-        {
-            test: /\.js$/,
-            exclude: /(node_modules)/,
-            loader: 'babel-loader',
-            query: {
-                plugins: [
-                    ['babel-plugin-runtyper', {enabled: process.env.NODE_ENV !== 'production'}]
-                ]
-            }
-        }
+          module: {
+            rules: [
+              {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    plugins: [
+                      ['babel-plugin-runtyper', {enabled: process.env.NODE_ENV !== 'production'}]
+                    ]
+                  }
+                }
+              }
+            ]
+          }  
         ```
         > Please note to run webpack as `NODE_ENV='production' webpack -p` (see [#2537](https://github.com/webpack/webpack/issues/2537))
         
@@ -138,7 +144,8 @@ To configure plugin pass it to Babel as array:
 | `explicitEqualTrue`        | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === true` where `(variable)` is not `boolean`     |
 | `explicitEqualFalse`       | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable) === false` where `(variable)` is not `boolean`    |
 | `implicitEqualCustomTypes` | `"deny"` | `"allow"`, `"deny"`                        | Allow/deny `(variable1) === (variable2)` where `(variable1) instanceof MyClass1` and `(variable2) instanceof MyClass2` |
-| `excludeOperators` | `[]` | `["equal", "numeric", "add", "relational"]`                        | Excludes operators checking where `equal` excludes `===`, `numeric` excludes `-, *, /, %`, `add` excludes `+` and `relational` excludes `>, >=, <, <=` |
+| `excludeOperators`         | `[]`     | `["equal", "numeric", "add", "relational"]`| Excludes operators checking where `equal` excludes `===`, `numeric` excludes `-, *, /, %`, `add` excludes `+` and `relational` excludes `>, >=, <, <=` |
+| `forbiddenNodeEnvs`        | `["production"]` | `Array<String>`                    | Values of `NODE_ENV` where plugin shows warning if enabled |
 
 **Warning level description**
  

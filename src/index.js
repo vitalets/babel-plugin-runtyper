@@ -13,8 +13,10 @@ module.exports = function () {
     visitor: {
       BinaryExpression: {
         exit: function (path, state) {
+          // Lazy create binaryAssertions instance
           if (!this.binaryAssertions) {
             this.options = options.create(state.opts);
+            warnIfProduction(this.options);
             this.binaryAssertions = new BinaryAssertions(this.options);
             this.comments = new Comments(state);
           }
@@ -39,3 +41,12 @@ module.exports = function () {
     }
   };
 };
+
+function warnIfProduction(options) {
+  const forbiddenNodeEnvs = options.forbiddenNodeEnvs || [];
+  if (options.enabled && forbiddenNodeEnvs.indexOf(process.env.NODE_ENV) >= 0) {
+    console.warn( // eslint-disable-line no-console
+      `WARNING: you are using Runtyper in forbidden NODE_ENV: ${process.env.NODE_ENV}`
+    );
+  }
+}

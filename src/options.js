@@ -7,7 +7,6 @@ const RULE_VALUES = ['allow', 'deny'];
 const EXCLUDE_OPERATOR_VALUES = ['equal', 'numeric', 'add', 'relational'];
 const RULE_NAME_REG = /^(implicit|explicit)/;
 
-
 const defaults = {
   enabled: true,
   warnLevel: 'warn',
@@ -18,23 +17,23 @@ const defaults = {
   implicitEqualCustomTypes: 'deny',
   explicitEqualTrue: 'deny',
   explicitEqualFalse: 'deny',
-  excludeOperators: []
+  excludeOperators: [],
+  forbiddenNodeEnvs: ['production'],
 };
 
 exports.create = function (passedOpts) {
   const options = Object.assign({}, defaults);
   Object.keys(passedOpts).forEach(key => {
     const value = passedOpts[key];
-    runAssertions(key, value);
+    assertValues(key, value);
     if (value !== undefined) {
       options[key] = value;
     }
   });
-  warnIfProduction(options);
   return options;
 };
 
-function runAssertions(key, value) {
+function assertValues(key, value) {
   assertRenamedOptions(key);
   assertName(key);
   assertType(key, value);
@@ -95,11 +94,5 @@ function assertRenamedOptions(key) {
 
   if (key === 'defaultLevel') {
     throw new Error('"defaultLevel" was renamed to "warnLevel"');
-  }
-}
-
-function warnIfProduction(options) {
-  if (options.enabled && process.env.NODE_ENV === 'production') {
-    console.log('WARNING: you are using Runtyper in production build!');  // eslint-disable-line no-console
   }
 }

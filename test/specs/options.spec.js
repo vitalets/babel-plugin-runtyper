@@ -125,4 +125,52 @@ describe('options', function () {
       return warnEqual(f, undefined, null, 'Strict equal of different types: undefined === null');
     });
   });
+
+  describe('forbiddenNodeEnvs', function () {
+    const nodeEnv = process.env.NODE_ENV;
+
+    after(() => {
+      process.env.NODE_ENV = nodeEnv;
+    });
+
+    it('should warn for production env by default', () => {
+      process.env.NODE_ENV = 'production';
+      spy = consoleSpy('warn');
+      f = getFn('x === y', {});
+      f(1, 1);
+      assert.equal(spy.getMessage(), 'WARNING: you are using Runtyper in forbidden NODE_ENV: production');
+    });
+
+    it('should not warn for non-production env by default', () => {
+      process.env.NODE_ENV = 'dev';
+      spy = consoleSpy('warn');
+      f = getFn('x === y', {});
+      f(1, 1);
+      assert.equal(spy.getMessage(), '');
+    });
+
+    it('should warn for custom env', () => {
+      process.env.NODE_ENV = 'custom';
+      spy = consoleSpy('warn');
+      f = getFn('x === y', {forbiddenNodeEnvs: ['custom']});
+      f(1, 1);
+      assert.equal(spy.getMessage(), 'WARNING: you are using Runtyper in forbidden NODE_ENV: custom');
+    });
+
+    it('should not warn for production env for empty array', () => {
+      process.env.NODE_ENV = 'production';
+      spy = consoleSpy('warn');
+      f = getFn('x === y', {forbiddenNodeEnvs: []});
+      f(1, 1);
+      assert.equal(spy.getMessage(), '');
+    });
+
+    it('should not warn for production env for empty value', () => {
+      process.env.NODE_ENV = 'production';
+      spy = consoleSpy('warn');
+      f = getFn('x === y', {forbiddenNodeEnvs: null});
+      f(1, 1);
+      assert.equal(spy.getMessage(), '');
+    });
+  });
 });
