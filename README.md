@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 [![license](https://img.shields.io/npm/l/babel-plugin-runtyper.svg)](https://www.npmjs.com/package/babel-plugin-runtyper)
 
-> Protect your app from type-conversion bugs
+> Protect your App from type-coercion bugs
 
 *Runtyper* is a [Babel](https://babeljs.io) plugin for runtime type-checking in JavaScript. 
 You should enable it for non-production build and check console for type-conversion warnings.
