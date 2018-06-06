@@ -1,21 +1,22 @@
-'use strict';
 
 module.exports = {
+  mode: 'development',
   entry: './app.js',
   output: {
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    path: __dirname
   },
   devtool: 'source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          plugins: [
-            'babel-plugin-runtyper'
-          ]
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['babel-plugin-runtyper']
+          }
         }
       }
     ]

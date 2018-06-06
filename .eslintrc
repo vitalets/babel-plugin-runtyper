@@ -3,8 +3,8 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
-      "impliedStrict": false
-     }
+      "impliedStrict": true
+    }
   },
 
   "env": {
@@ -22,7 +22,6 @@
     "max-len": ["error", {"code" : 120, "ignoreUrls": true}],
     "max-lines": ["error", {"max": 130, "skipComments": true, "skipBlankLines": true}],
     "semi": ["error", "always"],
-    "space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
-    "strict": ["error"]
+    "space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
   }
 }
