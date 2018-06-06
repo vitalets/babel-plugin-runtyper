@@ -8,7 +8,7 @@ module.exports = {
     filename: 'test/setup.bundle.js',
     path: path.resolve('.temp')
   },
-  node: {
-    process: true
+  optimization: {
+    nodeEnv: false
   }
 };

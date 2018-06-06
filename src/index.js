@@ -44,12 +44,10 @@ module.exports = function () {
 
 function warnIfProduction(options) {
   const forbiddenNodeEnvs = options.forbiddenNodeEnvs || [];
-  // don't use process.env.NODE_ENV because webpack replace it always on 'production|development|none'
-  // and tests can't pass in browser env
-  const {NODE_ENV} = process.env;
-  if (options.enabled && forbiddenNodeEnvs.indexOf(NODE_ENV) >= 0) {
+  const nodeEnv = process.env.NODE_ENV;
+  if (options.enabled && forbiddenNodeEnvs.indexOf(nodeEnv) >= 0) {
     console.warn( // eslint-disable-line no-console
-      `WARNING: you are using Runtyper in forbidden NODE_ENV: ${NODE_ENV}`
+      `WARNING: you are using Runtyper in forbidden NODE_ENV: ${nodeEnv}`
     );
   }
 }
