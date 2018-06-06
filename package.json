@@ -36,14 +36,16 @@
     "precommit": "npm run lint-staged",
     "prepush": "npm run code && npm run test-node-browser"
   },
+  "dependencies": {
+    "babel-template": ">=6",
+    "babel-types": ">=6"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-standalone": "^6.26.0",
-    "babel-template": "^6.26.0",
-    "babel-types": "^6.26.0",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "husky": "^0.14.3",
