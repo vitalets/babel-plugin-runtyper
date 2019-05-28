@@ -1,7 +1,6 @@
 language: node_js
 
 node_js:
-  - '4'
   - '6'
   - '7'
   - '8'
@@ -12,8 +11,6 @@ branches:
 
 matrix:
   include:
-    - node_js: '4'
-      env: SCRIPT='npm run ci-node'
     - node_js: '6'
       # In PR-builds env vars are not available for security, so test PRs in Node.js instead of Sauce
       env: SCRIPT=$([[ "$TRAVIS_PULL_REQUEST" = "false" ]] && echo 'npm run ci-node-sauce' || echo 'npm run ci-node')
@@ -24,7 +21,6 @@ matrix:
   exclude:
     # Note: Workaround travis-ci/travis-ci#4681
     # Exclude default job which lacks our included environment variables.
-    - node_js: '4'
     - node_js: '6'
     - node_js: '7'
     - node_js: '8'
